@@ -1,13 +1,14 @@
-package com.sabrositoz.usersapi;
+package com.exampleapi.crud;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class UsersApiApplication {
+public class CrudApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(UsersApiApplication.class, args);
+
+		SpringApplication.run(CrudApplication.class, args);
 	}
 
 }

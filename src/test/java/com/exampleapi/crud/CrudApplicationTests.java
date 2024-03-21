@@ -1,10 +1,10 @@
-package com.sabrositoz.usersapi;
+package com.exampleapi.crud;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class UsersApiApplicationTests {
+class CrudApplicationTests {
 
 	@Test
 	void contextLoads() {
