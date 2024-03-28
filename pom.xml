@@ -8,11 +8,11 @@
 		<version>3.2.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.exampleapi</groupId>
-	<artifactId>crud</artifactId>
+	<groupId>com.sabrositoz</groupId>
+	<artifactId>users-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>crud</name>
-	<description>Api res with Java</description>
+	<name>Users API</name>
+	<description>API for managing users.</description>
 	<properties>
 		<java.version>21</java.version>
 	</properties>
