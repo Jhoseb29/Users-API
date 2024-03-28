@@ -1,0 +1,26 @@
+<settings>
+  <servers>
+    <server>
+      <id>users-api</id>
+      <configuration>
+        <httpHeaders>
+          <property>
+            <name>Private-Token</name>
+            <value>glpat-fa3a_Qs-6A1WdjkZ7xzJ</value>
+          </property>
+        </httpHeaders>
+      </configuration>
+    </server>
+    <server>
+      <id>gitlab-maven</id>
+      <configuration>
+        <httpHeaders>
+          <property>
+            <name>Job-Token</name>
+            <value>${CI_JOB_TOKEN}</value>
+          </property>
+        </httpHeaders>
+      </configuration>
+    </server>
+  </servers>
+</settings>
