@@ -1,4 +1,4 @@
-package com.sabrositoz.usersapi;
+package university.jala.usersapi.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,6 +8,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 public class UsersApiApplication {
+
+  protected UsersApiApplication() {
+
+  }
 
   /**
    * The main method which runs the application.

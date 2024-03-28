@@ -1,4 +1,4 @@
-package com.sabrositoz.usersapi.domain.models;
+package university.jala.usersapi.domain.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

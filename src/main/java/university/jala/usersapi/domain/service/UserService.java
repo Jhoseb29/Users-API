@@ -1,6 +1,6 @@
-package com.sabrositoz.usersapi.service;
+package university.jala.usersapi.domain.service;
 
-import com.sabrositoz.usersapi.controller.UserController;
+import university.jala.usersapi.presentation.controller.UserController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

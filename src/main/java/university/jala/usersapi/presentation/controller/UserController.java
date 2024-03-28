@@ -1,6 +1,6 @@
-package com.sabrositoz.usersapi.controller;
+package university.jala.usersapi.presentation.controller;
 
-import com.sabrositoz.usersapi.repository.IUserRepository;
+import university.jala.usersapi.persistance.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,14 +15,14 @@ public class UserController {
    * The UserRepository instance.
    */
   @Autowired
-  private IUserRepository userRepository;
+  private UserRepository userRepository;
 
   /**
    * Sets the UserRepository instance.
    *
    * @param repo the UserRepository instance
    */
-  public void setUserRepository(final IUserRepository repo) {
+  public void setUserRepository(final UserRepository repo) {
     this.userRepository = repo;
   }
 }
