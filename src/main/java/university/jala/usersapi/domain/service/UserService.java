@@ -1,22 +1,19 @@
 package university.jala.usersapi.domain.service;
 
-import university.jala.usersapi.presentation.controller.UserController;
+import university.jala.usersapi.persistance.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
 
 /**
- * This class defines the endpoints related to user operations. The endpoints
- * are mapped through the {@link RequestMapping}("/users") annotation. Uses a
- * UserRepository for data persistence in the database.
+ * This class contains the logic to perform CRUD operations related to users. It
+ * is used by the controller to handle HTTP requests related to users. It uses a
+ * UserRepository to handle CRUD Operations on the db.
  */
-@RestController
-@RequestMapping("/users")
+@Service
 public class UserService {
 
-  /**
-   * The UserController instance.
-   */
+  /** UserRepository Instance. **/
   @Autowired
-  private UserController userController;
+  private UserRepository userRepository;
+
 }
