@@ -24,7 +24,7 @@ cache:
     - .m2/repository
 
 
-.verify:
+verify:jdk17:
   stage: test
   script:
     - 'mvn $MAVEN_CLI_OPTS verify --settings ci_settings.xml'
@@ -62,6 +62,5 @@ maven-build:
     - "mvn $MAVEN_CLI_OPTS compile"
 
 
-verify:jdk17:
-  extends:
-    - .verify
+
+
