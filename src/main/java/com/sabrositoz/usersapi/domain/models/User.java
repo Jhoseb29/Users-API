@@ -8,25 +8,43 @@ import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * User entity class.
+ */
 @Entity
 @Table(name = "users")
 @Getter
 @Setter
 public class User {
 
-	@Id
-	private String id;
+  /**
+   * The unique ID of the user.
+   */
+  @Id
+  private String id;
 
-	@Column
-	private String name;
+  /**
+   * The name of the user.
+   */
+  @Column
+  private String name;
 
-	@Column
-	private String login;
+  /**
+   * The login of the user.
+   */
+  @Column
+  private String login;
 
-	@Column
-	private String password;
+  /**
+   * The password of the user.
+   */
+  @Column
+  private String password;
 
-	public User() {
-		id = UUID.randomUUID().toString();
-	}
+  /**
+   * Default constructor for User.
+   */
+  public User() {
+    id = UUID.randomUUID().toString();
+  }
 }

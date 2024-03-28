@@ -148,12 +148,13 @@
 					<execution>
 						<id>validate</id>
 						<phase>validate</phase>
-						<configuration>
-							<configLocation>checkstyle.xml</configLocation>
-						</configuration>
 						<goals>
 							<goal>check</goal>
 						</goals>
+						<configuration>
+							<configLocation>checkstyle.xml</configLocation>
+							<suppressionsLocation>suppressions.xml</suppressionsLocation>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
