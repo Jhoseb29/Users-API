@@ -151,7 +151,7 @@
                   <element>BUNDLE</element>
                   <limits>
                     <limit>
-                      <counter>LINE</counter>
+                      <counter>INSTRUCTION</counter>
                       <value>COVEREDRATIO</value>
                       <minimum>0.10</minimum> <!-- Minimum 70% coverage -->
                     </limit>
