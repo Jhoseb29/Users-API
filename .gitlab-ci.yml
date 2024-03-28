@@ -34,9 +34,9 @@ cache:
 
 
 checkStyle:
-  stage: linter
+  stage: test
   script:
-    - 'mvn $MAVEN_CLI_OPTS validate'
+    - 'mvn $MAVEN_CLI_OPTS checkstyle:check'
 
 
 unit-test:
@@ -46,7 +46,7 @@ unit-test:
 
 
 code-coverage:
-  stage: code_coverage
+  stage: test
   script:
     - 'mvn $MAVEN_CLI_OPTS jacoco:prepare-agent test jacoco:report'
   artifacts:
