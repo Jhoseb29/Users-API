@@ -7,8 +7,9 @@ import university.jala.usersapi.domain.models.User;
 import university.jala.usersapi.persistance.repository.UserRepository;
 
 /**
- * This class contains the logic to perform CRUD operations related to users. It is used by the
- * controller to handle HTTP requests related to users. It uses a UserRepository to handle CRUD
+ * This class contains the logic to perform CRUD operations
+ * related to users. It is used by the controller to handle HTTP
+ * requests related to users. It uses a UserRepository to handle CRUD
  * Operations on the db.
  */
 @Service
@@ -23,7 +24,7 @@ public class UserService {
   /**
    * Method get user by Id.
    *
-   * @param userId user id.
+   * @param userId
    * @return user.
    */
   public Optional<User> getUserById(String userId) {

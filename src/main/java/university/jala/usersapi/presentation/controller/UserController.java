@@ -11,22 +11,25 @@ import university.jala.usersapi.domain.models.User;
 import university.jala.usersapi.domain.service.UserService;
 
 /**
- * This class defines the endpoints related to user operations. The endpoints are mapped through the
- * {@link RequestMapping}("/users") annotation. Uses a UserService for data persistence in the
- * database.
+ * This class defines the endpoints related to user operations.
+ * The endpoints are mapped through the {@link RequestMapping}
+ * ("/users") annotation. Uses a UserService for data persistence in the database.
  */
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
+  /**
+   * UserService instance.
+   */
   @Autowired
   private UserService userService;
 
   /**
    * Get user by id controller.
    *
-   * @param userId user Id.
+   * @param userId
    * @return response (found or not found).
    */
   @GetMapping("/{userId}")
