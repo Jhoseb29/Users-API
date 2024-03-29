@@ -25,6 +25,9 @@ public class UserController {
   @Autowired
   private UserService userService;
 
+  /**
+   * @return return getAllUsers
+   */
   @GetMapping()
   public ResponseEntity<List<User>> getAllUsers() {
     try {
