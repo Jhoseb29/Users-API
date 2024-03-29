@@ -1,9 +1,5 @@
 package university.jala.usersapi.presentation.controller;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import university.jala.usersapi.domain.models.User;
 import university.jala.usersapi.domain.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
