@@ -1,5 +1,7 @@
 package university.jala.usersapi.domain.service;
 
+import java.util.Optional;
+import university.jala.usersapi.domain.models.User;
 import university.jala.usersapi.persistance.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +18,7 @@ public class UserService {
   @Autowired
   private UserRepository userRepository;
 
-  public Object getUserById(String userId) {
-    return null;
+  public Optional<User> getUserById(String userId) {
+    return userRepository.findById(userId);
   }
 }
