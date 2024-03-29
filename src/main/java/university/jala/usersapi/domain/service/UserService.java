@@ -4,8 +4,8 @@ import university.jala.usersapi.domain.models.User;
 import university.jala.usersapi.persistance.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import university.jala.usersapi.domain.models.User;
-import university.jala.usersapi.persistance.repository.UserRepository;
+
+
 
 import java.util.List;
 
