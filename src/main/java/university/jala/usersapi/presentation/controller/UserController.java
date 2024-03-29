@@ -46,4 +46,20 @@ public class UserController {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
   }
+
+  /**
+   * Get user by id controller.
+   *
+   * @param userId
+   * @return response (found or not found).
+   */
+  @GetMapping("/{userId}")
+  public ResponseEntity<User> getUserById(@PathVariable final String userId) {
+    Optional<User> user = userService.getUserById(userId);
+    if (user.isPresent()) {
+      return ResponseEntity.ok(user.get());
+    } else {
+      return ResponseEntity.notFound().build();
+    }
+  }
 }
