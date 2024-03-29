@@ -1,12 +1,16 @@
 package university.jala.usersapi.presentation.controller;
 
 import java.util.Optional;
+
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PathVariable;
 import university.jala.usersapi.domain.models.User;
 import university.jala.usersapi.domain.service.UserService;
 
@@ -19,6 +23,7 @@ import university.jala.usersapi.domain.service.UserService;
 
 @RestController
 @RequestMapping("/users")
+@Setter
 public class UserController {
 
   /**
@@ -42,4 +47,15 @@ public class UserController {
       return ResponseEntity.notFound().build();
     }
   }
+
+  /**
+   * @param id User ID
+   * @return Retornará un estado de ok si se borra el usuario
+   *         y si no lo encuentra lanzará un no encontrado.
+   */
+  @DeleteMapping(path = "/delete/{id}")
+  public boolean deleteById(@PathVariable final String id) {
+    return this.userService.deleteUserById(id);
+  }
+
 }
