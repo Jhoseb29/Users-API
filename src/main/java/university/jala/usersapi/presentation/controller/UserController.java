@@ -50,9 +50,9 @@ public class UserController {
    * @return Retornará un estado de ok si se borra el usuario
    *         y si no lo encuentra lanzará un no encontrado.
    */
-  @DeleteMapping(path = "/delete/{id}")
+  /*@DeleteMapping(path = "/delete/{id}")
   public boolean deleteById(@PathVariable final String id) {
     return this.userService.deleteUserById(id);
-  }
+  }*/
 
 }
