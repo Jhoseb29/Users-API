@@ -16,4 +16,7 @@ public class UserService {
   @Autowired
   private UserRepository userRepository;
 
+  public Object getUserById(String userId) {
+    return null;
+  }
 }
