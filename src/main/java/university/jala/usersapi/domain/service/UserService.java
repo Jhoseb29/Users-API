@@ -1,8 +1,11 @@
 package university.jala.usersapi.domain.service;
 
+import university.jala.usersapi.domain.models.User;
 import university.jala.usersapi.persistance.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * This class contains the logic to perform CRUD operations related to users. It
@@ -16,4 +19,6 @@ public class UserService {
   @Autowired
   private UserRepository userRepository;
 
+
 }
+
