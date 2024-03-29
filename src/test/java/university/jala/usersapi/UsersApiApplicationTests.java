@@ -10,8 +10,8 @@ import university.jala.usersapi.app.UsersApiApplication;
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
 class UsersApiApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+  @Test
+  void contextLoads() {
+  }
 
 }

@@ -1,7 +1,12 @@
 package university.jala.usersapi;
 
-import university.jala.usersapi.domain.models.User;
-import university.jala.usersapi.domain.service.UserService;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.Optional;
+import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -9,15 +14,11 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
-import java.util.Optional;
-import java.util.UUID;
+import university.jala.usersapi.domain.models.User;
+import university.jala.usersapi.domain.service.UserService;
 import university.jala.usersapi.presentation.controller.UserController;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
-
-public class GetOneUserTest{
+public class GetOneUserTest {
 
   @Mock
   private UserService userService;
@@ -30,6 +31,9 @@ public class GetOneUserTest{
     MockitoAnnotations.openMocks(this);
   }
 
+  /**
+   * Test to confirm the return of an existent user.
+   */
   @Test
   public void testGetUserById_ExistingUser() {
 
@@ -49,6 +53,9 @@ public class GetOneUserTest{
     verify(userService, times(1)).getUserById(userId);
   }
 
+  /**
+   * Test to confirm the handler of a non-existent user.
+   */
   @Test
   public void testGetUserById_NonExistingUser() {
 
