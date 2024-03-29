@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.List;
+import java.util.Optional;
 
 
 /**
@@ -35,11 +36,11 @@ public class UserService {
   }
 
     /**
-   * Method get user by Id.
-   *
-   * @param userId
-   * @return user.
-   */
+     * Method get user by Id.
+     *
+     * @param userId
+     * @return user.
+     */
   public Optional<User> getUserById(final String userId) {
     return userRepository.findById(userId);
   }
