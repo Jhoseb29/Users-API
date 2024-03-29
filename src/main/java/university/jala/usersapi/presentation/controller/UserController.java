@@ -50,8 +50,8 @@ public class UserController {
 
   /**
    * @param id User ID
-   * @return Retornará un estado de ok si se borra el usuario
-   *         y si no lo encuentra lanzará un no encontrado.
+   * @return It will return a status of ok if the user is deleted
+   *           and if not found it will return a not found.
    */
   @DeleteMapping(path = "/delete/{id}")
   public boolean deleteById(@PathVariable final String id) {
