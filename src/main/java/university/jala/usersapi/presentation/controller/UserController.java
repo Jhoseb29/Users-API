@@ -3,7 +3,7 @@ package university.jala.usersapi.presentation.controller;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,7 +45,7 @@ public class UserController {
     }
   }
 
-  /**
+  /*
    * @param id User ID
    * @return Retornará un estado de ok si se borra el usuario
    *         y si no lo encuentra lanzará un no encontrado.
