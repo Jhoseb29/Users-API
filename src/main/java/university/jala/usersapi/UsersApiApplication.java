@@ -2,13 +2,11 @@ package university.jala.usersapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
+
 /**
  * The main application class for Users API.
  */
 @SpringBootApplication
-@ComponentScan(basePackages =
-        {"university.jala.usersapi.persistance.repository"})
 public class UsersApiApplication {
 
   protected UsersApiApplication() {

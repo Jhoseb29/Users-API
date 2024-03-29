@@ -39,15 +39,54 @@ public class GetAllUsersTest {
         user1.setPassword("pass1");
         userList.add(user1);
 
-        when(userService.getAllUsers()).thenReturn(userList);
+        // Mocking the behavior of userService.getAllUsers(page, size)
+        when(userService.getAllUsers(anyInt(), anyInt())).thenReturn(userList);
 
-        List<User> users = userService.getAllUsers();
+        // Calling the method in UserController
+        List<User> users = userController.getAllUsers(0, 10).getBody(); // Assuming 0 for page and 10 for size
+
+        // Assertions
         assertEquals(1, users.size());
         assertEquals("User1", users.get(0).getName());
         assertEquals("user1", users.get(0).getLogin());
         assertEquals("pass1", users.get(0).getPassword());
 
+        // Verifying the method call
+        verify(userService, times(1)).getAllUsers(anyInt(), anyInt());
+    }
 
-        verify(userService, times(1)).getAllUsers();
+    @Test
+    public void testGetAllUsersEmptyList() {
+        // Mocking the behavior of userService.getAllUsers(page, size) to return an empty list
+        when(userService.getAllUsers(anyInt(), anyInt())).thenReturn(new ArrayList<>());
+
+        // Calling the method in UserController
+        List<User> users = userController.getAllUsers(0, 10).getBody();
+
+        // Assertions for an empty list
+        assertEquals(0, users.size());
+    }
+
+    @Test
+    public void testGetAllUsersMultipleUsers() {
+        // Creating multiple users for testing
+        List<User> userList = new ArrayList<>();
+        for (int i = 1; i <= 5; i++) {
+            User user = new User();
+            user.setId(UUID.randomUUID().toString());
+            user.setName("User" + i);
+            user.setLogin("user" + i);
+            user.setPassword("pass" + i);
+            userList.add(user);
+        }
+
+        // Mocking the behavior of userService.getAllUsers(page, size) to return multiple users
+        when(userService.getAllUsers(anyInt(), anyInt())).thenReturn(userList);
+
+        // Calling the method in UserController
+        List<User> users = userController.getAllUsers(0, 10).getBody();
+
+        // Assertions for multiple users
+        assertEquals(5, users.size());
     }
 }

@@ -1,4 +1,5 @@
 package university.jala.usersapi.domain.service;
+import org.springframework.data.domain.PageRequest;
 import university.jala.usersapi.domain.models.User;
 import university.jala.usersapi.persistance.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +22,11 @@ public class UserService {
 
   /**
    * @return return getAllUsers
+   * @param page The page number
+   * @param size The size of the page
    */
-  public List<User> getAllUsers() {
-    return (List<User>) userRepository.findAll();
+  public List<User> getAllUsers(final int page, final int size) {
+    return userRepository.findAll(PageRequest.of(page, size)).getContent();
   }
 
 }
