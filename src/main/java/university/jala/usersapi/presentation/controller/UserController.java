@@ -13,7 +13,8 @@ import university.jala.usersapi.domain.service.UserService;
 /**
  * This class defines the endpoints related to user operations.
  * The endpoints are mapped through the {@link RequestMapping}
- * ("/users") annotation. Uses a UserService for data persistence in the database.
+ * ("/users") annotation. Uses a UserService for data persistence
+ * in the database.
  */
 
 @RestController
@@ -33,7 +34,7 @@ public class UserController {
    * @return response (found or not found).
    */
   @GetMapping("/{userId}")
-  public ResponseEntity<User> getUserById(@PathVariable String userId) {
+  public ResponseEntity<User> getUserById(@PathVariable final String userId) {
     Optional<User> user = userService.getUserById(userId);
     if (user.isPresent()) {
       return ResponseEntity.ok(user.get());
