@@ -34,15 +34,7 @@ public class UserService {
     return userRepository.findAll(PageRequest.of(page, size)).getContent();
   }
 
-    /**
-   * Method get user by Id.
-   *
-   * @param userId
-   * @return user.
-   */
-  public Optional<User> getUserById(final String userId) {
-    return userRepository.findById(userId);
-  }
+
 
 }
 
