@@ -1,4 +1,4 @@
 /**
  * Package info: Application.
  */
-package university.jala.usersapi.app;
+package university.jala.usersapi;

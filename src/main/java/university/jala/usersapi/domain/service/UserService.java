@@ -1,10 +1,15 @@
 package university.jala.usersapi.domain.service;
-
-import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.data.domain.PageRequest;
 import university.jala.usersapi.domain.models.User;
 import university.jala.usersapi.persistance.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+
+
+import java.util.List;
+import java.util.Optional;
+
 
 /**
  * This class contains the logic to perform CRUD operations
@@ -22,12 +27,23 @@ public class UserService {
   private UserRepository userRepository;
 
   /**
-   * Method get user by Id.
-   *
-   * @param userId
-   * @return user.
+   * @return return getAllUsers
+   * @param page The page number
+   * @param size The size of the page
    */
+  public List<User> getAllUsers(final int page, final int size) {
+    return userRepository.findAll(PageRequest.of(page, size)).getContent();
+  }
+
+    /**
+     * Method get user by Id.
+     *
+     * @param userId
+     * @return user.
+     */
   public Optional<User> getUserById(final String userId) {
     return userRepository.findById(userId);
   }
+
 }
+
