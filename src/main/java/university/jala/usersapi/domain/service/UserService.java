@@ -1,9 +1,4 @@
 package university.jala.usersapi.domain.service;
-
-import java.util.Optional;
-
-import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import university.jala.usersapi.domain.models.User;
