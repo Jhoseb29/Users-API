@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.ResponseEntity;
 import university.jala.usersapi.domain.models.User;
 import university.jala.usersapi.domain.service.UserService;
 import university.jala.usersapi.presentation.controller.UserController;
@@ -42,8 +43,8 @@ public class GetAllUsersTest {
         // Mocking the behavior of userService.getAllUsers(page, size)
         when(userService.getAllUsers(anyInt(), anyInt())).thenReturn(userList);
 
-        // Calling the method in UserController
-        List<User> users = userController.getAllUsers(0, 10).getBody(); // Assuming 0 for page and 10 for size
+        ResponseEntity<?> responseEntity = userController.getAllUsers(0, 10);
+        List<User> users = (List<User>) responseEntity.getBody();
 
         // Assertions
         assertEquals(1, users.size());
@@ -61,10 +62,13 @@ public class GetAllUsersTest {
         when(userService.getAllUsers(anyInt(), anyInt())).thenReturn(new ArrayList<>());
 
         // Calling the method in UserController
-        List<User> users = userController.getAllUsers(0, 10).getBody();
+        ResponseEntity<?> responseEntity = userController.getAllUsers(0, 10);
+
+        // Getting the body from the response entity
+        String responseBody = (String) responseEntity.getBody();
 
         // Assertions for an empty list
-        assertEquals(0, users.size());
+        assertEquals("No se encontraron usuarios", responseBody);
     }
 
     @Test
@@ -84,7 +88,10 @@ public class GetAllUsersTest {
         when(userService.getAllUsers(anyInt(), anyInt())).thenReturn(userList);
 
         // Calling the method in UserController
-        List<User> users = userController.getAllUsers(0, 10).getBody();
+        ResponseEntity<?> responseEntity = userController.getAllUsers(0, 10);
+
+        // Getting the body from the response entity
+        List<User> users = (List<User>) responseEntity.getBody();
 
         // Assertions for multiple users
         assertEquals(5, users.size());

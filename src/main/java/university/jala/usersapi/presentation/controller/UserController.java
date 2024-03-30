@@ -41,14 +41,15 @@ public class UserController {
     try {
       List<User> users = userService.getAllUsers(page, size);
       if (users.isEmpty()) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontraron usuarios");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body("No se encontraron usuarios");
       }
       return ResponseEntity.status(HttpStatus.OK).body(users);
     } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al recuperar usuarios: " + e.getMessage());
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .body("Error al recuperar usuarios: " + e.getMessage());
     }
   }
-
 
   /**
    * Get user by id controller.
@@ -62,7 +63,8 @@ public class UserController {
     if (user.isPresent()) {
       return ResponseEntity.status(HttpStatus.OK).body(user);
     } else {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado con ID: " + userId);
+      return ResponseEntity.status(HttpStatus.NOT_FOUND)
+              .body("Usuario no encontrado con ID: " + userId);
     }
   }
 }
