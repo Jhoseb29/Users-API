@@ -43,7 +43,7 @@ public class UserController {
       if (users.isEmpty()) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(users);
       }
-      return ResponseEntity.ok(users);
+      return ResponseEntity.status(HttpStatus.OK).body(users);
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
@@ -59,9 +59,9 @@ public class UserController {
   public ResponseEntity<User> getUserById(@PathVariable final String userId) {
     Optional<User> user = userService.getUserById(userId);
     if (user.isPresent()) {
-      return ResponseEntity.ok(user.get());
+      return ResponseEntity.status(HttpStatus.OK).body(user.get());
     } else {
-      return ResponseEntity.notFound().build();
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
   }
 }
