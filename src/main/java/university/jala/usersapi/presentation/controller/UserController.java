@@ -35,19 +35,20 @@ public class UserController {
    * @return return getAllUsers
    */
   @GetMapping()
-  public ResponseEntity<List<User>> getAllUsers(
+  public ResponseEntity<?> getAllUsers(
           @RequestParam(defaultValue = "0") final int page,
           @RequestParam(defaultValue = "10") final int size) {
     try {
       List<User> users = userService.getAllUsers(page, size);
       if (users.isEmpty()) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(users);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontraron usuarios");
       }
       return ResponseEntity.status(HttpStatus.OK).body(users);
     } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al recuperar usuarios: " + e.getMessage());
     }
   }
+
 
   /**
    * Get user by id controller.
@@ -56,12 +57,12 @@ public class UserController {
    * @return response (found or not found).
    */
   @GetMapping("/{userId}")
-  public ResponseEntity<User> getUserById(@PathVariable final String userId) {
+  public ResponseEntity<?> getUserById(@PathVariable final String userId) {
     Optional<User> user = userService.getUserById(userId);
     if (user.isPresent()) {
-      return ResponseEntity.status(HttpStatus.OK).body(user.get());
+      return ResponseEntity.status(HttpStatus.OK).body(user);
     } else {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado con ID: " + userId);
     }
   }
 }
