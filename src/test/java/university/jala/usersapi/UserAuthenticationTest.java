@@ -1,15 +1,13 @@
 package university.jala.usersapi;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.springframework.mock.http.server.reactive.MockServerHttpRequest.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -18,24 +16,24 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mock.http.server.reactive.MockServerHttpRequest;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import university.jala.usersapi.domain.models.User;
-import university.jala.usersapi.domain.service.UserService;
+import university.jala.usersapi.domain.models.AuthenticationRequestDTO;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import university.jala.usersapi.domain.utils.JsonUtils;
+import university.jala.usersapi.domain.utils.JwtUtils;
 import university.jala.usersapi.presentation.controller.UserController;
 
 public class UserAuthenticationTest {
   private MockMvc mockMvc;
 
   @Mock
-  private AuthenticationHandler authenticationHandler;
+  private AuthenticationManager authenticationManager;
 
   @Mock
-  private JwtUtil jwtUtil;
+  private JwtUtils jwtUtils;
 
   @InjectMocks
   private UserController userController;
@@ -48,21 +46,28 @@ public class UserAuthenticationTest {
 
   @Test
   public void testLogin() throws Exception {
-    String login = "username";
-    String password = "password";
-    String jwt = "generatedJwtToken";
+// Mock data
+    AuthenticationRequestDTO requestDTO = new AuthenticationRequestDTO();
+    requestDTO.setLogin("testUser");
+    requestDTO.setPassword("testPassword");
 
-    AuthenticationRequestDTO authenticationRequestDTO = new AuthenticationRequestDTO();
-    authenticationRequestDTO.setLogin(login);
-    authenticationRequestDTO.setPassword(password);
+    UserDetails userDetails = mock(UserDetails.class);
+    Authentication authentication = mock(Authentication.class);
+    when(authentication.isAuthenticated()).thenReturn(true);
+    when(authentication.getPrincipal()).thenReturn(userDetails);
 
-    Authentication authentication = new UsernamePasswordAuthenticationToken(login, password);
-    when(authenticationHandler.authenticate(authentication)).thenReturn(authentication);
-    when(jwtUtil.create(login)).thenReturn(jwt);
+    // Mock authenticationManager
+    when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class)))
+        .thenReturn(authentication);
 
-    mockMvc.perform(post("/users/authentication")
-            .contentType(MediaType.APPLICATION_JSON).content(JsonUtils.asJsonString(authenticationRequestDTO)))
-        .andExpect(status().isOk());
+    // Mock jwtUtils
+    when(jwtUtils.createToken("testUser")).thenReturn("mockedJWTToken");
+
+    // Call the controller method
+    ResponseEntity<?> responseEntity = userController.userAuthentication(requestDTO);
+
+    // Verify the response
+    Assertions.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
   }
 
 
