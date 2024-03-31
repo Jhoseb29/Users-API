@@ -45,7 +45,8 @@ public class UpdateUserTest {
         updatedUser);
 
     // Act
-    ResponseEntity<User> response = userController.updateUserById(updatedUser,
+    ResponseEntity<User> response = (ResponseEntity<User>) userController.updateUserById(
+        updatedUser,
         userId);
     User result = response.getBody();
 
