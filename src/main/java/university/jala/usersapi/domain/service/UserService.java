@@ -39,17 +39,11 @@ public class UserService {
    * @param id User ID
    * @return Returns Boolean if the User is deleted.
    */
-  public boolean deleteUserById(final String id) {
-    boolean response = false;
-    try {
-      if (userRepository.findById(id).isPresent()) {
-        userRepository.deleteById(id);
-        response = true;
-      }
-      return response;
-    } catch (Exception e) {
-      return response;
+  public Optional<User> deleteById(final String id) {
+    Optional<User> user = getUserById(id);
+    if (user.isPresent()) {
+      userRepository.deleteById(id);
     }
+    return user;
   }
-
 }

@@ -7,13 +7,17 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import university.jala.usersapi.domain.models.User;
 import university.jala.usersapi.domain.service.UserService;
 import university.jala.usersapi.presentation.controller.UserController;
 
+import java.util.Optional;
 import java.util.UUID;
 
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class DeleteUserTest {
@@ -37,25 +41,25 @@ public class DeleteUserTest {
         user.setName("Julio");
         user.setLogin("juli");
         user.setPassword("julio123");
-        boolean reponseExpecte = true;
 
-       when(userService.deleteUserById(UserId)).thenReturn(reponseExpecte);
-        boolean response = userController.deleteById(UserId);
 
-        Assertions.assertEquals(reponseExpecte, response);
-        verify(userService, times(1)).deleteUserById(UserId);
+       when(userService.deleteById(UserId)).thenReturn(Optional.of(user));
+
+       ResponseEntity<?> response = userController.deleteById(UserId);
+
+       assertEquals(HttpStatus.OK, response.getStatusCode());
+       verify(userService, times(1)).deleteById(UserId);
     }
     @Test
     public void deleteTest_userNotExists() {
 
         String nonExistentUserId = "90";
 
-        when(userService.deleteUserById(nonExistentUserId)).thenReturn(any(boolean.class));
+        when(userService.deleteById(nonExistentUserId)).thenReturn(Optional.empty());
 
-        boolean response = userController.deleteById(nonExistentUserId);
+        ResponseEntity<User> response = userController.getUserById(nonExistentUserId);
 
-        Assertions.assertEquals(false, response);
-
-        verify(userService, times(1)).deleteUserById(nonExistentUserId);
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        verify(userService, times(1)).getUserById(nonExistentUserId);
     }
 }

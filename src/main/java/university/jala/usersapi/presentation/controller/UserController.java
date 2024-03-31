@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -54,8 +55,19 @@ public class UserController {
    *           and if not found it will return a not found.
    */
   @DeleteMapping(path = "/delete/{id}")
-  public boolean deleteById(@PathVariable final String id) {
-    return this.userService.deleteUserById(id);
+  public ResponseEntity<?> deleteById(@PathVariable final String id) {
+    Optional<User> userFound = userService.deleteById(id);
+    String menssage = "";
+    String formattMenssage = "";
+    if (userFound.isPresent()) {
+      menssage = "User %s has been successfully deleted.";
+      formattMenssage = String.format(menssage, userFound.get().getName());
+      return ResponseEntity.status(HttpStatus.OK).body(formattMenssage);
+    } else {
+      menssage = "User not found with ID: %s.";
+      formattMenssage = String.format(menssage, id);
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(formattMenssage);
+    }
   }
 
 }
