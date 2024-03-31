@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,14 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
 import university.jala.usersapi.domain.models.User;
-import org.springframework.web.bind.annotation.PathVariable;
 import university.jala.usersapi.domain.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import university.jala.usersapi.domain.models.User;
 
 import java.util.List;
-import java.util.Optional;
+
 
 
 /**
@@ -87,8 +82,8 @@ public class UserController {
   @DeleteMapping(path = "/delete/{id}")
   public ResponseEntity<?> deleteById(@PathVariable final String id) {
     Optional<User> userFound = userService.deleteById(id);
-    String menssage = "";
-    String formattMenssage = "";
+    String menssage;
+    String formattMenssage;
     if (userFound.isPresent()) {
       menssage = "User %s has been successfully deleted.";
       formattMenssage = String.format(menssage, userFound.get().getName());
