@@ -1,5 +1,10 @@
 package university.jala.usersapi.domain.service;
-import org.springframework.data.domain.PageRequest;
+
+import java.util.Optional;
+
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import university.jala.usersapi.domain.models.User;
 import university.jala.usersapi.persistance.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +23,7 @@ import java.util.Optional;
  * Operations on the db.
  */
 @Service
+@Setter
 public class UserService {
 
   /**
@@ -45,5 +51,16 @@ public class UserService {
     return userRepository.findById(userId);
   }
 
-}
 
+  /**
+   * @param id User ID
+   * @return Returns Boolean if the User is deleted.
+   */
+  public Optional<User> deleteById(final String id) {
+    Optional<User> user = getUserById(id);
+    if (user.isPresent()) {
+      userRepository.deleteById(id);
+    }
+    return user;
+  }
+}
