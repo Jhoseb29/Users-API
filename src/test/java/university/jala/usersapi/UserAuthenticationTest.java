@@ -3,71 +3,67 @@ package university.jala.usersapi;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import university.jala.usersapi.domain.models.AuthenticationRequestDTO;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import university.jala.usersapi.domain.utils.JwtUtils;
+import university.jala.usersapi.domain.service.AuthService;
+import university.jala.usersapi.domain.service.security.dto.AuthenticationRequestDTO;
+import university.jala.usersapi.domain.service.security.dto.AuthenticationResponseDTO;
+import university.jala.usersapi.presentation.controller.AuthController;
 import university.jala.usersapi.presentation.controller.UserController;
 
 public class UserAuthenticationTest {
-  private MockMvc mockMvc;
-
   @Mock
-  private AuthenticationManager authenticationManager;
-
-  @Mock
-  private JwtUtils jwtUtils;
+  private AuthService authService;
 
   @InjectMocks
-  private UserController userController;
+  private AuthController authController;
+
+  private ObjectMapper objectMapper;
 
   @BeforeEach
-  public void setUp() {
+  void setUp() {
     MockitoAnnotations.openMocks(this);
-    mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
+    objectMapper = new ObjectMapper();
   }
 
   @Test
-  public void testLogin() throws Exception {
-// Mock data
-    AuthenticationRequestDTO requestDTO = new AuthenticationRequestDTO();
-    requestDTO.setLogin("testUser");
-    requestDTO.setPassword("testPassword");
+  void testUserAuthentication_Success() throws Exception {
+    AuthenticationRequestDTO requestDTO = new AuthenticationRequestDTO("username", "password");
+    AuthenticationResponseDTO responseDTO = new AuthenticationResponseDTO("token");
+    when(authService.login(requestDTO)).thenReturn(responseDTO);
 
-    UserDetails userDetails = mock(UserDetails.class);
-    Authentication authentication = mock(Authentication.class);
-    when(authentication.isAuthenticated()).thenReturn(true);
-    when(authentication.getPrincipal()).thenReturn(userDetails);
+    ResponseEntity<?> responseEntity = authController.userAuthentication(requestDTO);
 
-    // Mock authenticationManager
-    when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class)))
-        .thenReturn(authentication);
+    assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    assertEquals(responseDTO, responseEntity.getBody());
+    verify(authService, times(1)).login(requestDTO);
+  }
 
-    // Mock jwtUtils
-    when(jwtUtils.createToken("testUser")).thenReturn("mockedJWTToken");
+  @Test
+  void testUserAuthentication_Failure() throws Exception {
+    AuthenticationRequestDTO requestDTO = new AuthenticationRequestDTO("username", "password");
+    String errorMessage = "Error message";
+    when(authService.login(requestDTO)).thenThrow(new RuntimeException(errorMessage));
 
-    // Call the controller method
-    ResponseEntity<?> responseEntity = userController.userAuthentication(requestDTO);
+    ResponseEntity<?> responseEntity = authController.userAuthentication(requestDTO);
 
-    // Verify the response
-    Assertions.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
+    assertEquals("Error: " + errorMessage, responseEntity.getBody());
+    verify(authService, times(1)).login(requestDTO);
   }
 
 

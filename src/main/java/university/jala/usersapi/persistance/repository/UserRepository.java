@@ -1,5 +1,6 @@
 package university.jala.usersapi.persistance.repository;
 
+import java.util.Optional;
 import university.jala.usersapi.domain.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -11,4 +12,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends JpaRepository<User, String> {
 
+  Optional<User> findByLogin(String login);
 }

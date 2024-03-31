@@ -1,18 +1,11 @@
 package university.jala.usersapi.presentation.controller;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
-import university.jala.usersapi.domain.models.AuthenticationRequestDTO;
 import university.jala.usersapi.domain.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +13,6 @@ import university.jala.usersapi.domain.models.User;
 
 import java.util.List;
 import java.util.Optional;
-import university.jala.usersapi.domain.utils.JwtUtils;
 
 
 /**
@@ -39,12 +31,6 @@ public class UserController {
   @Autowired
   private UserService userService;
 
-  @Autowired
-  private AuthenticationManager authenticationManager;
-
-  @Autowired
-  private JwtUtils jwtUtils;
-
   /**
    * @param page The page number (default: 0)
    * @param size The size of the page (default: 10)
@@ -61,9 +47,9 @@ public class UserController {
             .body("No se encontraron usuarios");
       }
       return ResponseEntity.status(HttpStatus.OK).body(users);
-    } catch (Exception e) {
+    } catch (Exception exception) {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-          .body("Error al recuperar usuarios: " + e.getMessage());
+          .body("Error al recuperar usuarios: " + exception.getMessage());
     }
   }
 
@@ -84,23 +70,5 @@ public class UserController {
     }
   }
 
-  @PostMapping("/authentication")
-  public ResponseEntity<?> userAuthentication(
-      @RequestBody final AuthenticationRequestDTO authenticationRequestDTO) {
-    Authentication authentication = authenticationManager.authenticate(
-        new UsernamePasswordAuthenticationToken(authenticationRequestDTO.getLogin(),
-            authenticationRequestDTO.getPassword()));
-
-    if (authentication.isAuthenticated()) {
-      UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-
-      String jwt = jwtUtils.createToken(userDetails.getUsername());
-
-      return ResponseEntity.status(HttpStatus.OK).body(jwt);
-    } else {
-      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas.");
-    }
-
-  }
 
 }
