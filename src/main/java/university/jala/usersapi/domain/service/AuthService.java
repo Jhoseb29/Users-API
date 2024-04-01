@@ -8,9 +8,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import university.jala.usersapi.domain.models.User;
-import university.jala.usersapi.domain.service.security.dto.AuthenticationRequestDTO;
-import university.jala.usersapi.domain.service.security.dto.AuthenticationResponseDTO;
-import university.jala.usersapi.domain.service.security.dto.RegisterRequestDTO;
+import university.jala.usersapi.domain.models.dto.AuthenticationRequestDTO;
+import university.jala.usersapi.domain.models.dto.AuthenticationResponseDTO;
+import university.jala.usersapi.domain.models.dto.RegisterRequestDTO;
 import university.jala.usersapi.persistance.repository.UserRepository;
 
 /**

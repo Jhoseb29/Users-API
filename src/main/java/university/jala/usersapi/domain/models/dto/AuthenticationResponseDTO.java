@@ -1,4 +1,4 @@
-package university.jala.usersapi.domain.service.security.dto;
+package university.jala.usersapi.domain.models.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

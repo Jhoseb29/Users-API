@@ -10,6 +10,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import university.jala.usersapi.domain.models.User;
+import university.jala.usersapi.domain.models.dto.UserDTO;
 import university.jala.usersapi.domain.service.UserService;
 import university.jala.usersapi.presentation.controller.UserController;
 
@@ -36,7 +37,7 @@ public class DeleteUserTest {
     @Test
     public void DeleteTest(){
         String UserId = UUID.randomUUID().toString();
-        User user = new User();
+        UserDTO user = new UserDTO();
         user.setId(UserId);
         user.setName("Julio");
         user.setLogin("juli");

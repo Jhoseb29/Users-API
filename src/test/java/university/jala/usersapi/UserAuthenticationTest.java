@@ -16,8 +16,8 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import university.jala.usersapi.domain.service.AuthService;
-import university.jala.usersapi.domain.service.security.dto.AuthenticationRequestDTO;
-import university.jala.usersapi.domain.service.security.dto.AuthenticationResponseDTO;
+import university.jala.usersapi.domain.models.dto.AuthenticationRequestDTO;
+import university.jala.usersapi.domain.models.dto.AuthenticationResponseDTO;
 import university.jala.usersapi.presentation.controller.AuthController;
 
 
