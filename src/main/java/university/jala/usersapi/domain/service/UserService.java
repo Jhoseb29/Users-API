@@ -6,10 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import university.jala.usersapi.domain.models.User;
+import university.jala.usersapi.domain.models.dto.UserDTO;
+import university.jala.usersapi.domain.models.dto.UserDTOById;
+import university.jala.usersapi.domain.models.mapper.UserMapper;
 import university.jala.usersapi.persistance.repository.UserRepository;
 
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -38,8 +42,12 @@ public class UserService {
    * @param size The size of the page
    * @return List of users for the given page and size
    */
-  public List<User> getAllUsers(final int page, final int size) {
-    return userRepository.findAll(PageRequest.of(page, size)).getContent();
+  public List<UserDTO> getAllUsersDTO(final int page, final int size) {
+    List<User> users = userRepository.findAll(PageRequest.of(page, size))
+            .getContent();
+    return users.stream()
+            .map(UserMapper::convertToDTO)
+            .collect(Collectors.toList());
   }
 
   /**
@@ -48,8 +56,9 @@ public class UserService {
    * @param userId
    * @return user.
    */
-  public Optional<User> getUserById(final String userId) {
-    return userRepository.findById(userId);
+  public Optional<UserDTOById> getUserById(final String userId) {
+    Optional<User> user = userRepository.findById(userId);
+    return user.map(UserMapper::convertToDetailedDTO);
   }
 
   /**
@@ -74,8 +83,8 @@ public class UserService {
    * @param id User ID
    * @return Returns User if the User is deleted.
    */
-  public Optional<User> deleteById(final String id) {
-    Optional<User> user = getUserById(id);
+  public Optional<UserDTOById> deleteById(final String id) {
+    Optional<UserDTOById> user = getUserById(id);
     if (user.isPresent()) {
       userRepository.deleteById(id);
     }

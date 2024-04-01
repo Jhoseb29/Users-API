@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
 import university.jala.usersapi.domain.models.User;
+import university.jala.usersapi.domain.models.dto.UserDTO;
+import university.jala.usersapi.domain.models.dto.UserDTOById;
 import university.jala.usersapi.domain.service.UserService;
 
 
@@ -48,18 +50,18 @@ public class UserController {
    */
   @GetMapping()
   public ResponseEntity<?> getAllUsers(
-      @RequestParam(defaultValue = "0") final int page,
-      @RequestParam(defaultValue = "10") final int size) {
+          @RequestParam(defaultValue = "0") final int page,
+          @RequestParam(defaultValue = "10") final int size) {
     try {
-      List<User> users = userService.getAllUsers(page, size);
-      if (users.isEmpty()) {
+      List<UserDTO> usersDTO = userService.getAllUsersDTO(page, size);
+      if (usersDTO.isEmpty()) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-            .body("No se encontraron usuarios");
+                .body("No users found");
       }
-      return ResponseEntity.status(HttpStatus.OK).body(users);
+      return ResponseEntity.status(HttpStatus.OK).body(usersDTO);
     } catch (Exception exception) {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-          .body("Error al recuperar usuarios: " + exception.getMessage());
+              .body("Error recovering users: " + exception.getMessage());
     }
   }
 
@@ -71,12 +73,12 @@ public class UserController {
    */
   @GetMapping("/{userId}")
   public ResponseEntity<?> getUserById(@PathVariable final String userId) {
-    Optional<User> user = userService.getUserById(userId);
+    Optional<UserDTOById> user = userService.getUserById(userId);
     if (user.isPresent()) {
       return ResponseEntity.status(HttpStatus.OK).body(user);
     } else {
       return ResponseEntity.status(HttpStatus.NOT_FOUND)
-          .body("Usuario no encontrado con ID: " + userId);
+          .body("User not found with ID: " + userId);
     }
   }
 
@@ -93,7 +95,7 @@ public class UserController {
       return ResponseEntity.status(HttpStatus.OK).body(updatedUser);
     } else {
       return ResponseEntity.status(HttpStatus.NOT_FOUND)
-          .body("El usuario con el ID: " + userId + " no fue encontrado.");
+          .body("The user with the ID: " + userId + " was not found.");
     }
   }
 
@@ -104,7 +106,7 @@ public class UserController {
    */
   @DeleteMapping(path = "/{id}")
   public ResponseEntity<?> deleteById(@PathVariable final String id) {
-    Optional<User> userFound = userService.deleteById(id);
+    Optional<UserDTOById> userFound = userService.deleteById(id);
     String menssage;
     String formattMenssage;
     if (userFound.isPresent()) {

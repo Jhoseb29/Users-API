@@ -15,8 +15,8 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import university.jala.usersapi.domain.service.AuthService;
 import university.jala.usersapi.domain.service.JwtService;
-import university.jala.usersapi.domain.service.security.dto.AuthenticationResponseDTO;
-import university.jala.usersapi.domain.service.security.dto.RegisterRequestDTO;
+import university.jala.usersapi.domain.models.dto.AuthenticationResponseDTO;
+import university.jala.usersapi.domain.models.dto.RegisterRequestDTO;
 import university.jala.usersapi.persistance.repository.UserRepository;
 
 

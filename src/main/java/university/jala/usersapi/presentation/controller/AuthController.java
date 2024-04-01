@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import university.jala.usersapi.domain.service.AuthService;
-import university.jala.usersapi.domain.service.security.dto.AuthenticationRequestDTO;
-import university.jala.usersapi.domain.service.security.dto.RegisterRequestDTO;
+import university.jala.usersapi.domain.models.dto.AuthenticationRequestDTO;
+import university.jala.usersapi.domain.models.dto.RegisterRequestDTO;
 
 /**
  * Controller for user authentication and register.

@@ -2,14 +2,13 @@ package university.jala.usersapi;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import university.jala.usersapi.domain.models.User;
+import university.jala.usersapi.domain.models.dto.UserDTOById;
 import university.jala.usersapi.domain.service.UserService;
 import university.jala.usersapi.presentation.controller.UserController;
 
@@ -36,7 +35,7 @@ public class DeleteUserTest {
     @Test
     public void DeleteTest(){
         String UserId = UUID.randomUUID().toString();
-        User user = new User();
+        UserDTOById user = new UserDTOById();
         user.setId(UserId);
         user.setName("Julio");
         user.setLogin("juli");
