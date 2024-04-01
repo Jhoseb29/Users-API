@@ -25,9 +25,9 @@ import java.util.List;
 
 /**
  * This class defines the endpoints related to user operations.
- * The endpoints are mapped through the {@link RequestMapping}
- * ("/users") annotation. Uses a UserService for data persistence
- * in the database.
+ * The endpoints are mapped through the
+ * {@link RequestMapping} ("/users") annotation.
+ * Uses a UserService for data persistence in the database.
  */
 
 @RestController
@@ -35,7 +35,9 @@ import java.util.List;
 @Setter
 public class UserController {
 
-  /** userService Instance. **/
+  /**
+   * userService Instance.
+   **/
   @Autowired
   private UserService userService;
 
@@ -46,18 +48,18 @@ public class UserController {
    */
   @GetMapping()
   public ResponseEntity<?> getAllUsers(
-          @RequestParam(defaultValue = "0") final int page,
-          @RequestParam(defaultValue = "10") final int size) {
+      @RequestParam(defaultValue = "0") final int page,
+      @RequestParam(defaultValue = "10") final int size) {
     try {
       List<User> users = userService.getAllUsers(page, size);
       if (users.isEmpty()) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body("No se encontraron usuarios");
+            .body("No se encontraron usuarios");
       }
       return ResponseEntity.status(HttpStatus.OK).body(users);
-    } catch (Exception e) {
+    } catch (Exception exception) {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-              .body("Error al recuperar usuarios: " + e.getMessage());
+          .body("Error al recuperar usuarios: " + exception.getMessage());
     }
   }
 
@@ -74,7 +76,7 @@ public class UserController {
       return ResponseEntity.status(HttpStatus.OK).body(user);
     } else {
       return ResponseEntity.status(HttpStatus.NOT_FOUND)
-              .body("Usuario no encontrado con ID: " + userId);
+          .body("Usuario no encontrado con ID: " + userId);
     }
   }
 
