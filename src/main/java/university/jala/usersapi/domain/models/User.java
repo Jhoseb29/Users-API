@@ -54,7 +54,7 @@ public final class User implements UserDetails {
    * The unique ID of the user.
    */
   @Id
-  @GeneratedValue(generator = "UUID")
+  @GeneratedValue(generator = "uuid")
   @GenericGenerator(
       name = "UUID",
       type = org.hibernate.id.uuid.UuidGenerator.class
