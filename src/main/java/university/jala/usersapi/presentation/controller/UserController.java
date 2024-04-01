@@ -80,18 +80,18 @@ public class UserController {
 
   /**
    * @param request The updated user data
-   * @param id      The ID of the user to be updated
+   * @param userId  The ID of the user to be updated
    * @return The updated user
    */
-  @PutMapping(path = "/{id}")
+  @PutMapping(path = "/{userId}")
   public ResponseEntity<?> updateUserById(@RequestBody final User request,
-      @PathVariable("id") final String id) {
-    User updatedUser = this.userService.updateByID(request, id);
+      @PathVariable("userId") final String userId) {
+    User updatedUser = this.userService.updateByID(request, userId);
     if (updatedUser != null) {
       return ResponseEntity.status(HttpStatus.OK).body(updatedUser);
     } else {
       return ResponseEntity.status(HttpStatus.NOT_FOUND)
-          .body("El usuario con el ID: " + id + " no fue encontrado.");
+          .body("El usuario con el ID: " + userId + " no fue encontrado.");
     }
   }
 
