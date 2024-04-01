@@ -56,7 +56,7 @@ public class AuthController {
    *         status code 500 (Internal Server Error) with an error
    *         message.
    */
-  @PostMapping(value = "register")
+  @PostMapping()
   public ResponseEntity<?> userRegister(
           @RequestBody final RegisterRequestDTO registerRequest) {
     try {
