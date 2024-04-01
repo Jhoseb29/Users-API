@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import university.jala.usersapi.domain.models.User;
 import university.jala.usersapi.domain.models.dto.UserDTO;
+import university.jala.usersapi.domain.models.dto.UserDTOById;
 import university.jala.usersapi.domain.models.mapper.UserMapper;
 import university.jala.usersapi.persistance.repository.UserRepository;
 
@@ -55,7 +56,7 @@ public class UserService {
    * @param userId
    * @return user.
    */
-  public Optional<UserDTO> getUserById(final String userId) {
+  public Optional<UserDTOById> getUserById(final String userId) {
     Optional<User> user = userRepository.findById(userId);
     return user.map(UserMapper::convertToDetailedDTO);
   }
@@ -82,8 +83,8 @@ public class UserService {
    * @param id User ID
    * @return Returns User if the User is deleted.
    */
-  public Optional<UserDTO> deleteById(final String id) {
-    Optional<UserDTO> user = getUserById(id);
+  public Optional<UserDTOById> deleteById(final String id) {
+    Optional<UserDTOById> user = getUserById(id);
     if (user.isPresent()) {
       userRepository.deleteById(id);
     }

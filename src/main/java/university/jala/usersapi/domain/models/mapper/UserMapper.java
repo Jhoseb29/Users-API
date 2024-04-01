@@ -2,6 +2,7 @@ package university.jala.usersapi.domain.models.mapper;
 
 import university.jala.usersapi.domain.models.User;
 import university.jala.usersapi.domain.models.dto.UserDTO;
+import university.jala.usersapi.domain.models.dto.UserDTOById;
 
 
 public class UserMapper {
@@ -26,18 +27,16 @@ public class UserMapper {
      * @param user The user entity to convert.
      * @return The corresponding detailed UserDTO for response.
      */
-    public static UserDTO convertToDetailedDTO(final User user) {
-        UserDTO userDTO = new UserDTO();
-        userDTO.setId(user.getId());
-        userDTO.setName(user.getName());
-        userDTO.setLogin(user.getLogin());
-        userDTO.setPassword(user.getPassword());
-        // Puedes agregar más campos aquí si es necesario
-        return userDTO;
+    public static UserDTOById convertToDetailedDTO(final User user) {
+        UserDTOById userDTOById = new UserDTOById();
+        userDTOById.setId(user.getId());
+        userDTOById.setName(user.getName());
+        userDTOById.setLogin(user.getLogin());
+        userDTOById.setPassword(user.getPassword());
+        return userDTOById;
     }
 
     protected UserMapper() {
-        // Constructor protegido para evitar instanciación
         throw new UnsupportedOperationException();
     }
 }

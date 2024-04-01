@@ -7,7 +7,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
 import university.jala.usersapi.domain.models.User;
-import university.jala.usersapi.domain.models.mapper.UserMapper;
 import university.jala.usersapi.domain.service.UserService;
 import university.jala.usersapi.presentation.controller.UserController;
 import university.jala.usersapi.domain.models.dto.UserDTO;

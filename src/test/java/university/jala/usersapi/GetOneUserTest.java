@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import university.jala.usersapi.domain.models.User;
 import university.jala.usersapi.domain.models.dto.UserDTO;
+import university.jala.usersapi.domain.models.dto.UserDTOById;
 import university.jala.usersapi.domain.service.UserService;
 import university.jala.usersapi.presentation.controller.UserController;
 
@@ -40,7 +41,7 @@ public class GetOneUserTest {
   public void testGetUserById_ExistingUser() {
 
     String userId = UUID.randomUUID().toString();
-    UserDTO mockUser = new UserDTO();
+    UserDTOById mockUser = new UserDTOById();
     mockUser.setId(userId);
     mockUser.setName("Test User");
     mockUser.setLogin("testuser");
@@ -62,7 +63,7 @@ public class GetOneUserTest {
     assertTrue(responseBody.isPresent());
 
     // Obtener el usuario del Optional
-    UserDTO userResponse = (UserDTO) responseBody.get();
+    UserDTOById userResponse = (UserDTOById) responseBody.get();
 
     // Verificar los atributos del usuario devuelto
     assertEquals(mockUser.getId(), userResponse.getId());

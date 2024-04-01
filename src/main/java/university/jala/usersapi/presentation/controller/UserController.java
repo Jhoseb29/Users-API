@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
 import university.jala.usersapi.domain.models.User;
 import university.jala.usersapi.domain.models.dto.UserDTO;
+import university.jala.usersapi.domain.models.dto.UserDTOById;
 import university.jala.usersapi.domain.service.UserService;
 
 
@@ -72,7 +73,7 @@ public class UserController {
    */
   @GetMapping("/{userId}")
   public ResponseEntity<?> getUserById(@PathVariable final String userId) {
-    Optional<UserDTO> user = userService.getUserById(userId);
+    Optional<UserDTOById> user = userService.getUserById(userId);
     if (user.isPresent()) {
       return ResponseEntity.status(HttpStatus.OK).body(user);
     } else {
@@ -105,7 +106,7 @@ public class UserController {
    */
   @DeleteMapping(path = "/{id}")
   public ResponseEntity<?> deleteById(@PathVariable final String id) {
-    Optional<UserDTO> userFound = userService.deleteById(id);
+    Optional<UserDTOById> userFound = userService.deleteById(id);
     String menssage;
     String formattMenssage;
     if (userFound.isPresent()) {

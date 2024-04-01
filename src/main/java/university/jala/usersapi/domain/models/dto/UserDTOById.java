@@ -3,7 +3,7 @@ package university.jala.usersapi.domain.models.dto;
 import lombok.Data;
 
 @Data
-public class UserDTO {
+public class UserDTOById {
     /**
      * The unique ID for the user.
      */
@@ -16,4 +16,8 @@ public class UserDTO {
      * The username for the user.
      */
     private String login;
+    /**
+     * The password for the user.
+     */
+    private String password;
 }
