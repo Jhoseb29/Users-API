@@ -9,13 +9,10 @@ import static org.mockito.Mockito.when;
 
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import university.jala.usersapi.domain.models.User;
 import university.jala.usersapi.domain.service.AuthService;
 import university.jala.usersapi.domain.service.JwtService;
 import university.jala.usersapi.domain.service.security.dto.AuthenticationResponseDTO;
@@ -42,7 +39,7 @@ public class PasswordEncryptionTest {
   }
 
   @Test
-  public void testRegister() {
+  public void testPasswordEncryption() {
     RegisterRequestDTO registerRequestDTO = new RegisterRequestDTO();
     registerRequestDTO.setName("John Doe");
     registerRequestDTO.setLogin("johndoe@example.com");

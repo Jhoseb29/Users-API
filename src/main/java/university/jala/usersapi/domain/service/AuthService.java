@@ -18,7 +18,7 @@ import university.jala.usersapi.persistance.repository.UserRepository;
  */
 @Service
 @RequiredArgsConstructor
-public class AuthService {
+public final class AuthService {
 
   /**
    * Interface defining data access operations for the user entity.
@@ -64,7 +64,14 @@ public class AuthService {
         .build();
   }
 
-  public AuthenticationResponseDTO register(final RegisterRequestDTO registerRequest) {
+  /**
+   * Method to perform user registration.
+   *
+   * @param registerRequest New User Information.
+   * @return Authentication response object containing the generated JWT token.
+   */
+  public AuthenticationResponseDTO register(
+      final RegisterRequestDTO registerRequest) {
     User user = User.builder()
         .id(UUID.randomUUID().toString())
         .name(registerRequest.getName())

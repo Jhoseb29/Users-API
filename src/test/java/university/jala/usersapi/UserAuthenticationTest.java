@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -36,28 +37,28 @@ public class UserAuthenticationTest {
   }
 
   @Test
-  void testUserAuthentication_Success() throws Exception {
+  void testUserAuthenticationSuccess() throws Exception {
     AuthenticationRequestDTO requestDTO = new AuthenticationRequestDTO("username", "password");
     AuthenticationResponseDTO responseDTO = new AuthenticationResponseDTO("token");
     when(authService.login(requestDTO)).thenReturn(responseDTO);
 
     ResponseEntity<?> responseEntity = authController.userAuthentication(requestDTO);
 
-    assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-    assertEquals(responseDTO, responseEntity.getBody());
+    Assertions.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    Assertions.assertEquals(responseDTO, responseEntity.getBody());
     verify(authService, times(1)).login(requestDTO);
   }
 
   @Test
-  void testUserAuthentication_Failure() throws Exception {
+  void testUserAuthenticationFailure() throws Exception {
     AuthenticationRequestDTO requestDTO = new AuthenticationRequestDTO("username", "password");
     String errorMessage = "Error message";
     when(authService.login(requestDTO)).thenThrow(new RuntimeException(errorMessage));
 
     ResponseEntity<?> responseEntity = authController.userAuthentication(requestDTO);
 
-    assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
-    assertEquals("Error: " + errorMessage, responseEntity.getBody());
+    Assertions.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
+    Assertions.assertEquals("Error: " + errorMessage, responseEntity.getBody());
     verify(authService, times(1)).login(requestDTO);
   }
 
