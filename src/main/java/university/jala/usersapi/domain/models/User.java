@@ -55,10 +55,7 @@ public final class User implements UserDetails {
    */
   @Id
   @GeneratedValue(generator = "uuid")
-  @GenericGenerator(
-      name = "UUID",
-      type = org.hibernate.id.uuid.UuidGenerator.class
-  )
+  @GenericGenerator(name = "uuid", strategy = "uuid2")
   @Column(length = MAX_ID_LENGTH_VALUE)
   private String id;
 
