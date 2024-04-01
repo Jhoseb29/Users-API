@@ -44,10 +44,10 @@ public class UserService {
    */
   public List<UserDTO> getAllUsersDTO(final int page, final int size) {
     List<User> users = userRepository.findAll(PageRequest.of(page, size))
-            .getContent();
+        .getContent();
     return users.stream()
-            .map(UserMapper::convertToDTO)
-            .collect(Collectors.toList());
+        .map(UserMapper::convertToDTO)
+        .collect(Collectors.toList());
   }
 
   /**
@@ -66,15 +66,16 @@ public class UserService {
    *
    * @param request The updated user data
    * @param id      The ID of the user to be updated
-   * @return The updated user if found, otherwise null
+   * @return The updated user DTO if found, otherwise null
    */
-  public User updateByID(final User request, final String id) {
+  public UserDTOById updateByID(final UserDTOById request, final String id) {
     Optional<User> optionalUser = userRepository.findById(id);
 
     if (optionalUser.isPresent()) {
       User existingUser = optionalUser.get();
       userValidationService.validateFieldsToUpdate(existingUser, request);
-      return userRepository.save(existingUser);
+      userRepository.save(existingUser);
+      return UserMapper.convertToDetailedDTO(existingUser);
     }
     return null;
   }

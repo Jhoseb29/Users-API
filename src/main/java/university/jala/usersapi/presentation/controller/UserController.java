@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
-import university.jala.usersapi.domain.models.User;
 import university.jala.usersapi.domain.models.dto.UserDTO;
 import university.jala.usersapi.domain.models.dto.UserDTOById;
 import university.jala.usersapi.domain.service.UserService;
@@ -24,12 +23,10 @@ import university.jala.usersapi.domain.service.UserService;
 import java.util.List;
 
 
-
 /**
- * This class defines the endpoints related to user operations.
- * The endpoints are mapped through the
- * {@link RequestMapping} ("/users") annotation.
- * Uses a UserService for data persistence in the database.
+ * This class defines the endpoints related to user operations. The endpoints
+ * are mapped through the {@link RequestMapping} ("/users") annotation. Uses a
+ * UserService for data persistence in the database.
  */
 
 @RestController
@@ -50,18 +47,18 @@ public class UserController {
    */
   @GetMapping()
   public ResponseEntity<?> getAllUsers(
-          @RequestParam(defaultValue = "0") final int page,
-          @RequestParam(defaultValue = "10") final int size) {
+      @RequestParam(defaultValue = "0") final int page,
+      @RequestParam(defaultValue = "10") final int size) {
     try {
       List<UserDTO> usersDTO = userService.getAllUsersDTO(page, size);
       if (usersDTO.isEmpty()) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body("No users found");
+            .body("No users found");
       }
       return ResponseEntity.status(HttpStatus.OK).body(usersDTO);
     } catch (Exception exception) {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-              .body("Error recovering users: " + exception.getMessage());
+          .body("Error recovering users: " + exception.getMessage());
     }
   }
 
@@ -83,14 +80,17 @@ public class UserController {
   }
 
   /**
+   * Updates a user identified by ID with the provided user data.
+   *
    * @param request The updated user data
    * @param userId  The ID of the user to be updated
-   * @return The updated user
+   * @return The updated user DTO if found, otherwise a not found response
    */
   @PutMapping(path = "/{userId}")
-  public ResponseEntity<?> updateUserById(@RequestBody final User request,
+  public ResponseEntity<?> updateUserById(
+      @RequestBody final UserDTOById request,
       @PathVariable("userId") final String userId) {
-    User updatedUser = this.userService.updateByID(request, userId);
+    UserDTOById updatedUser = this.userService.updateByID(request, userId);
     if (updatedUser != null) {
       return ResponseEntity.status(HttpStatus.OK).body(updatedUser);
     } else {
@@ -101,8 +101,8 @@ public class UserController {
 
   /**
    * @param id User ID
-   * @return It will return a status of ok if the user is deleted
-   *           and if not found it will return a not found.
+   * @return It will return a status of ok if the user is deleted and if not
+   * found it will return a not found.
    */
   @DeleteMapping(path = "/{id}")
   public ResponseEntity<?> deleteById(@PathVariable final String id) {
