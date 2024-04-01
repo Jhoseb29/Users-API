@@ -57,7 +57,7 @@ public class DeleteUserTest {
 
         when(userService.deleteById(nonExistentUserId)).thenReturn(Optional.empty());
 
-        ResponseEntity<User> response = userController.getUserById(nonExistentUserId);
+        ResponseEntity<?> response = userController.getUserById(nonExistentUserId);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
         verify(userService, times(1)).getUserById(nonExistentUserId);
