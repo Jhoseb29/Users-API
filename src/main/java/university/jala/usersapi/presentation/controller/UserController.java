@@ -100,7 +100,7 @@ public class UserController {
    * @return It will return a status of ok if the user is deleted
    *           and if not found it will return a not found.
    */
-  @DeleteMapping(path = "/delete/{id}")
+  @DeleteMapping(path = "/{id}")
   public ResponseEntity<?> deleteById(@PathVariable final String id) {
     Optional<User> userFound = userService.deleteById(id);
     String menssage;
