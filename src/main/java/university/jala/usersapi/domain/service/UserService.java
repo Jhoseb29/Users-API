@@ -33,9 +33,15 @@ public class UserService {
   private UserRepository userRepository;
 
   /**
-   * @return return getAllUsers
+   * UserValidationService Instance.
+   **/
+  @Autowired
+  private UserValidationService userValidationService;
+
+  /**
    * @param page The page number
    * @param size The size of the page
+   * @return List of users for the given page and size
    */
   public List<User> getAllUsers(final int page, final int size) {
     return userRepository.findAll(PageRequest.of(page, size)).getContent();
@@ -51,6 +57,25 @@ public class UserService {
     return userRepository.findById(userId);
   }
 
+  /**
+   * Updates a user identified by ID with the provided user data.
+   *
+   * @param request The updated user data
+   * @param id      The ID of the user to be updated
+   * @return The updated user if found, otherwise null
+   */
+  public User updateByID(final User request, final String id) {
+    Optional<User> optionalUser = userRepository.findById(id);
+
+    if (optionalUser.isPresent()) {
+      User existingUser = optionalUser.get();
+      User validatedUser = userValidationService.validateFieldsToUpdate(
+          existingUser, request);
+      return userRepository.save(validatedUser);
+    }
+    return null;
+  }
+}
 
   /**
    * @param id User ID
