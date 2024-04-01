@@ -10,16 +10,28 @@ import org.springframework.web.bind.annotation.RestController;
 import university.jala.usersapi.domain.service.AuthService;
 import university.jala.usersapi.domain.service.security.dto.AuthenticationRequestDTO;
 
+/**
+ * Controller for user authentication and register.
+ */
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
+  /**
+   * AuthService instance to save/retrieve user.
+   */
   private final AuthService authService;
 
+  /**
+   * Authentication Endpoint for users. It's a public endpoint.
+   *
+   * @param authenticationRequest authenticationRequestDTO.
+   * @return Token or error message.
+   */
   @PostMapping(value = "authentication")
-  public ResponseEntity<?> userAuthentication(@RequestBody
-  AuthenticationRequestDTO authenticationRequest) {
+  public ResponseEntity<?> userAuthentication(
+      @RequestBody final AuthenticationRequestDTO authenticationRequest) {
     try {
       return ResponseEntity.ok(authService.login(authenticationRequest));
     } catch (Exception exception) {

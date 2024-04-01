@@ -16,9 +16,10 @@ import java.util.Optional;
 
 
 /**
- * This class defines the endpoints related to user operations. The endpoints are mapped through the
- * {@link RequestMapping} ("/users") annotation. Uses a UserService for data persistence in the
- * database.
+ * This class defines the endpoints related to user operations.
+ * The endpoints are mapped through the
+ * {@link RequestMapping} ("/users") annotation.
+ * Uses a UserService for data persistence in the database.
  */
 
 @RestController

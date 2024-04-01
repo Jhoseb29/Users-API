@@ -7,13 +7,10 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -25,8 +22,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = {"login"})})
-public class User implements UserDetails {
+@Table(name = "users", uniqueConstraints
+    = {@UniqueConstraint(columnNames = {"login"})})
+public final class User implements UserDetails {
 
   /**
    * The unique ID of the user.

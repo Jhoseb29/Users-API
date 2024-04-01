@@ -18,17 +18,41 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 import university.jala.usersapi.domain.service.JwtService;
 
+/**
+ * Filter responsible for JWT token-based authentication.
+ */
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
+  /**
+   * Service for handling JWT tokens.
+   */
   private final JwtService jwtService;
+
+  /**
+   * Service for loading user details.
+   */
   private final UserDetailsService userDetailsService;
 
+  /**
+   * Constant Index Beginning.
+   */
+  private static final int BEGIN_INDEX = 7;
+
+  /**
+   * Performs the filtering logic for JWT token-based authentication.
+   *
+   * @param request     The HTTP servlet request.
+   * @param response    The HTTP servlet response.
+   * @param filterChain The filter chain for the request.
+   * @throws ServletException If a servlet exception occurs.
+   * @throws IOException      If an I/O exception occurs.
+   */
   @Override
-  protected void doFilterInternal(HttpServletRequest request,
-      HttpServletResponse response,
-      FilterChain filterChain) throws ServletException, IOException {
+  protected void doFilterInternal(final HttpServletRequest request,
+      final HttpServletResponse response,
+      final FilterChain filterChain) throws ServletException, IOException {
 
     final String token = getTokenFromRequest(request);
 
@@ -39,7 +63,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     filterChain.doFilter(request, response);
   }
 
-  private void handleAuthentication(HttpServletRequest request, String token) {
+  /**
+   * Handles authentication based on the provided JWT token.
+   *
+   * @param request The HTTP servlet request.
+   * @param token   The JWT token extracted from the request.
+   */
+  private void handleAuthentication(final HttpServletRequest request,
+      final String token) {
     String login = jwtService.getLoginFromToken(token);
 
     if (login != null && SecurityContextHolder
@@ -55,16 +86,24 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         authenticationToken.setDetails(
             new WebAuthenticationDetailsSource().buildDetails(request));
 
-        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        SecurityContextHolder.getContext()
+            .setAuthentication(authenticationToken);
       }
     }
   }
 
-  private String getTokenFromRequest(HttpServletRequest request) {
+  /**
+   * Retrieves the JWT token from the request header.
+   *
+   * @param request The HTTP servlet request.
+   * @return The JWT token extracted from
+   * the request header, or null if not found.
+   */
+  private String getTokenFromRequest(final HttpServletRequest request) {
     final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 
     if (StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ")) {
-      return authHeader.substring(7);
+      return authHeader.substring(BEGIN_INDEX);
     }
 
     return null;
