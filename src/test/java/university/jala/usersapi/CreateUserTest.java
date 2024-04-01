@@ -1,7 +1,7 @@
 package university.jala.usersapi;
 
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -23,7 +23,7 @@ public class CreateUserTest {
 @InjectMocks
     private AuthController authController;
 
-@BeforeEach
+@Before
     public void setUp(){
     MockitoAnnotations.openMocks(this);
 }
@@ -37,11 +37,12 @@ public void testCreate_User(){
 
     RegisterRequestDTO registerRequestDTO = new RegisterRequestDTO();
     registerRequestDTO.setName("TestUser");
-    registerRequestDTO.setLogin("testuser");
+    registerRequestDTO.setLogin("test-user");
     registerRequestDTO.setPassword("12345");
 
     AuthenticationResponseDTO authenticationResponseDTO = new AuthenticationResponseDTO();
-    authenticationResponseDTO.setToken("132343124");
+    String tokenAuth = authenticationResponseDTO.getToken();
+    authenticationResponseDTO.setToken(tokenAuth);
 
     when(authService.register(registerRequestDTO)).thenReturn((authenticationResponseDTO));
 
