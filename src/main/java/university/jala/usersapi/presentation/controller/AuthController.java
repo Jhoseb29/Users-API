@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import university.jala.usersapi.domain.service.AuthService;
 import university.jala.usersapi.domain.service.security.dto.AuthenticationRequestDTO;
+import university.jala.usersapi.domain.service.security.dto.RegisterRequestDTO;
 
 /**
  * Controller for user authentication and register.
@@ -40,5 +41,13 @@ public class AuthController {
     }
   }
 
-
-}
+  @PostMapping(value = "register")
+  public ResponseEntity<?> userRegister(@RequestBody RegisterRequestDTO registerRequest) {
+    try {
+      return ResponseEntity.ok(authService.register(registerRequest));
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .body("Error: " + e.getMessage());
+    }
+  }
+  }
