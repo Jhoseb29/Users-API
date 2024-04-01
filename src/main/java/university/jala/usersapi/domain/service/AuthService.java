@@ -1,6 +1,5 @@
 package university.jala.usersapi.domain.service;
 
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -73,7 +72,6 @@ public final class AuthService {
   public AuthenticationResponseDTO register(
       final RegisterRequestDTO registerRequest) {
     User user = User.builder()
-        .id(UUID.randomUUID().toString())
         .name(registerRequest.getName())
         .login(registerRequest.getLogin())
         .password(passwordEncoder.encode(registerRequest.getPassword()))
