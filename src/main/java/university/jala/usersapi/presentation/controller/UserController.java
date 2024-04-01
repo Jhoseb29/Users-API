@@ -1,18 +1,26 @@
 package university.jala.usersapi.presentation.controller;
 
 import org.springframework.http.HttpStatus;
+import java.util.Optional;
+
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
-import university.jala.usersapi.domain.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import university.jala.usersapi.domain.models.User;
+import university.jala.usersapi.domain.service.UserService;
+
 
 import java.util.List;
-import java.util.Optional;
+
 
 
 /**
@@ -24,6 +32,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
+@Setter
 public class UserController {
 
   /**
@@ -71,5 +80,42 @@ public class UserController {
     }
   }
 
+  /**
+   * @param request The updated user data
+   * @param id      The ID of the user to be updated
+   * @return The updated user
+   */
+  @PutMapping(path = "/{id}")
+  public ResponseEntity<?> updateUserById(@RequestBody final User request,
+      @PathVariable("id") final String id) {
+    User updatedUser = this.userService.updateByID(request, id);
+    if (updatedUser != null) {
+      return ResponseEntity.status(HttpStatus.OK).body(updatedUser);
+    } else {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND)
+          .body("El usuario con el ID: " + id + " no fue encontrado.");
+    }
+  }
+
+  /**
+   * @param id User ID
+   * @return It will return a status of ok if the user is deleted
+   *           and if not found it will return a not found.
+   */
+  @DeleteMapping(path = "/{id}")
+  public ResponseEntity<?> deleteById(@PathVariable final String id) {
+    Optional<User> userFound = userService.deleteById(id);
+    String menssage;
+    String formattMenssage;
+    if (userFound.isPresent()) {
+      menssage = "User %s has been successfully deleted.";
+      formattMenssage = String.format(menssage, userFound.get().getName());
+      return ResponseEntity.status(HttpStatus.OK).body(formattMenssage);
+    } else {
+      menssage = "User not found with ID: %s.";
+      formattMenssage = String.format(menssage, id);
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(formattMenssage);
+    }
+  }
 
 }
