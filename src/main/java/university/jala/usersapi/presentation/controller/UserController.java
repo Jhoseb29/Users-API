@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
 import university.jala.usersapi.domain.models.User;
 import university.jala.usersapi.domain.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import university.jala.usersapi.domain.models.User;
+
 
 import java.util.List;
 
@@ -36,6 +34,7 @@ import java.util.List;
 @RequestMapping("/users")
 @Setter
 public class UserController {
+
   /** userService Instance. **/
   @Autowired
   private UserService userService;

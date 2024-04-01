@@ -47,12 +47,12 @@ public class UserService {
     return userRepository.findAll(PageRequest.of(page, size)).getContent();
   }
 
-    /**
-     * Method get user by Id.
-     *
-     * @param userId
-     * @return user.
-     */
+  /**
+   * Method get user by Id.
+   *
+   * @param userId
+   * @return user.
+   */
   public Optional<User> getUserById(final String userId) {
     return userRepository.findById(userId);
   }
@@ -70,16 +70,15 @@ public class UserService {
     if (optionalUser.isPresent()) {
       User existingUser = optionalUser.get();
       User validatedUser = userValidationService.validateFieldsToUpdate(
-          existingUser, request);
+              existingUser, request);
       return userRepository.save(validatedUser);
     }
     return null;
   }
-}
 
   /**
    * @param id User ID
-   * @return Returns Boolean if the User is deleted.
+   * @return Returns User if the User is deleted.
    */
   public Optional<User> deleteById(final String id) {
     Optional<User> user = getUserById(id);
