@@ -10,33 +10,22 @@ import university.jala.usersapi.domain.models.User;
 public class UserValidationService {
 
   /**
-   * Validates the fields to update in a user object. If a field in the
-   * updatedUser is not null, it updates the corresponding field in the
-   * validatedUser. If a field in the updatedUser is null, it retains the value
-   * from the existingUser.
+   * Updates the fields of an existing user with the data from an updated
+   * user.
    *
-   * @param existingUser The existing user object with current values.
-   * @param updatedUser  The updated user object with new values.
-   * @return A user object with validated fields based on the update operation.
+   * @param existingUser The existing user
+   * @param updatedUser  The updated user data
    */
-  public User validateFieldsToUpdate(final User existingUser,
+  public void validateFieldsToUpdate(final User existingUser,
       final User updatedUser) {
-    User validatedUser = new User();
     if (updatedUser.getName() != null) {
-      validatedUser.setName(updatedUser.getName());
-    } else {
-      validatedUser.setName(existingUser.getName());
+      existingUser.setName(updatedUser.getName());
     }
     if (updatedUser.getLogin() != null) {
-      validatedUser.setLogin(updatedUser.getLogin());
-    } else {
-      validatedUser.setLogin(existingUser.getLogin());
+      existingUser.setLogin(updatedUser.getLogin());
     }
     if (updatedUser.getPassword() != null) {
-      validatedUser.setPassword(updatedUser.getPassword());
-    } else {
-      validatedUser.setPassword(existingUser.getPassword());
+      existingUser.setPassword(updatedUser.getPassword());
     }
-    return validatedUser;
   }
 }
