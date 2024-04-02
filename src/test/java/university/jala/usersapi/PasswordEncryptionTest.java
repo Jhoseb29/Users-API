@@ -17,6 +17,8 @@ import university.jala.usersapi.domain.service.AuthService;
 import university.jala.usersapi.domain.service.JwtService;
 import university.jala.usersapi.domain.models.dto.AuthenticationResponseDTO;
 import university.jala.usersapi.domain.models.dto.RegisterRequestDTO;
+import university.jala.usersapi.domain.service.exception.WrongDataException;
+import university.jala.usersapi.domain.util.RequestDataValidatorUtil;
 import university.jala.usersapi.persistance.repository.UserRepository;
 
 
@@ -35,11 +37,12 @@ public class PasswordEncryptionTest {
 
   public PasswordEncryptionTest() {
     MockitoAnnotations.openMocks(this);
-    this.authService = new AuthService(userRepository, jwtService, passwordEncoder, null);
+    this.authService = new AuthService(userRepository, jwtService, passwordEncoder, null,
+        new RequestDataValidatorUtil());
   }
 
   @Test
-  public void testPasswordEncryption() {
+  public void testPasswordEncryption() throws Exception {
     RegisterRequestDTO registerRequestDTO = new RegisterRequestDTO();
     registerRequestDTO.setName("John Doe");
     registerRequestDTO.setLogin("johndoe@example.com");

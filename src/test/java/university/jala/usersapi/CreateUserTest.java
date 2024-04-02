@@ -16,6 +16,7 @@ import university.jala.usersapi.domain.models.User;
 import university.jala.usersapi.domain.service.AuthService;
 import university.jala.usersapi.domain.models.dto.AuthenticationResponseDTO;
 import university.jala.usersapi.domain.models.dto.RegisterRequestDTO;
+import university.jala.usersapi.domain.service.exception.WrongDataException;
 import university.jala.usersapi.presentation.controller.AuthController;
 
 
@@ -45,7 +46,7 @@ public class CreateUserTest {
    */
 
   @Test
-  public void testCreateUser() {
+  public void testCreateUser() throws Exception {
 
     RegisterRequestDTO registerRequestDTO = new RegisterRequestDTO();
     registerRequestDTO.setName("TestUser");

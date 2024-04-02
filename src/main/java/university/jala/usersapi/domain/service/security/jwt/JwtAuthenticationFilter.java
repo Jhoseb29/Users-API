@@ -26,12 +26,12 @@ import university.jala.usersapi.domain.service.JwtService;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
   /**
-   * Service for handling JWT tokens.
+   * UserDataService for handling JWT tokens.
    */
   private final JwtService jwtService;
 
   /**
-   * Service for loading user details.
+   * UserDataService for loading user details.
    */
   private final UserDetailsService userDetailsService;
 

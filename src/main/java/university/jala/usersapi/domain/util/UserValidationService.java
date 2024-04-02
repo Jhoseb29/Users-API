@@ -1,4 +1,4 @@
-package university.jala.usersapi.domain.service;
+package university.jala.usersapi.domain.util;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -7,7 +7,8 @@ import university.jala.usersapi.domain.models.User;
 import university.jala.usersapi.domain.models.dto.UserDTOById;
 
 /**
- * Service class responsible for validating user fields when updating a user.
+ * UserDataService class responsible for
+ * validating user fields when updating a user.
  */
 @Service
 @RequiredArgsConstructor
