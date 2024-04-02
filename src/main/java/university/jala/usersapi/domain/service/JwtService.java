@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 
 /**
- * Service class responsible for generating and validating JWT tokens.
+ * UserDataService class responsible for generating and validating JWT tokens.
  */
 @Service
 public class JwtService {

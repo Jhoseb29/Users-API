@@ -1,14 +1,16 @@
 package university.jala.usersapi.domain.service;
 
 import java.util.Optional;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import university.jala.usersapi.domain.models.User;
 import university.jala.usersapi.domain.models.dto.UserDTO;
 import university.jala.usersapi.domain.models.dto.UserDTOById;
 import university.jala.usersapi.domain.models.mapper.UserMapper;
+import university.jala.usersapi.domain.util.UserValidationService;
 import university.jala.usersapi.persistance.repository.UserRepository;
 
 
@@ -17,13 +19,16 @@ import java.util.stream.Collectors;
 
 
 /**
- * This class contains the logic to perform CRUD operations related to users.
- * It is used by the controller to handle HTTP requests related to users. It
- * uses a UserRepository to handle CRUD Operations on the db.
+ * This class contains the logic to perform CRUD
+ * operations related to users. It is used by the
+ * controller to handle HTTP requests related to users.
+ * It uses a UserRepository to handle CRUD
+ * Operations on the db.
  */
-@Service
+@Component
 @Setter
-public class UserService {
+@RequiredArgsConstructor
+public class UserService implements UserDataService {
 
   /**
    * UserRepository Instance.

@@ -17,20 +17,21 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
 import university.jala.usersapi.domain.models.dto.UserDTO;
 import university.jala.usersapi.domain.models.dto.UserDTOById;
-import university.jala.usersapi.domain.service.UserService;
+import university.jala.usersapi.domain.service.UserDataService;
 
 
 import java.util.List;
 
 
 /**
- * This class defines the endpoints related to user operations. The endpoints
- * are mapped through the {@link RequestMapping} ("/users") annotation. Uses a
- * UserService for data persistence in the database.
+ * This class defines the endpoints related to user operations.
+ * The endpoints are mapped through the
+ * {@link RequestMapping} ("/users") annotation.
+ * Uses a UserService for data persistence in the
+ * database.
  */
-
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/usersapi/v1/users")
 @Setter
 public class UserController {
 
@@ -38,7 +39,7 @@ public class UserController {
    * userService Instance.
    **/
   @Autowired
-  private UserService userService;
+  private UserDataService userDataService;
 
   /**
    * @param page The page number (default: 0)
@@ -50,7 +51,7 @@ public class UserController {
       @RequestParam(defaultValue = "0") final int page,
       @RequestParam(defaultValue = "10") final int size) {
     try {
-      List<UserDTO> usersDTO = userService.getAllUsersDTO(page, size);
+      List<UserDTO> usersDTO = userDataService.getAllUsersDTO(page, size);
       if (usersDTO.isEmpty()) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
             .body("No users found");
@@ -65,12 +66,12 @@ public class UserController {
   /**
    * Get user by id controller.
    *
-   * @param userId
+   * @param userId userId.
    * @return response (found or not found).
    */
   @GetMapping("/{userId}")
   public ResponseEntity<?> getUserById(@PathVariable final String userId) {
-    Optional<UserDTOById> user = userService.getUserById(userId);
+    Optional<UserDTOById> user = userDataService.getUserById(userId);
     if (user.isPresent()) {
       return ResponseEntity.status(HttpStatus.OK).body(user);
     } else {
@@ -90,7 +91,8 @@ public class UserController {
   public ResponseEntity<?> updateUserById(
       @RequestBody final UserDTOById request,
       @PathVariable("userId") final String userId) {
-    UserDTOById updatedUser = this.userService.updateByID(request, userId);
+    UserDTOById updatedUser = this.userDataService.updateByID(request, userId);
+
     if (updatedUser != null) {
       return ResponseEntity.status(HttpStatus.OK).body(updatedUser);
     } else {
@@ -101,22 +103,23 @@ public class UserController {
 
   /**
    * @param id User ID
-   * @return It will return a status of ok if the user is deleted and if not
-   * found it will return a not found.
+   * @return It will return a status of ok
+   * if the user is deleted and if not found it will return a
+   * not found.
    */
   @DeleteMapping(path = "/{id}")
   public ResponseEntity<?> deleteById(@PathVariable final String id) {
-    Optional<UserDTOById> userFound = userService.deleteById(id);
-    String menssage;
-    String formattMenssage;
+    Optional<UserDTOById> userFound = userDataService.deleteById(id);
+    String message;
+    String formatMessage;
     if (userFound.isPresent()) {
-      menssage = "User %s has been successfully deleted.";
-      formattMenssage = String.format(menssage, userFound.get().getName());
-      return ResponseEntity.status(HttpStatus.OK).body(formattMenssage);
+      message = "User %s has been successfully deleted.";
+      formatMessage = String.format(message, userFound.get().getName());
+      return ResponseEntity.status(HttpStatus.OK).body(formatMessage);
     } else {
-      menssage = "User not found with ID: %s.";
-      formattMenssage = String.format(menssage, id);
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(formattMenssage);
+      message = "User not found with ID: %s.";
+      formatMessage = String.format(message, id);
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(formatMessage);
     }
   }
 
