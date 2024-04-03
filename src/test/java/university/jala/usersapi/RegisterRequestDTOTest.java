@@ -49,7 +49,7 @@ public class RegisterRequestDTOTest {
                 .password("password")
                 .build();
 
-        assertNotEquals(registerRequestDTO1, registerRequestDTO2);
+        assertFalse(registerRequestDTO1.equals(registerRequestDTO2));
     }
 
     // Create a new instance of RegisterRequestDTO with an empty name and verify that the name field is correctly set.
