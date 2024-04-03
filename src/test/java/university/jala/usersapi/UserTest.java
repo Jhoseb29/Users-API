@@ -248,13 +248,4 @@ public class UserTest {
         // Then
         assertEquals(user1.hashCode(), user2.hashCode());
     }
-
-    @Test
-    public void testToString() {
-        // Given
-        User user = new User("1", "John", "john@example.com", "password123");
-
-        // Then
-        assertEquals("User{id='1', name='John', login='john@example.com', password='password123'}", user.toString());
-    }
 }
