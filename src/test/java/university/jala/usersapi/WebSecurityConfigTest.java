@@ -3,54 +3,75 @@ package university.jala.usersapi;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import university.jala.usersapi.domain.service.security.configuration.WebSecurityConfig;
 import university.jala.usersapi.domain.service.security.jwt.JwtAuthenticationFilter;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.matches;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WebSecurityConfigTest {
-
-    @InjectMocks
-    private WebSecurityConfig webSecurityConfig;
 
     @Mock
     private JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Mock
-    private AuthenticationProvider authenticationProvider;
+    private HttpSecurity http;
 
     @Mock
-    private HttpSecurity httpSecurity;
+    private HttpSecurity httpAfterFilter;
 
     @Before
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
+    public void setUp() throws Exception {
+        when(httpAfterFilter.authorizeHttpRequests(any())).thenReturn(httpAfterFilter);
+        when(httpAfterFilter.sessionManagement(any())).thenReturn(httpAfterFilter);
+        when(httpAfterFilter.authenticationProvider(any())).thenReturn(httpAfterFilter);
+        when(httpAfterFilter.addFilterBefore(any(), any())).thenReturn(httpAfterFilter);
+        when(httpAfterFilter.exceptionHandling(any())).thenReturn(httpAfterFilter);
     }
 
     @Test
-    public void testSecurityFilterChain() throws Exception {
-        SecurityFilterChain securityFilterChain = mock(SecurityFilterChain.class);
-        when(httpSecurity.build()).thenReturn((DefaultSecurityFilterChain) securityFilterChain);
+    public void givenSecurityConfig_whenCreatingFilterChain_thenAddJwtFilterBeforeUsernamePasswordFilter() throws Exception {
+        // Given
+        WebSecurityConfig webSecurityConfig = new WebSecurityConfig(jwtAuthenticationFilter, null);
 
-        webSecurityConfig.securityFilterChain(httpSecurity);
+        // When
+        SecurityFilterChain filterChain = webSecurityConfig.securityFilterChain(http);
 
-        verify(httpSecurity, times(1)).csrf(any());
-        verify(httpSecurity, times(1)).authorizeHttpRequests(any());
-        verify(httpSecurity, times(1)).sessionManagement(any());
-        verify(httpSecurity, times(1)).authenticationProvider(authenticationProvider);
-        verify(httpSecurity, times(1)).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-        verify(httpSecurity, times(1)).exceptionHandling(any());
-        verify(httpSecurity, times(1)).build();
+        // Then
+        verify(httpAfterFilter).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+    }
+
+    @Test
+    public void givenSecurityConfig_whenCreatingFilterChain_WithoutAuthentication() throws Exception {
+        // Given
+        WebSecurityConfig webSecurityConfig = new WebSecurityConfig(jwtAuthenticationFilter, null);
+
+        // When
+        SecurityFilterChain filterChain = webSecurityConfig.securityFilterChain(http);
+
+        // Then
+        verify(httpAfterFilter.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry
+                -> matches("/usersapi/v1/auth/**")));
+    }
+
+    @Test
+    public void givenSecurityConfig_thenRequireAuthenticationForOtherRequests() throws Exception {
+        // Given
+        WebSecurityConfig webSecurityConfig = new WebSecurityConfig(jwtAuthenticationFilter, null);
+
+        // When
+        SecurityFilterChain filterChain = webSecurityConfig.securityFilterChain(http);
+
+        // Then
+        verify(httpAfterFilter.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry
+                -> matches("/usersapi/v1/auth/**")));
     }
 }
