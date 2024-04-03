@@ -4,8 +4,8 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
-import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -28,7 +28,7 @@ public class UserTest {
         validator = factory.getValidator();
     }
 
-    @Before
+    @BeforeEach
     public void setUp() {
         user = new User();
         user.setName("testUser");
