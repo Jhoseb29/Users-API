@@ -47,7 +47,7 @@ public class JwtService {
    * @param userDetails The user details to be included in the token.
    * @return The JWT token.
    */
-  public String getToken(final HashMap<String, Object> extraClaims,
+  private String getToken(final HashMap<String, Object> extraClaims,
                          final UserDetails userDetails) {
     return Jwts
         .builder()
@@ -101,7 +101,7 @@ public class JwtService {
    * @param token The JWT token.
    * @return All claims extracted from the token.
    */
-  public Claims getAllClaims(final String token) {
+  private Claims getAllClaims(final String token) {
     return Jwts
         .parserBuilder()
         .setSigningKey(getKey())
@@ -130,7 +130,7 @@ public class JwtService {
    * @param token The JWT token.
    * @return The expiration date of the token.
    */
-  public Date getExpiration(final String token) {
+  private Date getExpiration(final String token) {
     return getClaim(token, Claims::getExpiration);
   }
 
@@ -141,7 +141,7 @@ public class JwtService {
    * @param token The JWT token.
    * @return True if the token has expired, otherwise false.
    */
-  public boolean isTokenExpired(final String token) {
+  private boolean isTokenExpired(final String token) {
     return getExpiration(token).before(new Date());
   }
 }

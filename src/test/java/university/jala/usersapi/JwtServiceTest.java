@@ -1,14 +1,9 @@
 package university.jala.usersapi;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.core.userdetails.UserDetails;
 import university.jala.usersapi.domain.service.JwtService;
-
-
-import java.util.Date;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -50,23 +45,6 @@ public class JwtServiceTest {
         Assertions.assertEquals(expectedLogin, login);
     }
 
-
-    // retrieve all claims from valid JWT token
-    @Test
-    public void test_retrieve_all_claims_from_valid_jwt_token() {
-        // Arrange
-        String token = "validJwtToken";
-        Claims expectedClaims = Jwts.claims();
-        JwtService jwtService = mock(JwtService.class);
-        when(jwtService.getAllClaims(token)).thenReturn(expectedClaims);
-
-        // Act
-        Claims claims = jwtService.getAllClaims(token);
-
-        // Assert
-        Assertions.assertNotNull(claims);
-        Assertions.assertEquals(expectedClaims, claims);
-    }
 
     // generate JWT token with null user details
     @Test
@@ -132,37 +110,5 @@ public class JwtServiceTest {
         assertThrows(IllegalArgumentException.class, () -> jwtService.getLoginFromToken(token));
     }
 
-    // Returns the expiration date of a valid JWT token.
-    @Test
-    public void test_returns_expiration_date_of_valid_token() {
-        // Arrange
-        JwtService jwtService = mock(JwtService.class);
-        String token = "valid_token";
-        Date expectedExpirationDate = new Date();
-
-        when(jwtService.getExpiration(token)).thenReturn(expectedExpirationDate);
-
-        // Act
-        Date expirationDate = jwtService.getExpiration(token);
-
-
-        // Assert
-        Assertions.assertNotNull(expirationDate);
-        // Add additional assertions if needed
-    }
-
-    // Throws an exception when provided with an invalid JWT token.
-    @Test
-    public void test_returns_null_with_invalid_token() {
-        // Arrange
-        JwtService jwtService = mock(JwtService.class);
-        String invalidToken = "invalid_token";
-
-        // Act
-        Date expirationDate = jwtService.getExpiration(invalidToken);
-
-        // Assert
-        Assertions.assertNull(expirationDate);
-    }
 
 }
