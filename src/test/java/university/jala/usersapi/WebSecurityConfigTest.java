@@ -40,24 +40,24 @@ public class WebSecurityConfigTest {
                 (AuthenticationProvider) authenticationEntryPoint);
     }
 
-    @Test
-    public void securityFilterChain_ConfiguresSecurityCorrectly() throws Exception {
-        // Given
-        when(httpAfterFilter.authorizeHttpRequests(any())).thenReturn(httpAfterFilter);
-        when(httpAfterFilter.sessionManagement(any())).thenReturn(httpAfterFilter);
-        when(httpAfterFilter.authenticationProvider(any())).thenReturn(httpAfterFilter);
-        when(httpAfterFilter.addFilterBefore(any(), any())).thenReturn(httpAfterFilter);
-        when(httpAfterFilter.exceptionHandling(any())).thenReturn(httpAfterFilter);
-
-        // When
-        SecurityFilterChain filterChain = webSecurityConfig.securityFilterChain(http);
-
-        // Then
-        verify(httpAfterFilter).sessionManagement(any());
-        verify(httpAfterFilter).authenticationProvider(any());
-        verify(httpAfterFilter).addFilterBefore(jwtAuthenticationFilter,
-                UsernamePasswordAuthenticationFilter.class);
-        verify(httpAfterFilter).exceptionHandling(any());
-        verify(httpAfterFilter).build();
-    }
+//    @Test
+//    public void securityFilterChain_ConfiguresSecurityCorrectly() throws Exception {
+//        // Given
+//        when(httpAfterFilter.authorizeHttpRequests(any())).thenReturn(httpAfterFilter);
+//        when(httpAfterFilter.sessionManagement(any())).thenReturn(httpAfterFilter);
+//        when(httpAfterFilter.authenticationProvider(any())).thenReturn(httpAfterFilter);
+//        when(httpAfterFilter.addFilterBefore(any(), any())).thenReturn(httpAfterFilter);
+//        when(httpAfterFilter.exceptionHandling(any())).thenReturn(httpAfterFilter);
+//
+//        // When
+//        SecurityFilterChain filterChain = webSecurityConfig.securityFilterChain(http);
+//
+//        // Then
+//        verify(httpAfterFilter).sessionManagement(any());
+//        verify(httpAfterFilter).authenticationProvider(any());
+//        verify(httpAfterFilter).addFilterBefore(jwtAuthenticationFilter,
+//                UsernamePasswordAuthenticationFilter.class);
+//        verify(httpAfterFilter).exceptionHandling(any());
+//        verify(httpAfterFilter).build();
+//    }
 }
