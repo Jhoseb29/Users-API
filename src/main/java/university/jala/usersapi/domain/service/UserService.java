@@ -10,20 +10,18 @@ import university.jala.usersapi.domain.models.User;
 import university.jala.usersapi.domain.models.dto.UserDTO;
 import university.jala.usersapi.domain.models.dto.UserDTOById;
 import university.jala.usersapi.domain.models.mapper.UserMapper;
-import university.jala.usersapi.domain.util.UserValidationService;
+import university.jala.usersapi.domain.util.PasswordEncrypterUtil;
+import university.jala.usersapi.domain.util.UpdatableValidationUtil;
 import university.jala.usersapi.persistance.repository.UserRepository;
 
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 /**
- * This class contains the logic to perform CRUD
- * operations related to users. It is used by the
- * controller to handle HTTP requests related to users.
- * It uses a UserRepository to handle CRUD
- * Operations on the db.
+ * This class contains the logic to perform CRUD operations related to users.
+ * It is used by the controller to handle HTTP requests related to users. It
+ * uses a UserRepository to handle CRUD Operations on the db.
  */
 @Component
 @Setter
@@ -37,10 +35,15 @@ public class UserService implements UserDataService {
   private UserRepository userRepository;
 
   /**
-   * UserValidationService Instance.
+   * UpdatableValidationUtil Instance.
    **/
   @Autowired
-  private UserValidationService userValidationService;
+  private UpdatableValidationUtil updatableValidationUtil;
+
+  /**
+   * PasswordEncrypterUtil.
+   */
+  private final PasswordEncrypterUtil passwordEncrypterUtil;
 
   /**
    * @param page The page number
@@ -73,12 +76,21 @@ public class UserService implements UserDataService {
    * @param id      The ID of the user to be updated
    * @return The updated user DTO if found, otherwise null
    */
-  public UserDTOById updateByID(final UserDTOById request, final String id) {
+  public UserDTOById updateByID(final UserDTOById request, final String id)
+      throws Exception {
+
     Optional<User> optionalUser = userRepository.findById(id);
 
     if (optionalUser.isPresent()) {
+
       User existingUser = optionalUser.get();
-      userValidationService.validateFieldsToUpdate(existingUser, request);
+
+      updatableValidationUtil.validateFieldsToUpdate(existingUser, request);
+
+      String newUserHashedPassword = passwordEncrypterUtil.encryptPassword(
+          request.getPassword());
+      existingUser.setPassword(newUserHashedPassword);
+
       userRepository.save(existingUser);
       return UserMapper.convertToDetailedDTO(existingUser);
     }

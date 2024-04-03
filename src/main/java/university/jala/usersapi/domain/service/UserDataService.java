@@ -36,16 +36,14 @@ public interface UserDataService {
    * @param id      the ID of the user to update
    * @return the updated user DTO
    */
-  UserDTOById updateByID(UserDTOById request, String id);
+  UserDTOById updateByID(UserDTOById request, String id) throws Exception;
 
   /**
    * Deletes a user by ID.
    *
    * @param id the ID of the user to delete
-   * @return an optional containing the deleted
-   * user DTO if found and deleted, otherwise empty
+   * @return an optional containing the deleted user DTO if found and deleted,
+   * otherwise empty
    */
   Optional<UserDTOById> deleteById(String id);
-
-
 }
