@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.security.core.GrantedAuthority;
 import university.jala.usersapi.domain.models.User;
@@ -32,6 +31,10 @@ public class UserTest {
     @Before
     public void setUp() {
         user = new User();
+        user.setName("testUser");
+        user.setLogin("test@example");
+        user.setPassword("test123");
+        user.setId("777");
     }
 
     @Test
