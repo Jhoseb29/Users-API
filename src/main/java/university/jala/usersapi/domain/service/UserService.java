@@ -19,9 +19,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * This class contains the logic to perform CRUD operations related to users. It is used by the
- * controller to handle HTTP requests related to users. It uses a UserRepository to handle CRUD
- * Operations on the db.
+ * This class contains the logic to perform CRUD operations related to users.
+ * It is used by the controller to handle HTTP requests related to users.
+ * It uses a UserRepository to handle CRUD Operations on the db.
  */
 @Component
 @Setter

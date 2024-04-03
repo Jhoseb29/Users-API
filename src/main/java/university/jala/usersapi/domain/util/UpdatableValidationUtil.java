@@ -7,7 +7,8 @@ import university.jala.usersapi.domain.models.dto.UserDTOById;
 import university.jala.usersapi.domain.service.exception.WrongDataException;
 
 /**
- * UserDataService class responsible for validating user fields when updating a user.
+ * UserDataService class responsible for validating
+ * user fields when updating a user.
  */
 @Service
 @RequiredArgsConstructor

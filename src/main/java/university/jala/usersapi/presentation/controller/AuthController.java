@@ -3,6 +3,7 @@ package university.jala.usersapi.presentation.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,34 +41,37 @@ public class AuthController {
       @RequestBody final AuthenticationRequestDTO authenticationRequest) {
     try {
       return ResponseEntity.status(HttpStatus.OK)
+          .contentType(MediaType.APPLICATION_JSON)
           .body(authDataService.login(authenticationRequest));
 
     } catch (UserNotFoundException userNotFoundException) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND)
+          .contentType(MediaType.APPLICATION_JSON)
           .body(userNotFoundException.getMessage());
 
     } catch (WrongDataException wrongDataException) {
       return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
+          .contentType(MediaType.APPLICATION_JSON)
           .body(wrongDataException.getMessage());
 
     } catch (WrongCredentialsException wrongDataException) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+          .contentType(MediaType.APPLICATION_JSON)
           .body(wrongDataException.getMessage());
 
     } catch (Exception exception) {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+          .contentType(MediaType.APPLICATION_JSON)
           .body(exception.getMessage());
     }
   }
 
   /**
-   * Registers a new user in the system. This method receives a registration request containing user
-   * information and delegates the registration process to the authentication service.
+   * Registers a new user in the system.
    *
-   * @param registerRequest The registration request containing user information.
-   * @return A ResponseEntity containing the result of the registration process. If successful,
-   * returns an HTTP status code 200 (OK) with the registered user. If an error occurs during
-   * registration, returns an HTTP status code 500 (Internal Server Error) with an error message.
+   * @param registerRequest The registration request
+   *                        containing user information.
+   * @return A ResponseEntity containing the result of the registration process.
    */
   @PostMapping()
   public ResponseEntity<?> userRegister(
@@ -75,14 +79,17 @@ public class AuthController {
 
     try {
       return ResponseEntity.status(HttpStatus.CREATED)
+          .contentType(MediaType.APPLICATION_JSON)
           .body(authDataService.register(registerRequest));
 
     } catch (WrongDataException wrongDataException) {
       return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
+          .contentType(MediaType.APPLICATION_JSON)
           .body(wrongDataException.getMessage());
 
     } catch (Exception exception) {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+          .contentType(MediaType.APPLICATION_JSON)
           .body("Error: " + exception.getMessage());
     }
   }
