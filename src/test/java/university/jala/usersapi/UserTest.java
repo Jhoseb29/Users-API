@@ -183,6 +183,7 @@ public class UserTest {
         // Then
         assertEquals(1, violations.size());
     }
+
     @Test
     public void testDataAnnotation() {
         // Given
@@ -226,5 +227,34 @@ public class UserTest {
         assertEquals(name, user.getName());
         assertEquals(login, user.getLogin());
         assertEquals(password, user.getPassword());
+    }
+
+    @Test
+    public void testEquals() {
+        // Given
+        User user1 = new User("1", "John", "john@example.com", "password123");
+        User user2 = new User("1", "John", "john@example.com", "password123");
+
+        // Then
+        assertEquals(user1, user2);
+    }
+
+    @Test
+    public void testHashCode() {
+        // Given
+        User user1 = new User("1", "John", "john@example.com", "password123");
+        User user2 = new User("1", "John", "john@example.com", "password123");
+
+        // Then
+        assertEquals(user1.hashCode(), user2.hashCode());
+    }
+
+    @Test
+    public void testToString() {
+        // Given
+        User user = new User("1", "John", "john@example.com", "password123");
+
+        // Then
+        assertEquals("User{id='1', name='John', login='john@example.com', password='password123'}", user.toString());
     }
 }
