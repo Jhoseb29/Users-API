@@ -183,4 +183,48 @@ public class UserTest {
         // Then
         assertEquals(1, violations.size());
     }
+    @Test
+    public void testDataAnnotation() {
+        // Given
+        String id = "testId";
+        String name = "John Doe";
+        String login = "johndoe@example.com";
+        String password = "password123";
+
+        // When
+        User user = new User();
+        user.setId(id);
+        user.setName(name);
+        user.setLogin(login);
+        user.setPassword(password);
+
+        // Then
+        assertEquals(id, user.getId());
+        assertEquals(name, user.getName());
+        assertEquals(login, user.getLogin());
+        assertEquals(password, user.getPassword());
+    }
+
+    @Test
+    public void testBuilderAnnotation() {
+        // Given
+        String id = "testId";
+        String name = "John Doe";
+        String login = "johndoe@example.com";
+        String password = "password123";
+
+        // When
+        User user = User.builder()
+                .id(id)
+                .name(name)
+                .login(login)
+                .password(password)
+                .build();
+
+        // Then
+        assertEquals(id, user.getId());
+        assertEquals(name, user.getName());
+        assertEquals(login, user.getLogin());
+        assertEquals(password, user.getPassword());
+    }
 }
