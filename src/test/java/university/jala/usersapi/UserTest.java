@@ -1,13 +1,30 @@
 package university.jala.usersapi;
 
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.security.core.GrantedAuthority;
 import university.jala.usersapi.domain.models.User;
 
 import java.util.Collection;
+import java.util.Set;
 
+import static org.junit.Assert.assertEquals;
+
+@RunWith(MockitoJUnitRunner.class)
 public class UserTest {
+
+    @InjectMocks
+    private User user;
+
+    private final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+    private final Validator validator = factory.getValidator();
 
     @Test
     public void testGetUsername() {
@@ -82,5 +99,77 @@ public class UserTest {
 
         // Then
         Assertions.assertTrue(authorities.isEmpty());
+    }
+
+    @Test
+    public void testIdField() {
+        // Given
+        String id = "testId";
+
+        // When
+        user.setId(id);
+
+        // Then
+        assertEquals(id, user.getId());
+    }
+
+    @Test
+    public void testNameField() {
+        // Given
+        String name = "testName";
+
+        // When
+        user.setName(name);
+
+        // Then
+        assertEquals(name, user.getName());
+    }
+
+    @Test
+    public void testLoginField() {
+        // Given
+        String login = "testLogin";
+
+        // When
+        user.setLogin(login);
+
+        // Then
+        assertEquals(login, user.getLogin());
+    }
+
+    @Test
+    public void testIdValidation() {
+        // Given
+        user.setId("testId"); // ID no debería ser asignado directamente, sino generado automáticamente
+
+        // When
+        Set<ConstraintViolation<User>> violations = validator.validate(user);
+
+        // Then
+        assertEquals(1, violations.size());
+    }
+
+    @Test
+    public void testNameValidation() {
+        // Given
+        user.setName(null);
+
+        // When
+        Set<ConstraintViolation<User>> violations = validator.validate(user);
+
+        // Then
+        assertEquals(1, violations.size());
+    }
+
+    @Test
+    public void testLoginValidation() {
+        // Given
+        user.setLogin("");
+
+        // When
+        Set<ConstraintViolation<User>> violations = validator.validate(user);
+
+        // Then
+        assertEquals(1, violations.size());
     }
 }
