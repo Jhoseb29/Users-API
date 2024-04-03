@@ -1,6 +1,6 @@
 package university.jala.usersapi;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import university.jala.usersapi.domain.service.exception.WrongDataException;
 
 import static org.junit.Assert.assertEquals;
