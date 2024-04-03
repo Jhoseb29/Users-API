@@ -47,8 +47,8 @@ public class JwtService {
    * @param userDetails The user details to be included in the token.
    * @return The JWT token.
    */
-  private String getToken(final HashMap<String, Object> extraClaims,
-      final UserDetails userDetails) {
+  public String getToken(final HashMap<String, Object> extraClaims,
+                         final UserDetails userDetails) {
     return Jwts
         .builder()
         .setClaims(extraClaims)
@@ -101,7 +101,7 @@ public class JwtService {
    * @param token The JWT token.
    * @return All claims extracted from the token.
    */
-  private Claims getAllClaims(final String token) {
+  public Claims getAllClaims(final String token) {
     return Jwts
         .parserBuilder()
         .setSigningKey(getKey())
