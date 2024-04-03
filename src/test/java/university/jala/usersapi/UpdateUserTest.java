@@ -32,7 +32,7 @@ public class UpdateUserTest {
   }
 
   @Test
-  void testUpdateOneUserField() {
+  void testUpdateOneUserField() throws Exception {
     // Arrange
     String userId = "user_id";
     UserDTOById updatedUser = UserDTOById.builder().id(userId).name("New Name")
@@ -59,7 +59,7 @@ public class UpdateUserTest {
   }
 
   @Test
-  void testUpdateAllUserFields() {
+  void testUpdateAllUserFields() throws Exception {
     // Arrange
     String userId = "user_id";
     UserDTOById updatedUser = UserDTOById.builder()

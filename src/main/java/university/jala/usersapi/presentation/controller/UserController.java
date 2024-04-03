@@ -21,14 +21,13 @@ import university.jala.usersapi.domain.service.UserDataService;
 
 
 import java.util.List;
+import university.jala.usersapi.domain.service.exception.UserNotFoundException;
 
 
 /**
- * This class defines the endpoints related to user operations.
- * The endpoints are mapped through the
- * {@link RequestMapping} ("/users") annotation.
- * Uses a UserService for data persistence in the
- * database.
+ * This class defines the endpoints related to user operations. The endpoints
+ * are mapped through the {@link RequestMapping} ("/users") annotation. Uses a
+ * UserService for data persistence in the database.
  */
 @RestController
 @RequestMapping("/usersapi/v1/users")
@@ -91,21 +90,25 @@ public class UserController {
   public ResponseEntity<?> updateUserById(
       @RequestBody final UserDTOById request,
       @PathVariable("userId") final String userId) {
-    UserDTOById updatedUser = this.userDataService.updateByID(request, userId);
-
-    if (updatedUser != null) {
+    try {
+      UserDTOById updatedUser = this.userDataService.updateByID(request,
+          userId);
       return ResponseEntity.status(HttpStatus.OK).body(updatedUser);
-    } else {
+
+    } catch (UserNotFoundException userNotFoundException) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND)
           .body("The user with the ID: " + userId + " was not found.");
+
+    } catch (Exception exception) {
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+          .body(exception.getMessage());
     }
   }
 
   /**
    * @param id User ID
-   * @return It will return a status of ok
-   * if the user is deleted and if not found it will return a
-   * not found.
+   * @return It will return a status of ok if the user is deleted and if not
+   * found it will return a not found.
    */
   @DeleteMapping(path = "/{id}")
   public ResponseEntity<?> deleteById(@PathVariable final String id) {
@@ -122,5 +125,4 @@ public class UserController {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(formatMessage);
     }
   }
-
 }
