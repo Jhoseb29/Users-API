@@ -130,7 +130,7 @@ public class JwtService {
    * @param token The JWT token.
    * @return The expiration date of the token.
    */
-  private Date getExpiration(final String token) {
+  public Date getExpiration(final String token) {
     return getClaim(token, Claims::getExpiration);
   }
 
@@ -141,7 +141,8 @@ public class JwtService {
    * @param token The JWT token.
    * @return True if the token has expired, otherwise false.
    */
-  private boolean isTokenExpired(final String token) {
+  public boolean isTokenExpired(final String token) {
     return getExpiration(token).before(new Date());
   }
 }
+
