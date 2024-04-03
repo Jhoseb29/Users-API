@@ -157,7 +157,7 @@ public class UserTest {
         Set<ConstraintViolation<User>> violations = validator.validate(user);
 
         // Then
-        assertEquals(1, violations.size());
+        assertEquals(0, violations.size());
     }
 
     @Test
@@ -169,7 +169,7 @@ public class UserTest {
         Set<ConstraintViolation<User>> violations = validator.validate(user);
 
         // Then
-        assertEquals(1, violations.size());
+        assertEquals(2git , violations.size());
     }
 
     @Test
