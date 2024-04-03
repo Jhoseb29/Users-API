@@ -12,6 +12,7 @@ import university.jala.usersapi.domain.models.dto.AuthenticationRequestDTO;
 import university.jala.usersapi.domain.models.dto.RegisterRequestDTO;
 import university.jala.usersapi.domain.service.AuthDataService;
 import university.jala.usersapi.domain.service.exception.UserNotFoundException;
+import university.jala.usersapi.domain.service.exception.WrongCredentialsException;
 import university.jala.usersapi.domain.service.exception.WrongDataException;
 
 /**
@@ -46,6 +47,10 @@ public class AuthController {
           .body(userNotFoundException.getMessage());
 
     } catch (WrongDataException wrongDataException) {
+      return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
+          .body(wrongDataException.getMessage());
+
+    } catch (WrongCredentialsException wrongDataException) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
           .body(wrongDataException.getMessage());
 
@@ -56,19 +61,13 @@ public class AuthController {
   }
 
   /**
-   * Registers a new user in the system.
-   * This method receives a registration request containing user
-   * information and delegates the registration process
-   * to the authentication service.
+   * Registers a new user in the system. This method receives a registration request containing user
+   * information and delegates the registration process to the authentication service.
    *
-   * @param registerRequest The registration request containing
-   *                        user information.
-   * @return A ResponseEntity containing the result of the registration process.
-   * If successful,
-   * returns an HTTP status code 200 (OK) with the registered user.
-   * If an error occurs during
-   * registration, returns an HTTP status code 500 (Internal Server Error)
-   * with an error message.
+   * @param registerRequest The registration request containing user information.
+   * @return A ResponseEntity containing the result of the registration process. If successful,
+   * returns an HTTP status code 200 (OK) with the registered user. If an error occurs during
+   * registration, returns an HTTP status code 500 (Internal Server Error) with an error message.
    */
   @PostMapping()
   public ResponseEntity<?> userRegister(
@@ -79,7 +78,7 @@ public class AuthController {
           .body(authDataService.register(registerRequest));
 
     } catch (WrongDataException wrongDataException) {
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+      return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
           .body(wrongDataException.getMessage());
 
     } catch (Exception exception) {

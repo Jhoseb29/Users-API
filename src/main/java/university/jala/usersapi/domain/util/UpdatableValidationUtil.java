@@ -7,8 +7,7 @@ import university.jala.usersapi.domain.models.dto.UserDTOById;
 import university.jala.usersapi.domain.service.exception.WrongDataException;
 
 /**
- * UserDataService class responsible for validating user fields when updating a
- * user.
+ * UserDataService class responsible for validating user fields when updating a user.
  */
 @Service
 @RequiredArgsConstructor
@@ -20,15 +19,13 @@ public class UpdatableValidationUtil {
   private final DataValidator dataValidator;
 
   /**
-   * Updates the fields of an existing user with the data from an updated
-   * user.
+   * Updates the fields of an existing user with the data from an updated user.
    *
    * @param existingUser The existing user
    * @param request      The updated user data
    */
   public void validateFieldsToUpdate(final User existingUser,
       final UserDTOById request) throws WrongDataException {
-    existingUser.setId(request.getId());
 
     if (request.getName() != null) {
       existingUser.setName(request.getName());

@@ -22,12 +22,13 @@ import university.jala.usersapi.domain.service.UserDataService;
 
 import java.util.List;
 import university.jala.usersapi.domain.service.exception.UserNotFoundException;
+import university.jala.usersapi.domain.service.exception.WrongDataException;
 
 
 /**
- * This class defines the endpoints related to user operations. The endpoints
- * are mapped through the {@link RequestMapping} ("/users") annotation. Uses a
- * UserService for data persistence in the database.
+ * This class defines the endpoints related to user operations. The endpoints are mapped through the
+ * {@link RequestMapping} ("/users") annotation. Uses a UserService for data persistence in the
+ * database.
  */
 @RestController
 @RequestMapping("/usersapi/v1/users")
@@ -99,6 +100,10 @@ public class UserController {
       return ResponseEntity.status(HttpStatus.NOT_FOUND)
           .body("The user with the ID: " + userId + " was not found.");
 
+    } catch (WrongDataException wrongDataException) {
+      return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
+          .body(wrongDataException.getMessage());
+
     } catch (Exception exception) {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
           .body(exception.getMessage());
@@ -107,8 +112,8 @@ public class UserController {
 
   /**
    * @param id User ID
-   * @return It will return a status of ok if the user is deleted and if not
-   * found it will return a not found.
+   * @return It will return a status of ok if the user is deleted and if not found it will return a
+   * not found.
    */
   @DeleteMapping(path = "/{id}")
   public ResponseEntity<?> deleteById(@PathVariable final String id) {
