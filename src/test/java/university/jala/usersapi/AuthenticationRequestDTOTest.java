@@ -22,8 +22,8 @@ public class AuthenticationRequestDTOTest {
     @Test
     public void test_verify_correct_login_and_password_values() {
         AuthenticationRequestDTO requestDTO = new AuthenticationRequestDTO("username", "password");
-        assertTrue(requestDTO.getLogin().equals("username"));
-        assertTrue(requestDTO.getPassword().equals("password"));
+        assertEquals("username", requestDTO.getLogin());
+        assertEquals("password", requestDTO.getPassword());
     }
 
     // Create an instance of AuthenticationRequestDTO with empty login and valid password.
@@ -49,7 +49,7 @@ public class AuthenticationRequestDTOTest {
                 .password("password")
                 .build();
         assertNull(requestDTO.getLogin());
-        assertEquals("password", requestDTO.getPassword().toString());
+        assertEquals("password", requestDTO.getPassword());
     }
 
     @Test
@@ -58,7 +58,6 @@ public class AuthenticationRequestDTOTest {
                 .login("username")
                 .password("password")
                 .build();
-        System.out.println(requestDTO.toString());
         assertEquals("password", requestDTO.getPassword());
     }
 
@@ -70,6 +69,14 @@ public class AuthenticationRequestDTOTest {
                 .build();
         System.out.println(requestDTO.toString());
         assertEquals("AuthenticationRequestDTO(login=username, password=password)", requestDTO.toString());
+    }
+
+    @Test
+    public void test_equalsObjets(){
+        AuthenticationRequestDTO requestDTO1 = new AuthenticationRequestDTO("username", "123");
+        AuthenticationRequestDTO requestDTO2 = new AuthenticationRequestDTO("username", "123");
+        assertFalse(requestDTO1.equals(requestDTO2));
+        assertFalse(requestDTO2.equals(requestDTO1));
     }
 
 }
