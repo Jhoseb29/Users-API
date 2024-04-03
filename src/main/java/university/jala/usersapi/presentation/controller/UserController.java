@@ -1,5 +1,7 @@
 package university.jala.usersapi.presentation.controller;
 
+import java.util.HashMap;
+import java.util.Map;
 import org.springframework.http.HttpStatus;
 import java.util.Optional;
 
@@ -22,12 +24,15 @@ import university.jala.usersapi.domain.service.UserDataService;
 
 import java.util.List;
 import university.jala.usersapi.domain.service.exception.UserNotFoundException;
+import university.jala.usersapi.domain.service.exception.WrongDataException;
+import org.springframework.http.MediaType;
 
 
 /**
- * This class defines the endpoints related to user operations. The endpoints
- * are mapped through the {@link RequestMapping} ("/users") annotation. Uses a
- * UserService for data persistence in the database.
+ * This class defines the endpoints related to user operations.
+ * The endpoints are mapped through the
+ * {@link RequestMapping} ("/users") annotation.
+ * Uses a UserService for data persistence in the database.
  */
 @RestController
 @RequestMapping("/usersapi/v1/users")
@@ -49,15 +54,28 @@ public class UserController {
   public ResponseEntity<?> getAllUsers(
       @RequestParam(defaultValue = "0") final int page,
       @RequestParam(defaultValue = "10") final int size) {
+    Map<String, Object> responseMap = new HashMap<>();
+
     try {
       List<UserDTO> usersDTO = userDataService.getAllUsersDTO(page, size);
+
       if (usersDTO.isEmpty()) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
+            .contentType(MediaType.APPLICATION_JSON)
             .body("No users found");
       }
-      return ResponseEntity.status(HttpStatus.OK).body(usersDTO);
+
+      responseMap.put("count", usersDTO.size());
+      responseMap.put("users", usersDTO);
+
+      return ResponseEntity
+          .status(HttpStatus.OK)
+          .contentType(MediaType.APPLICATION_JSON)
+          .body(responseMap);
+
     } catch (Exception exception) {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+          .contentType(MediaType.APPLICATION_JSON)
           .body("Error recovering users: " + exception.getMessage());
     }
   }
@@ -69,12 +87,16 @@ public class UserController {
    * @return response (found or not found).
    */
   @GetMapping("/{userId}")
-  public ResponseEntity<?> getUserById(@PathVariable final String userId) {
+  public ResponseEntity<?> getUserById(
+      @PathVariable final String userId) {
     Optional<UserDTOById> user = userDataService.getUserById(userId);
     if (user.isPresent()) {
-      return ResponseEntity.status(HttpStatus.OK).body(user);
+      return ResponseEntity.status(HttpStatus.OK)
+          .contentType(MediaType.APPLICATION_JSON)
+          .body(user);
     } else {
       return ResponseEntity.status(HttpStatus.NOT_FOUND)
+          .contentType(MediaType.APPLICATION_JSON)
           .body("User not found with ID: " + userId);
     }
   }
@@ -93,22 +115,32 @@ public class UserController {
     try {
       UserDTOById updatedUser = this.userDataService.updateByID(request,
           userId);
-      return ResponseEntity.status(HttpStatus.OK).body(updatedUser);
+      return ResponseEntity.status(HttpStatus.OK)
+          .contentType(MediaType.APPLICATION_JSON)
+          .body(updatedUser);
 
     } catch (UserNotFoundException userNotFoundException) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND)
+          .contentType(MediaType.APPLICATION_JSON)
           .body("The user with the ID: " + userId + " was not found.");
+
+    } catch (WrongDataException wrongDataException) {
+      return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
+          .contentType(MediaType.APPLICATION_JSON)
+          .body(wrongDataException.getMessage());
 
     } catch (Exception exception) {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+          .contentType(MediaType.APPLICATION_JSON)
           .body(exception.getMessage());
     }
   }
 
   /**
    * @param id User ID
-   * @return It will return a status of ok if the user is deleted and if not
-   * found it will return a not found.
+   * @return It will return a status of ok if the user
+   * is deleted and if not found it will return a
+   * not found.
    */
   @DeleteMapping(path = "/{id}")
   public ResponseEntity<?> deleteById(@PathVariable final String id) {
@@ -118,11 +150,15 @@ public class UserController {
     if (userFound.isPresent()) {
       message = "User %s has been successfully deleted.";
       formatMessage = String.format(message, userFound.get().getName());
-      return ResponseEntity.status(HttpStatus.OK).body(formatMessage);
+      return ResponseEntity.status(HttpStatus.OK)
+          .contentType(MediaType.APPLICATION_JSON)
+          .body(formatMessage);
     } else {
       message = "User not found with ID: %s.";
       formatMessage = String.format(message, id);
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(formatMessage);
+      return ResponseEntity.status(HttpStatus.NOT_FOUND)
+          .contentType(MediaType.APPLICATION_JSON)
+          .body(formatMessage);
     }
   }
 }

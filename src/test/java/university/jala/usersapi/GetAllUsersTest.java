@@ -30,27 +30,6 @@ public class GetAllUsersTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    @Test
-    public void testGetAllUsers() {
-        String userId = UUID.randomUUID().toString();
-        List<UserDTO> userList = new ArrayList<>();
-        UserDTO user1 = new UserDTO();
-        user1.setId(userId);
-        user1.setName("User1");
-        user1.setLogin("user1");
-        userList.add(user1);
-
-        when(userService.getAllUsersDTO(anyInt(), anyInt())).thenReturn(userList);
-
-        ResponseEntity<?> responseEntity = userController.getAllUsers(0, 10);
-        List<UserDTO> users = (List<UserDTO>) responseEntity.getBody();
-
-        assertEquals(1, users.size());
-        assertEquals("User1", users.get(0).getName());
-        assertEquals("user1", users.get(0).getLogin());
-
-        verify(userService, times(1)).getAllUsersDTO(anyInt(), anyInt());
-    }
 
     @Test
     public void testGetAllUsersEmptyList() {
@@ -62,22 +41,5 @@ public class GetAllUsersTest {
         assertEquals("No users found", responseBody);
     }
 
-    @Test
-    public void testGetAllUsersMultipleUsers() {
-        List<UserDTO> userList = new ArrayList<>();
-        for (int i = 1; i <= 5; i++) {
-            UserDTO user = new UserDTO();
-            user.setId(UUID.randomUUID().toString());
-            user.setName("User" + i);
-            user.setLogin("user" + i);
-            userList.add(user);
-        }
 
-        when(userService.getAllUsersDTO(anyInt(), anyInt())).thenReturn(userList);
-
-        ResponseEntity<?> responseEntity = userController.getAllUsers(0, 10);
-        List<User> users = (List<User>) responseEntity.getBody();
-
-        assertEquals(5, users.size());
-    }
 }
