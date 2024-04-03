@@ -3,8 +3,10 @@ package university.jala.usersapi;
 
 import university.jala.usersapi.domain.models.dto.UserDTOById;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 
 public class UserDTOByIdTest {
 
