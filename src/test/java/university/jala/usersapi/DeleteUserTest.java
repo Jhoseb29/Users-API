@@ -1,6 +1,5 @@
 package university.jala.usersapi;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -27,8 +26,7 @@ public class DeleteUserTest {
     @InjectMocks
     private UserController userController;
 
-    @Before
-    public void setUp(){
+    public DeleteUserTest(){
         MockitoAnnotations.openMocks(this);
     }
 
