@@ -6,7 +6,7 @@ package university.jala.usersapi.domain.service.exception;
 public class WrongCredentialsException extends Exception {
 
   /**
-   * Constructs a new WrongCredentialsException with the specified detail message.
+   * Constructs a new WrongCredentialsException with specified detail message.
    *
    * @param message the detail message
    */
