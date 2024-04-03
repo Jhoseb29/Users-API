@@ -21,11 +21,13 @@ import static org.junit.Assert.assertEquals;
 @RunWith(MockitoJUnitRunner.class)
 public class UserTest {
 
-    @InjectMocks
     private User user;
+    private final Validator validator;
 
-    private final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-    private final Validator validator = factory.getValidator();
+    public UserTest() {
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        validator = factory.getValidator();
+    }
 
     @Before
     public void setUp() {
@@ -146,7 +148,7 @@ public class UserTest {
     @Test
     public void testIdValidation() {
         // Given
-        user.setId("testId"); // ID no debería ser asignado directamente, sino generado automáticamente
+        user.setId("testId");
 
         // When
         Set<ConstraintViolation<User>> violations = validator.validate(user);
