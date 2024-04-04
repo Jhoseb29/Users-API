@@ -9,10 +9,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class RegisterRequestDTOTest {
 
-
     // Create a new instance of RegisterRequestDTO with valid name, login, and password.
     @Test
-    public void test_create_instance_with_valid_fields() {
+    public void testCreateInstanceWithValidFields() {
         RegisterRequestDTO registerRequestDTO = new RegisterRequestDTO();
         registerRequestDTO.setName("John Doe");
         registerRequestDTO.setLogin("johndoe@example.com");
@@ -25,7 +24,7 @@ public class RegisterRequestDTOTest {
 
     // Verify that the name, login, and password fields are correctly set and can be retrieved.
     @Test
-    public void test_getters_and_setters() {
+    public void testGettersAndSetters() {
         RegisterRequestDTO registerRequestDTO = new RegisterRequestDTO();
         registerRequestDTO.setName("John Doe");
         registerRequestDTO.setLogin("johndoe@example.com");
@@ -36,27 +35,9 @@ public class RegisterRequestDTOTest {
         assertEquals("password", registerRequestDTO.getPassword());
     }
 
-    // Verify that two instances of RegisterRequestDTO with the same name, login, and password are equal.
-    @Test
-    public void test_equals() {
-        RegisterRequestDTO registerRequestDTO1 = RegisterRequestDTO.builder()
-                .name("John Doe")
-                .login("johndoe@example.com")
-                .password("password")
-                .build();
-
-        RegisterRequestDTO registerRequestDTO2 = RegisterRequestDTO.builder()
-                .name("John Doe")
-                .login("johndoe@example.com")
-                .password("password")
-                .build();
-
-        assertFalse(registerRequestDTO1.equals(registerRequestDTO2));
-    }
-
     // Create a new instance of RegisterRequestDTO with an empty name and verify that the name field is correctly set.
     @Test
-    public void test_create_instance_with_empty_name() {
+    public void testCreateInstanceWithEmptyName() {
         RegisterRequestDTO registerRequestDTO = new RegisterRequestDTO();
         registerRequestDTO.setName("");
 
@@ -86,6 +67,40 @@ public class RegisterRequestDTOTest {
         // Test hashCode method
         assertEquals(request1.hashCode(), request2.hashCode()); // Equal objects have equal hash codes
         assertNotEquals(request1.hashCode(), request3.hashCode()); // Different objects should have different hash codes
+
+        // Mismo objeto
+        RegisterRequestDTO requestDTO1 = new RegisterRequestDTO("John", "john@example.com", "password123");
+        RegisterRequestDTO requestDTO2 = requestDTO1;
+        assertEquals(requestDTO1, requestDTO2);
+        assertEquals(requestDTO1.hashCode(), requestDTO2.hashCode());
+
+        // Distinto objeto con mismos valores
+        RegisterRequestDTO requestDTO3 = new RegisterRequestDTO("John", "john@example.com", "password123");
+        assertEquals(requestDTO1, requestDTO3);
+        assertEquals(requestDTO1.hashCode(), requestDTO3.hashCode());
+
+        // Distinto objeto con diferente nombre
+        RegisterRequestDTO requestDTO4 = new RegisterRequestDTO("Jane", "john@example.com", "password123");
+        assertNotEquals(requestDTO1, requestDTO4);
+        assertNotEquals(requestDTO1.hashCode(), requestDTO4.hashCode());
+
+        // Distinto objeto con diferente login
+        RegisterRequestDTO requestDTO5 = new RegisterRequestDTO("John", "jane@example.com", "password123");
+        assertNotEquals(requestDTO1, requestDTO5);
+        assertNotEquals(requestDTO1.hashCode(), requestDTO5.hashCode());
+
+        // Distinto objeto con diferente password
+        RegisterRequestDTO requestDTO6 = new RegisterRequestDTO("John", "john@example.com", "differentPassword");
+        assertNotEquals(requestDTO1, requestDTO6);
+        assertNotEquals(requestDTO1.hashCode(), requestDTO6.hashCode());
+
+        // Distinto objeto con diferentes valores
+        RegisterRequestDTO requestDTO7 = new RegisterRequestDTO("Jane", "jane@example.com", "differentPassword");
+        assertNotEquals(requestDTO1, requestDTO7);
+        assertNotEquals(requestDTO1.hashCode(), requestDTO7.hashCode());
+
+        // Comparación con objeto de otra clase
+        assertNotEquals(requestDTO1, "John");
     }
 
     @Test
