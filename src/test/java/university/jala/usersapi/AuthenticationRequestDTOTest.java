@@ -79,4 +79,25 @@ public class AuthenticationRequestDTOTest {
         assertFalse(requestDTO2.equals(requestDTO1));
     }
 
+    @Test
+    public void testEqualHashCodes() {
+        // Crear dos instancias de AuthenticationRequestDTO con los mismos valores
+        AuthenticationRequestDTO request1 = AuthenticationRequestDTO.builder()
+                .login("user1")
+                .password("password1")
+                .build();
+
+        AuthenticationRequestDTO request2 = request1;
+
+        AuthenticationRequestDTO request3 = AuthenticationRequestDTO.builder()
+                .login("user1")
+                .password("password1")
+                .build();
+
+        // Verificar que los hashCode de ambas instancias son iguales
+        assertEquals(request1.hashCode(), request2.hashCode());
+        assertNotEquals(request1.hashCode(), request3.hashCode());
+        assertNotEquals(0, request2.hashCode());
+    }
+
 }

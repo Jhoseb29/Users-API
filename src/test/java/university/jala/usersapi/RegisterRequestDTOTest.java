@@ -127,6 +127,7 @@ public class RegisterRequestDTOTest {
 
         // Equality with a different type of object should return false
         assertFalse(request1.equals(differentTypeObject));
+
     }
 
 }

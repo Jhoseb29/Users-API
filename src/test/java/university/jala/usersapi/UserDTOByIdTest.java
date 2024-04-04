@@ -134,4 +134,29 @@ public class UserDTOByIdTest {
         assertNull(user.getPassword());
     }
 
+    @Test
+    public void testEqualHashCodes() {
+        // Crear dos instancias de UserDTOById con los mismos valores
+        UserDTOById user1 = UserDTOById.builder()
+                .id("123")
+                .name("John Doe")
+                .login("johndoe")
+                .password("password")
+                .build();
+
+        UserDTOById user2 = user1;
+
+        UserDTOById user3 = UserDTOById.builder()
+                .id("123")
+                .name("John Doe")
+                .login("johndoe")
+                .password("password1")
+                .build();
+
+        // Verificar que los hashCode de ambas instancias son iguales
+        assertEquals(user1.hashCode(), user2.hashCode());
+        assertNotEquals(user1.hashCode(), user3.hashCode());
+        assertNotEquals(0, user3.hashCode());
+    }
+
 }
