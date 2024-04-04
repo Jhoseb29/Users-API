@@ -77,4 +77,26 @@ public class UserDTOTest {
         assertNotEquals(userDTO, null);
     }
 
+    @Test
+    public void test_hashCode(){
+
+        UserDTO user1 = UserDTO.builder()
+                .id("123")
+                .name("John Doe")
+                .login("johndoe")
+                .build();
+
+        UserDTO user2 = user1;
+
+        UserDTO user3 = UserDTO.builder()
+                .id("456")
+                .name("Jane Smith")
+                .login("janesmith")
+                .build();
+
+        // Verificar que los hashCode de ambas instancias son iguales
+        assertEquals(user1.hashCode(), user2.hashCode());
+        assertNotEquals(0, user2.hashCode());
+        assertNotEquals(user1.hashCode(), user3.hashCode());
+    }
 }
