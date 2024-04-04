@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class AuthenticationRequestDTOTest {
 
-
     // Create an instance of AuthenticationRequestDTO with valid login and password.
     @Test
     public void test_create_instance_with_valid_login_and_password() {
@@ -79,4 +78,49 @@ public class AuthenticationRequestDTOTest {
         assertFalse(requestDTO2.equals(requestDTO1));
     }
 
+    @Test
+    public void testNoArgsConstructor() {
+        AuthenticationRequestDTO requestDTO = new AuthenticationRequestDTO();
+        assertNull(requestDTO.getLogin());
+        assertNull(requestDTO.getPassword());
+    }
+
+    @Test
+    public void testAllArgsConstructor() {
+        AuthenticationRequestDTO requestDTO = new AuthenticationRequestDTO("username", "password");
+        assertEquals("username", requestDTO.getLogin());
+        assertEquals("password", requestDTO.getPassword());
+    }
+
+    @Test
+    public void testGetterAndSetter() {
+        AuthenticationRequestDTO requestDTO = new AuthenticationRequestDTO();
+        requestDTO.setLogin("username");
+        requestDTO.setPassword("password");
+        assertEquals("username", requestDTO.getLogin());
+        assertEquals("password", requestDTO.getPassword());
+    }
+
+    @Test
+    public void testEqualsAndHashCode() {
+        AuthenticationRequestDTO requestDTO1 = new AuthenticationRequestDTO("username", "password");
+        AuthenticationRequestDTO requestDTO2 = new AuthenticationRequestDTO("username", "password");
+        AuthenticationRequestDTO requestDTO3 = new AuthenticationRequestDTO("differentUsername", "password");
+
+        assertEquals(requestDTO1, requestDTO2);
+        assertNotEquals(requestDTO1, requestDTO3);
+        assertEquals(requestDTO1.hashCode(), requestDTO2.hashCode());
+        assertNotEquals(requestDTO1.hashCode(), requestDTO3.hashCode());
+    }
+
+    @Test
+    public void testBuilder() {
+        AuthenticationRequestDTO requestDTO = AuthenticationRequestDTO.builder()
+                .login("username")
+                .password("password")
+                .build();
+
+        assertEquals("username", requestDTO.getLogin());
+        assertEquals("password", requestDTO.getPassword());
+    }
 }
