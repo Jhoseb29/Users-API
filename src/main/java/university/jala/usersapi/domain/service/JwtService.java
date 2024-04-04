@@ -48,7 +48,7 @@ public class JwtService {
    * @return The JWT token.
    */
   private String getToken(final HashMap<String, Object> extraClaims,
-      final UserDetails userDetails) {
+                         final UserDetails userDetails) {
     return Jwts
         .builder()
         .setClaims(extraClaims)
@@ -145,3 +145,4 @@ public class JwtService {
     return getExpiration(token).before(new Date());
   }
 }
+
