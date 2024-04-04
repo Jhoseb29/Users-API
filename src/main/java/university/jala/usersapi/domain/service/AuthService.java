@@ -12,9 +12,9 @@ import university.jala.usersapi.domain.models.User;
 import university.jala.usersapi.domain.models.dto.AuthenticationRequestDTO;
 import university.jala.usersapi.domain.models.dto.AuthenticationResponseDTO;
 import university.jala.usersapi.domain.models.dto.RegisterRequestDTO;
+import university.jala.usersapi.domain.service.exception.AlreadyExistingUserException;
 import university.jala.usersapi.domain.service.exception.UserNotFoundException;
 import university.jala.usersapi.domain.service.exception.WrongCredentialsException;
-import university.jala.usersapi.domain.service.exception.WrongDataException;
 import university.jala.usersapi.domain.util.DataValidator;
 import university.jala.usersapi.persistance.repository.UserRepository;
 
@@ -112,7 +112,7 @@ public final class AuthService implements AuthDataService {
           .build();
 
     } catch (DataIntegrityViolationException dataIntegrityViolationException) {
-      throw new WrongDataException(
+      throw new AlreadyExistingUserException(
           "The field 'login' already exists in the System.");
     }
   }

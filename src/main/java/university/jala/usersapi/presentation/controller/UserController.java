@@ -1,5 +1,6 @@
 package university.jala.usersapi.presentation.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
+import university.jala.usersapi.domain.models.MessageLogDTO;
 import university.jala.usersapi.domain.models.dto.UserDTO;
 import university.jala.usersapi.domain.models.dto.UserDTOById;
 import university.jala.usersapi.domain.service.UserDataService;
@@ -32,7 +34,8 @@ import org.springframework.http.MediaType;
  * This class defines the endpoints related to user operations.
  * The endpoints are mapped through the
  * {@link RequestMapping} ("/users") annotation.
- * Uses a UserService for data persistence in the database.
+ * Uses a UserService for data persistence in the
+ * database.
  */
 @RestController
 @RequestMapping("/usersapi/v1/users")
@@ -60,9 +63,12 @@ public class UserController {
       List<UserDTO> usersDTO = userDataService.getAllUsersDTO(page, size);
 
       if (usersDTO.isEmpty()) {
+        responseMap.put("errors",
+            new MessageLogDTO(HttpStatus.NOT_FOUND.value(),
+                "No users found"));
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
             .contentType(MediaType.APPLICATION_JSON)
-            .body("No users found");
+            .body(responseMap);
       }
 
       responseMap.put("count", usersDTO.size());
@@ -74,9 +80,13 @@ public class UserController {
           .body(responseMap);
 
     } catch (Exception exception) {
+
+      responseMap.put("errors",
+          new MessageLogDTO(HttpStatus.INTERNAL_SERVER_ERROR.value(),
+              "Error recovering users: " + exception.getMessage()));
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
           .contentType(MediaType.APPLICATION_JSON)
-          .body("Error recovering users: " + exception.getMessage());
+          .body(responseMap);
     }
   }
 
@@ -97,7 +107,9 @@ public class UserController {
     } else {
       return ResponseEntity.status(HttpStatus.NOT_FOUND)
           .contentType(MediaType.APPLICATION_JSON)
-          .body("User not found with ID: " + userId);
+          .body(
+              new MessageLogDTO(HttpStatus.NOT_FOUND.value(),
+                  "User not found with ID: " + userId));
     }
   }
 
@@ -112,6 +124,8 @@ public class UserController {
   public ResponseEntity<?> updateUserById(
       @RequestBody final UserDTOById request,
       @PathVariable("userId") final String userId) {
+    List<MessageLogDTO> messageLogDTOS = new ArrayList<>();
+    Map<String, Object> responseMap = new HashMap<>();
     try {
       UserDTOById updatedUser = this.userDataService.updateByID(request,
           userId);
@@ -120,26 +134,30 @@ public class UserController {
           .body(updatedUser);
 
     } catch (UserNotFoundException userNotFoundException) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND)
-          .contentType(MediaType.APPLICATION_JSON)
-          .body("The user with the ID: " + userId + " was not found.");
+      messageLogDTOS.add(
+          new MessageLogDTO(HttpStatus.NOT_FOUND.value(),
+              userNotFoundException.getMessage()));
 
     } catch (WrongDataException wrongDataException) {
-      return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
-          .contentType(MediaType.APPLICATION_JSON)
-          .body(wrongDataException.getMessage());
+      messageLogDTOS.add(
+          new MessageLogDTO(HttpStatus.UNPROCESSABLE_ENTITY.value(),
+              wrongDataException.getMessage()));
 
     } catch (Exception exception) {
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-          .contentType(MediaType.APPLICATION_JSON)
-          .body(exception.getMessage());
+      messageLogDTOS.add(
+          new MessageLogDTO(HttpStatus.INTERNAL_SERVER_ERROR.value(),
+              exception.getMessage()));
     }
+    responseMap.put("errors", messageLogDTOS);
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        .contentType(MediaType.APPLICATION_JSON)
+        .body(responseMap);
   }
 
   /**
    * @param id User ID
-   * @return It will return a status of ok if the user
-   * is deleted and if not found it will return a
+   * @return It will return a status of
+   * ok if the user is deleted and if not found it will return a
    * not found.
    */
   @DeleteMapping(path = "/{id}")
@@ -152,13 +170,13 @@ public class UserController {
       formatMessage = String.format(message, userFound.get().getName());
       return ResponseEntity.status(HttpStatus.OK)
           .contentType(MediaType.APPLICATION_JSON)
-          .body(formatMessage);
+          .body(new MessageLogDTO(HttpStatus.OK.value(), formatMessage));
     } else {
       message = "User not found with ID: %s.";
       formatMessage = String.format(message, id);
       return ResponseEntity.status(HttpStatus.NOT_FOUND)
           .contentType(MediaType.APPLICATION_JSON)
-          .body(formatMessage);
+          .body(new MessageLogDTO(HttpStatus.NOT_FOUND.value(), formatMessage));
     }
   }
 }

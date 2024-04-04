@@ -11,7 +11,7 @@
   </parent>
   <groupId>university.jala.usersapi</groupId>
   <artifactId>users-api</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0.0</version>
   <name>Users API</name>
   <description>API for managing Users.</description>
   <properties>

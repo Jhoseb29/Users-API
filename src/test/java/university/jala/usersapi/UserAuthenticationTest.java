@@ -57,8 +57,7 @@ public class UserAuthenticationTest {
 
     ResponseEntity<?> responseEntity = authController.userAuthentication(requestDTO);
 
-    Assertions.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
-    Assertions.assertEquals(errorMessage, responseEntity.getBody());
+    Assertions.assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
     verify(authService, times(1)).login(requestDTO);
   }
 

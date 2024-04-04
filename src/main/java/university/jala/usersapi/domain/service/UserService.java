@@ -10,6 +10,7 @@ import university.jala.usersapi.domain.models.User;
 import university.jala.usersapi.domain.models.dto.UserDTO;
 import university.jala.usersapi.domain.models.dto.UserDTOById;
 import university.jala.usersapi.domain.models.mapper.UserMapper;
+import university.jala.usersapi.domain.service.exception.UserNotFoundException;
 import university.jala.usersapi.domain.util.PasswordEncrypterUtil;
 import university.jala.usersapi.domain.util.UpdatableValidationUtil;
 import university.jala.usersapi.persistance.repository.UserRepository;
@@ -96,7 +97,8 @@ public class UserService implements UserDataService {
       userRepository.save(existingUser);
       return UserMapper.convertToDetailedDTO(existingUser);
     }
-    return null;
+    throw new UserNotFoundException(
+        "The user with the ID: " + id + " was not found.");
   }
 
   /**
