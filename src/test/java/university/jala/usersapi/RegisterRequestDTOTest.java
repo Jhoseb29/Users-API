@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
 public class RegisterRequestDTOTest {
 
     // Create a new instance of RegisterRequestDTO with valid name, login, and password.
@@ -69,10 +68,9 @@ public class RegisterRequestDTOTest {
         assertNotEquals(request1.hashCode(), request3.hashCode()); // Different objects should have different hash codes
 
         // Mismo objeto
-        RegisterRequestDTO requestDTO1 = new RegisterRequestDTO("John", "john@example.com", "password123");
-        RegisterRequestDTO requestDTO2 = requestDTO1;
-        assertEquals(requestDTO1, requestDTO2);
-        assertEquals(requestDTO1.hashCode(), requestDTO2.hashCode());
+        RegisterRequestDTO          requestDTO1 = new RegisterRequestDTO("John", "john@example.com", "password123");
+                 assertEquals    (requestDTO1, requestDTO1);
+        assertEquals     (requestDTO1.hashCode(), requestDTO1.hashCode());
 
         // Distinto objeto con mismos valores
         RegisterRequestDTO requestDTO3 = new RegisterRequestDTO("John", "john@example.com", "password123");
