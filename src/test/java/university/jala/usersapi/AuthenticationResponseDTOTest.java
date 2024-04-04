@@ -1,8 +1,8 @@
 package university.jala.usersapi;
 
-import university.jala.usersapi.domain.models.dto.AuthenticationResponseDTO;
-
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import university.jala.usersapi.domain.models.dto.AuthenticationResponseDTO;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -41,4 +41,51 @@ public class AuthenticationResponseDTOTest {
         assertEquals("", responseDTO.getToken());
     }
 
+
+    @Test
+    public void testNoArgsConstructor() {
+        AuthenticationResponseDTO responseDTO = new AuthenticationResponseDTO();
+        assertNull(responseDTO.getToken());
+    }
+
+    @Test
+    public void testAllArgsConstructor() {
+        AuthenticationResponseDTO responseDTO = new AuthenticationResponseDTO("token123");
+        assertEquals("token123", responseDTO.getToken());
+    }
+
+    @Test
+    public void testGetterAndSetter() {
+        AuthenticationResponseDTO responseDTO = new AuthenticationResponseDTO();
+        responseDTO.setToken("token456");
+        assertEquals("token456", responseDTO.getToken());
+    }
+
+    @Test
+    public void testBuilder() {
+        AuthenticationResponseDTO responseDTO = AuthenticationResponseDTO.builder()
+                .token("token789")
+                .build();
+
+        assertEquals("token789", responseDTO.getToken());
+    }
+
+    @Test
+    public void testEqualsAndHashCode() {
+        AuthenticationResponseDTO responseDTO1 = new AuthenticationResponseDTO("token123");
+        AuthenticationResponseDTO responseDTO2 = new AuthenticationResponseDTO("token123");
+        AuthenticationResponseDTO responseDTO3 = new AuthenticationResponseDTO("differentToken");
+
+        assertEquals(responseDTO1, responseDTO2);
+        Assertions.assertNotEquals(responseDTO1, responseDTO3);
+        assertEquals(responseDTO1.hashCode(), responseDTO2.hashCode());
+        Assertions.assertNotEquals(responseDTO1.hashCode(), responseDTO3.hashCode());
+    }
+
+    @Test
+    public void testToString() {
+        AuthenticationResponseDTO responseDTO = new AuthenticationResponseDTO("token123");
+        String expectedString = "AuthenticationResponseDTO(token=token123)";
+        assertEquals(expectedString, responseDTO.toString());
+    }
 }
