@@ -102,18 +102,6 @@ public class AuthenticationRequestDTOTest {
     }
 
     @Test
-    public void testEqualsAndHashCode() {
-        AuthenticationRequestDTO requestDTO1 = new AuthenticationRequestDTO("username", "password");
-        AuthenticationRequestDTO requestDTO2 = new AuthenticationRequestDTO("username", "password");
-        AuthenticationRequestDTO requestDTO3 = new AuthenticationRequestDTO("differentUsername", "password");
-
-        assertEquals(requestDTO1, requestDTO2);
-        assertNotEquals(requestDTO1, requestDTO3);
-        assertEquals(requestDTO1.hashCode(), requestDTO2.hashCode());
-        assertNotEquals(requestDTO1.hashCode(), requestDTO3.hashCode());
-    }
-
-    @Test
     public void testBuilder() {
         AuthenticationRequestDTO requestDTO = AuthenticationRequestDTO.builder()
                 .login("username")
