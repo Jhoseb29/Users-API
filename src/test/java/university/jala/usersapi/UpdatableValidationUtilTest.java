@@ -16,10 +16,9 @@ import static org.mockito.Mockito.*;
 
 public class UpdatableValidationUtilTest {
 
-
     // Should update user name, login and password when all fields are present in the request and valid
     @Test
-    public void test_updateAllFieldsValid() throws WrongDataException {
+    public void testUpdateAllFieldsValid() throws WrongDataException {
         // Arrange
         User existingUser = User.builder().id("1").name("John").login("john123").password("password123").build();
         UserDTOById request = UserDTOById.builder().id("1").name("John Doe").login("john_doe").password("newpassword").build();
@@ -40,7 +39,7 @@ public class UpdatableValidationUtilTest {
 
     // Should update user name, login and password when some fields are present in the request and valid
     @Test
-    public void test_updateSomeFieldsValid() throws WrongDataException {
+    public void testUpdateSomeFieldsValid() throws WrongDataException {
         // Arrange
         User existingUser = User.builder().id("1").name("John").login("john123").password("password123").build();
         UserDTOById request = UserDTOById.builder().id("1").name("John Doe").build();
@@ -61,7 +60,7 @@ public class UpdatableValidationUtilTest {
 
     // Should not update user name, login and password when none of the fields are present in the request
     @Test
-    public void test_noFieldsToUpdate() throws WrongDataException {
+    public void testNoFieldsToUpdate() throws WrongDataException {
         // Arrange
         User existingUser = User.builder().id("1").name("John").login("john123").password("password123").build();
         UserDTOById request = UserDTOById.builder().id("1").build();
@@ -81,7 +80,7 @@ public class UpdatableValidationUtilTest {
 
     // Should not update user name, login and password when all fields are present in the request and some are invalid
     @Test
-    public void test_allFieldsSomeInvalid() throws WrongDataException {
+    public void testAllFieldsSomeInvalid() throws WrongDataException {
         // Arrange
         User existingUser = User.builder().id("1").name("John").login("john123").password("password123").build();
         UserDTOById request = UserDTOById.builder().id("1").name("John Doe").login("john_doe").password("newpassword").build();
@@ -101,7 +100,7 @@ public class UpdatableValidationUtilTest {
 
     // Should throw WrongDataException when user name is invalid
     @Test
-    public void test_invalidUserName() throws WrongDataException {
+    public void testInvalidUserName() throws WrongDataException {
         // Arrange
         User existingUser = User.builder().id("1").name("John").login("john123").password("password123").build();
         UserDTOById request = UserDTOById.builder().id("1").name("John Doe").build();
@@ -119,7 +118,7 @@ public class UpdatableValidationUtilTest {
 
     // Should throw WrongDataException when user login is invalid
     @Test
-    public void test_withOneOrTwoDates() throws WrongDataException {
+    public void testWithOneOrTwoDates() throws WrongDataException {
         // Arrange
         User existingUser = User.builder().id("1").name("John").login("john123").password("password123").build();
         UserDTOById request = UserDTOById.builder().id("1").login("john_doe").build();

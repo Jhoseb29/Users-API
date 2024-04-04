@@ -9,10 +9,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class UserDTOTest {
 
-
     // UserDTO object can be created with valid input parameters
     @Test
-    public void test_createUserDTOWithValidInput() {
+    public void testCreateUserDTOWithValidInput() {
         UserDTO userDTO = new UserDTO("1", "John Doe", "johndoe");
         assertNotNull(userDTO);
         assertEquals("1", userDTO.getId());
@@ -22,7 +21,7 @@ public class UserDTOTest {
 
     // UserDTO object can be updated with valid input parameters
     @Test
-    public void test_updateUserDTOWithValidInput() {
+    public void testUpdateUserDTOWithValidInput() {
         UserDTO userDTO = new UserDTO("1", "John Doe", "johndoe");
         userDTO.setId("2");
         userDTO.setName("Jane Smith");
@@ -34,7 +33,7 @@ public class UserDTOTest {
 
     // UserDTO object can be compared with another UserDTO object with same input parameters
     @Test
-    public void test_compareUserDTOWithSameInputParameters() {
+    public void testCompareUserDTOWithSameInputParameters() {
         UserDTO userDTO1 = new UserDTO("1", "John Doe", "johndoe");
         UserDTO userDTO2 = new UserDTO("1", "John Doe", "johndoe");
         assertEquals(userDTO1, userDTO2);
@@ -42,7 +41,7 @@ public class UserDTOTest {
 
     // UserDTO object can be created with null input parameters
     @Test
-    public void test_createUserDTOWithNullInput() {
+    public void testCreateUserDTOWithNullInput() {
         UserDTO userDTO = new UserDTO(null, null, null);
         assertNotNull(userDTO);
         assertNull(userDTO.getId());
@@ -52,7 +51,7 @@ public class UserDTOTest {
 
     // UserDTO object can be updated with null input parameters
     @Test
-    public void test_updateUserDTOWithNullInput() {
+    public void testUpdateUserDTOWithNullInput() {
         UserDTO userDTO = new UserDTO("1", "John Doe", "johndoe");
         userDTO.setId(null);
         userDTO.setName(null);
@@ -64,7 +63,7 @@ public class UserDTOTest {
 
     // UserDTO object can be compared with another UserDTO object with different input parameters
     @Test
-    public void test_compareUserDTOWithDifferentInputParameters() {
+    public void testCompareUserDTOWithDifferentInputParameters() {
         UserDTO userDTO1 = new UserDTO("1", "John Doe", "johndoe");
         UserDTO userDTO2 = new UserDTO("2", "Jane Smith", "janesmith");
         assertNotEquals(userDTO1, userDTO2);
@@ -72,13 +71,13 @@ public class UserDTOTest {
 
     // UserDTO object can be compared with null object
     @Test
-    public void test_compareUserDTOWithNullObject() {
+    public void testCompareUserDTOWithNullObject() {
         UserDTO userDTO = new UserDTO("1", "John Doe", "johndoe");
         assertNotEquals(userDTO, null);
     }
 
     @Test
-    public void test_hashCode(){
+    public void testHashCode() {
 
         UserDTO user1 = UserDTO.builder()
                 .id("123")

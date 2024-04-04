@@ -25,11 +25,9 @@ import static org.mockito.Mockito.*;
 
 public class AuthServiceTest {
 
-
-
     // Authenticate user with valid credentials and return JWT token
     @Test
-    public void test_authenticate_user_with_valid_credentials() throws Exception {
+    public void testAuthenticateUserWithValidCredentials() throws Exception {
         /* Arrange */
 
         UserRepository userRepository = mock(UserRepository.class);
@@ -60,7 +58,7 @@ public class AuthServiceTest {
 
     // Authenticate user with non-existent login and return failure
     @Test
-    public void test_authenticate_user_with_nonexistent_login() {
+    public void testAuthenticateUserWithNonexistentLogin() {
         // Arrange
         UserRepository userRepository = mock(UserRepository.class);
         AuthenticationManager authenticationManager = mock(AuthenticationManager.class);
@@ -79,8 +77,9 @@ public class AuthServiceTest {
         // Act and Assert
         assertThrows(UserNotFoundException.class, () -> authService.login(authenticationRequest));
     }
+
     @Test
-    public void test_throw_user_not_found_exception_if_user_not_found(){
+    public void testThrowUserNotFoundExceptionIfUserNotFound() {
         UserRepository userRepository = mock(UserRepository.class);
         AuthenticationManager authenticationManager = mock(AuthenticationManager.class);
         DataValidator dataValidator = mock(DataValidator.class);
@@ -98,7 +97,7 @@ public class AuthServiceTest {
 
     // Throw WrongDataException if login or password fields are empty or null
     @Test
-    public void test_throw_wrong_data_exception_if_fields_empty_or_null() throws Exception {
+    public void testThrowWrongDataExceptionIfFieldsEmptyOrNull() throws Exception {
 
         UserRepository userRepository = mock(UserRepository.class);
         AuthenticationManager authenticationManager = mock(AuthenticationManager.class);

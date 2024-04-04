@@ -12,10 +12,9 @@ import static org.mockito.Mockito.when;
 
 public class JwtServiceTest {
 
-
     // generate JWT token with valid user details
     @Test
-    public void test_generate_jwt_token_with_valid_user_details() {
+    public void testGenerateJwtTokenWithValidUserDetails() {
         // Arrange
         UserDetails userDetails = mock(UserDetails.class);
         when(userDetails.getUsername()).thenReturn("testUser");
@@ -28,10 +27,9 @@ public class JwtServiceTest {
         Assertions.assertNotNull(token);
     }
 
-
     // retrieve login username from valid JWT token
     @Test
-    public void test_retrieve_login_username_from_valid_jwt_token() {
+    public void testRetrieveLoginUsernameFromValidJwtToken() {
         // Arrange
         String expectedLogin = "testUser";
         String token = "validJwtToken";
@@ -45,10 +43,9 @@ public class JwtServiceTest {
         Assertions.assertEquals(expectedLogin, login);
     }
 
-
     // generate JWT token with null user details
     @Test
-    public void test_generate_jwt_token_with_null_user_details() {
+    public void testGenerateJwtTokenWithNullUserDetails() {
         // Arrange
         UserDetails userDetails = null;
         JwtService jwtService = mock(JwtService.class);
@@ -58,7 +55,7 @@ public class JwtServiceTest {
         assertThrows(NullPointerException.class, () -> jwtService.getToken(userDetails));
     }
 
-    // retrieve login username from null JWT token
+    // Should return null if provided with a null JWT token
     @Test
     public void testRetrieveLoginUsernameFromNullJwtToken() {
         // Arrange
@@ -84,7 +81,7 @@ public class JwtServiceTest {
     }
 
     @Test
-    public void test_retrieve_login_username_from_valid_jwt_token2() {
+    public void testRetrieveLoginUsernameFromValidJwtToken2() {
         // Arrange
         String expectedLogin = "testUser";
         String token = "validJwtToken";
@@ -97,18 +94,4 @@ public class JwtServiceTest {
         // Assert
         Assertions.assertEquals(expectedLogin, login);
     }
-
-    // Should return null if provided with a null JWT token
-    @Test
-    public void test_retrieve_login_username_from_null_jwt_token() {
-        // Arrange
-        JwtService jwtService = mock(JwtService.class);
-        String token = null;
-        when(jwtService.getLoginFromToken(token)).thenThrow(new IllegalArgumentException("Token cannot be null"));
-
-        // Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> jwtService.getLoginFromToken(token));
-    }
-
-
 }

@@ -10,16 +10,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class UserDTOByIdTest {
 
-
     // UserDTOById object can be created with valid input parameters
     @Test
-    public void test_createUserDTOByIdWithValidInput() {
+    public void testCreateUserDTOByIdWithValidInput() {
         UserDTOById user = UserDTOById.builder()
-            .id("user_id")
-            .name("Test User")
-            .login("testuser")
-            .password("password")
-            .build();
+                .id("user_id")
+                .name("Test User")
+                .login("testuser")
+                .password("password")
+                .build();
 
         assertNotNull(user);
         assertEquals("user_id", user.getId());
@@ -30,13 +29,13 @@ public class UserDTOByIdTest {
 
     // UserDTOById object can be updated with valid input parameters
     @Test
-    public void test_updateUserDTOByIdWithValidInput() {
+    public void testCpdateUserDTOByIdWithValidInput() {
         UserDTOById user = UserDTOById.builder()
-            .id("user_id")
-            .name("Test User")
-            .login("testuser")
-            .password("password")
-            .build();
+                .id("user_id")
+                .name("Test User")
+                .login("testuser")
+                .password("password")
+                .build();
 
         user.setName("New Name");
         user.setLogin("newlogin");
@@ -49,27 +48,27 @@ public class UserDTOByIdTest {
 
     // UserDTOById object can be compared with another UserDTOById object
     @Test
-    public void test_compareUserDTOByIdObjects() {
+    public void testCompareUserDTOByIdObjects() {
         UserDTOById user1 = UserDTOById.builder()
-            .id("user_id")
-            .name("Test User")
-            .login("testuser")
-            .password("password")
-            .build();
+                .id("user_id")
+                .name("Test User")
+                .login("testuser")
+                .password("password")
+                .build();
 
         UserDTOById user2 = UserDTOById.builder()
-            .id("user_id")
-            .name("Test User")
-            .login("testuser")
-            .password("password")
-            .build();
+                .id("user_id")
+                .name("Test User")
+                .login("testuser")
+                .password("password")
+                .build();
 
         assertEquals(user1, user2);
     }
 
     // UserDTOById object can be created with empty input parameters
     @Test
-    public void test_createUserDTOByIdWithEmptyInput() {
+    public void testCreateUserDTOByIdWithEmptyInput() {
         UserDTOById user = new UserDTOById();
 
         assertNotNull(user);
@@ -81,13 +80,13 @@ public class UserDTOByIdTest {
 
     // UserDTOById object can be created with null input parameters
     @Test
-    public void test_createUserDTOByIdWithNullInput() {
+    public void testCreateUserDTOByIdWithNullInput() {
         UserDTOById user = UserDTOById.builder()
-            .id(null)
-            .name(null)
-            .login(null)
-            .password(null)
-            .build();
+                .id(null)
+                .name(null)
+                .login(null)
+                .password(null)
+                .build();
 
         assertNotNull(user);
         assertNull(user.getId());
@@ -98,13 +97,13 @@ public class UserDTOByIdTest {
 
     // UserDTOById object can be updated with empty input parameters
     @Test
-    public void test_updateUserDTOByIdWithEmptyInput() {
+    public void testUpdateUserDTOByIdWithEmptyInput() {
         UserDTOById user = UserDTOById.builder()
-            .id("user_id")
-            .name("Test User")
-            .login("testuser")
-            .password("password")
-            .build();
+                .id("user_id")
+                .name("Test User")
+                .login("testuser")
+                .password("password")
+                .build();
 
         user.setName("");
         user.setLogin("");
@@ -117,13 +116,13 @@ public class UserDTOByIdTest {
 
     // UserDTOById object can be updated with null input parameters
     @Test
-    public void test_updateUserDTOByIdWithNullInput() {
+    public void testUpdateUserDTOByIdWithNullInput() {
         UserDTOById user = UserDTOById.builder()
-            .id("user_id")
-            .name("Test User")
-            .login("testuser")
-            .password("password")
-            .build();
+                .id("user_id")
+                .name("Test User")
+                .login("testuser")
+                .password("password")
+                .build();
 
         user.setName(null);
         user.setLogin(null);
@@ -158,5 +157,4 @@ public class UserDTOByIdTest {
         assertNotEquals(user1.hashCode(), user3.hashCode());
         assertNotEquals(0, user3.hashCode());
     }
-
 }

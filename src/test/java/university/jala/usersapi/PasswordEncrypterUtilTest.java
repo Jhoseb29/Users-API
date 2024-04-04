@@ -12,10 +12,9 @@ import static org.mockito.Mockito.*;
 
 public class PasswordEncrypterUtilTest {
 
-
     // Can encrypt a valid password
     @Test
-    public void test_encrypt_valid_password() {
+    public void testEncryptValidPassword() {
         // Arrange
         PasswordEncoder passwordEncoder = mock(PasswordEncoder.class);
         PasswordEncrypterUtil passwordEncrypterUtil = new PasswordEncrypterUtil(passwordEncoder);
@@ -33,7 +32,7 @@ public class PasswordEncrypterUtilTest {
 
     // Can encrypt an empty password
     @Test
-    public void test_encrypt_empty_password() {
+    public void testEncryptEmptyPassword() {
         // Arrange
         PasswordEncoder passwordEncoder = mock(PasswordEncoder.class);
         PasswordEncrypterUtil passwordEncrypterUtil = new PasswordEncrypterUtil(passwordEncoder);
@@ -51,7 +50,7 @@ public class PasswordEncrypterUtilTest {
 
     // Can encrypt a password with special characters
     @Test
-    public void test_encrypt_password_with_special_characters() {
+    public void testEncryptPasswordWithSpecialCharacters() {
         // Arrange
         PasswordEncoder passwordEncoder = mock(PasswordEncoder.class);
         PasswordEncrypterUtil passwordEncrypterUtil = new PasswordEncrypterUtil(passwordEncoder);
@@ -69,7 +68,7 @@ public class PasswordEncrypterUtilTest {
 
     // Returns different encrypted passwords for the same initial password
     @Test
-    public void test_return_different_encrypted_passwords() {
+    public void testReturnDifferentEncryptedPasswords() {
         // Arrange
         PasswordEncoder passwordEncoder = mock(PasswordEncoder.class);
         PasswordEncrypterUtil passwordEncrypterUtil = new PasswordEncrypterUtil(passwordEncoder);
@@ -86,5 +85,4 @@ public class PasswordEncrypterUtilTest {
         assertNotEquals(result1, result2);
         verify(passwordEncoder, times(2)).encode(initialPassword);
     }
-
 }

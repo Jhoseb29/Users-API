@@ -20,74 +20,72 @@ import university.jala.usersapi.presentation.controller.UserController;
 
 public class UpdateUserTest {
 
-  @Mock
-  private UserService userService;
+    @Mock
+    private UserService userService;
 
-  @InjectMocks
-  private UserController userController;
+    @InjectMocks
+    private UserController userController;
 
-  @BeforeEach
-  void setUp() {
-    MockitoAnnotations.initMocks(this);
-  }
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.initMocks(this);
+    }
 
-  @Test
-  void testUpdateOneUserField() throws Exception {
-    // Arrange
-    String userId = "user_id";
-    UserDTOById updatedUser = UserDTOById.builder().id(userId).name("New Name")
-        .build();
+    @Test
+    void testUpdateOneUserField() throws Exception {
+        // Arrange
+        String userId = "user_id";
+        UserDTOById updatedUser = UserDTOById.builder().id(userId).name("New Name")
+                .build();
 
-    // Mock
-    when(
-        userService.updateByID(any(UserDTOById.class), eq(userId))).thenReturn(
-        updatedUser);
+        // Mock
+        when(
+                userService.updateByID(any(UserDTOById.class), eq(userId))).thenReturn(
+                updatedUser);
 
-    // Act
-    ResponseEntity<UserDTOById> response = (ResponseEntity<UserDTOById>) userController.updateUserById(
-        updatedUser,
-        userId);
-    UserDTOById result = response.getBody();
+        // Act
+        ResponseEntity<UserDTOById> response = (ResponseEntity<UserDTOById>)
+                userController.updateUserById(updatedUser, userId);
+        UserDTOById result = response.getBody();
 
-    // Assert
-    assertEquals(HttpStatus.OK, response.getStatusCode());
-    assertEquals(updatedUser.getName(), result.getName());
+        // Assert
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(updatedUser.getName(), result.getName());
 
-    // Verify
-    verify(userService, times(1)).updateByID(any(UserDTOById.class),
-        eq(userId));
-  }
+        // Verify
+        verify(userService, times(1)).updateByID(any(UserDTOById.class),
+                eq(userId));
+    }
 
-  @Test
-  void testUpdateAllUserFields() throws Exception {
-    // Arrange
-    String userId = "user_id";
-    UserDTOById updatedUser = UserDTOById.builder()
-        .id(userId)
-        .name("New Name")
-        .login("newlogin")
-        .password("newpassword")
-        .build();
+    @Test
+    void testUpdateAllUserFields() throws Exception {
+        // Arrange
+        String userId = "user_id";
+        UserDTOById updatedUser = UserDTOById.builder()
+                .id(userId)
+                .name("New Name")
+                .login("newlogin")
+                .password("newpassword")
+                .build();
 
-    // Mock
-    when(
-        userService.updateByID(any(UserDTOById.class), eq(userId))).thenReturn(
-        updatedUser);
+        // Mock
+        when(
+                userService.updateByID(any(UserDTOById.class), eq(userId))).thenReturn(
+                updatedUser);
 
-    // Act
-    ResponseEntity<UserDTOById> response = (ResponseEntity<UserDTOById>) userController.updateUserById(
-        updatedUser,
-        userId);
-    UserDTOById result = response.getBody();
+        // Act
+        ResponseEntity<UserDTOById> response = (ResponseEntity<UserDTOById>)
+                userController.updateUserById(updatedUser, userId);
+        UserDTOById result = response.getBody();
 
-    // Assert
-    assertEquals(HttpStatus.OK, response.getStatusCode());
-    assertEquals(updatedUser.getName(), result.getName());
-    assertEquals(updatedUser.getLogin(), result.getLogin());
-    assertEquals(updatedUser.getPassword(), result.getPassword());
+        // Assert
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(updatedUser.getName(), result.getName());
+        assertEquals(updatedUser.getLogin(), result.getLogin());
+        assertEquals(updatedUser.getPassword(), result.getPassword());
 
-    // Verify
-    verify(userService, times(1)).updateByID(any(UserDTOById.class),
-        eq(userId));
-  }
+        // Verify
+        verify(userService, times(1)).updateByID(any(UserDTOById.class),
+                eq(userId));
+    }
 }
