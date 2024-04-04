@@ -4,8 +4,7 @@ import university.jala.usersapi.domain.models.dto.RegisterRequestDTO;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class RegisterRequestDTOTest {
@@ -62,6 +61,31 @@ public class RegisterRequestDTOTest {
         registerRequestDTO.setName("");
 
         assertEquals("", registerRequestDTO.getName());
+    }
+
+    @Test
+    public void testEqualsAndHashCode() {
+        RegisterRequestDTO request1 = RegisterRequestDTO.builder()
+                .name("John")
+                .login("john123")
+                .password("password123")
+                .build();
+
+        RegisterRequestDTO request2 = request1;
+
+        RegisterRequestDTO request3 = RegisterRequestDTO.builder()
+                .name("Jane")
+                .login("jane456")
+                .password("password456")
+                .build();
+
+        // Test equals method
+        assertEquals(request1, request2); // Equal objects
+        assertNotEquals(request1, request3); // Different objects
+
+        // Test hashCode method
+        assertEquals(request1.hashCode(), request2.hashCode()); // Equal objects have equal hash codes
+        assertNotEquals(request1.hashCode(), request3.hashCode()); // Different objects should have different hash codes
     }
 
 }
