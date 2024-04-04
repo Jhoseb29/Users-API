@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class AuthenticationResponseDTOTest {
 
-
     // The class should have a constructor that takes in a string parameter for the JWT token and sets it as the 'token' attribute.
     @Test
     public void test_constructor_with_token_parameter() {
