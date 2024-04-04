@@ -88,4 +88,45 @@ public class RegisterRequestDTOTest {
         assertNotEquals(request1.hashCode(), request3.hashCode()); // Different objects should have different hash codes
     }
 
+    @Test
+    public void testEquals() {
+        RegisterRequestDTO request1 = RegisterRequestDTO.builder()
+                .name("John")
+                .login("john123")
+                .password("password123")
+                .build();
+
+        RegisterRequestDTO request2 = request1;
+
+        RegisterRequestDTO request3 = RegisterRequestDTO.builder()
+                .name("Jane")
+                .login("jane456")
+                .password("password456")
+                .build();
+
+        RegisterRequestDTO request4 = null; // Null object
+
+        String differentTypeObject = "This is a string"; // Different type of object
+
+        // Reflexivity: an object must be equal to itself
+        assertEquals(request1, request1);
+
+        // Symmetry: if a.equals(b), then b.equals(a)
+        assertEquals(request1.equals(request2), request2.equals(request1));
+
+        assertTrue(request3.equals(request3));
+
+        // Consistency: multiple invocations of equals() method must consistently return the same result
+        assertEquals(request1.equals(request2), request1.equals(request2));
+
+        // Non-nullity: for any non-null reference value x, x.equals(null) should return false
+        assertFalse(request1.equals(null));
+
+        // Equality with null object should return false
+        assertFalse(request1.equals(request4));
+
+        // Equality with a different type of object should return false
+        assertFalse(request1.equals(differentTypeObject));
+    }
+
 }
