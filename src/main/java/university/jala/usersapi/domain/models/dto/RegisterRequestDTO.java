@@ -12,19 +12,19 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Builder
-@AllArgsConstructor
+@AllA rgsConstructor
 @NoArgsConstructor
 public class RegisterRequestDTO extends RequestDTO {
 
   /**
    * The name of the user.
    */
-  private String name;
+  private Stri ng name;
 
   /**
    * The login username for the user.
    */
-  private String login;
+  private Str ing login;
 
   /**
    * The password for the user.

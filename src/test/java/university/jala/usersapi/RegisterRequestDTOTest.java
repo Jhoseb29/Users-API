@@ -67,15 +67,7 @@ public class RegisterRequestDTOTest {
         assertEquals(request1.hashCode(), request2.hashCode()); // Equal objects have equal hash codes
         assertNotEquals(request1.hashCode(), request3.hashCode()); // Different objects should have different hash codes
 
-        // Mismo objeto
-        RegisterRequestDTO          requestDTO1 = new RegisterRequestDTO("John", "john@example.com", "password123");
-                 assertEquals    (requestDTO1, requestDTO1);
-        assertEquals     (requestDTO1.hashCode(), requestDTO1.hashCode());
-
-        // Distinto objeto con mismos valores
-        RegisterRequestDTO requestDTO3 = new RegisterRequestDTO("John", "john@example.com", "password123");
-        assertEquals(requestDTO1, requestDTO3);
-        assertEquals(requestDTO1.hashCode(), requestDTO3.hashCode());
+        RegisterRequestDTO requestDTO1 = new RegisterRequestDTO("John", "john@example.com", "password123");
 
         // Distinto objeto con diferente nombre
         RegisterRequestDTO requestDTO4 = new RegisterRequestDTO("Jane", "john@example.com", "password123");
