@@ -7,14 +7,14 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
-import university.jala.usersapi.domain.models.User;
-import university.jala.usersapi.domain.models.dto.AuthenticationRequestDTO;
-import university.jala.usersapi.domain.models.dto.AuthenticationResponseDTO;
-import university.jala.usersapi.domain.service.AuthService;
-import university.jala.usersapi.domain.service.JwtService;
-import university.jala.usersapi.domain.service.exception.UserNotFoundException;
-import university.jala.usersapi.domain.util.DataValidator;
-import university.jala.usersapi.persistance.repository.UserRepository;
+import university.jala.usersapi.core.domain.models.entities.User;
+import university.jala.usersapi.core.domain.models.dto.request.AuthenticationRequestDTO;
+import university.jala.usersapi.core.domain.models.dto.response.AuthenticationResponseDTO;
+import university.jala.usersapi.core.application.service.AuthService;
+import university.jala.usersapi.core.application.security.jwt.JwtService;
+import university.jala.usersapi.core.domain.exceptions.UserNotFoundException;
+import university.jala.usersapi.core.application.utils.DataValidator;
+import university.jala.usersapi.data.mysql.repository.UserRepository;
 
 import java.util.Optional;
 
@@ -47,7 +47,7 @@ public class AuthServiceTest {
 
         when(userRepository.findByLogin(authenticationRequest.getLogin())).thenReturn(Optional.of(user));
         when(passwordEncoder.matches(authenticationRequest.getPassword(), user.getPassword())).thenReturn(true);
-        when(jwtService.getToken(user)).thenReturn("jwtToken");
+        when(jwtService.getToken(user, user.getId())).thenReturn("jwtToken");
 
         // Act
         AuthenticationResponseDTO response = authService.login(authenticationRequest);

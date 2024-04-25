@@ -1,7 +1,7 @@
 package university.jala.usersapi;
 
 
-import university.jala.usersapi.domain.models.dto.UserDTOById;
+import university.jala.usersapi.core.domain.models.dto.response.UserDTOById;
 
 import org.junit.jupiter.api.Test;
 

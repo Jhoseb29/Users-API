@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.security.core.GrantedAuthority;
-import university.jala.usersapi.domain.models.User;
+import university.jala.usersapi.core.domain.models.entities.User;
 
 import java.util.Collection;
 import java.util.Set;

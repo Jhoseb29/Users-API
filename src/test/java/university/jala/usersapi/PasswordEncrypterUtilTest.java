@@ -2,7 +2,7 @@ package university.jala.usersapi;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import university.jala.usersapi.domain.util.PasswordEncrypterUtil;
+import university.jala.usersapi.core.application.utils.PasswordEncrypterUtil;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

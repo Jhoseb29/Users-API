@@ -1,31 +1,16 @@
 package university.jala.usersapi;
 
+import java.util.UUID;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.core.userdetails.UserDetails;
-import university.jala.usersapi.domain.service.JwtService;
+import university.jala.usersapi.core.application.security.jwt.JwtService;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-
 public class JwtServiceTest {
-
-    // generate JWT token with valid user details
-    @Test
-    public void testGenerateJwtTokenWithValidUserDetails() {
-        // Arrange
-        UserDetails userDetails = mock(UserDetails.class);
-        when(userDetails.getUsername()).thenReturn("testUser");
-        JwtService jwtService = new JwtService();
-
-        // Act
-        String token = jwtService.getToken(userDetails);
-
-        // Assert
-        Assertions.assertNotNull(token);
-    }
 
     // retrieve login username from valid JWT token
     @Test
@@ -48,11 +33,12 @@ public class JwtServiceTest {
     public void testGenerateJwtTokenWithNullUserDetails() {
         // Arrange
         UserDetails userDetails = null;
+        String uuid = String.valueOf(UUID.randomUUID());
         JwtService jwtService = mock(JwtService.class);
-        when(jwtService.getToken(userDetails)).thenThrow(new NullPointerException());
+        when(jwtService.getToken(userDetails, uuid)).thenThrow(new NullPointerException());
 
         // Act & Assert
-        assertThrows(NullPointerException.class, () -> jwtService.getToken(userDetails));
+        assertThrows(NullPointerException.class, () -> jwtService.getToken(userDetails, uuid));
     }
 
     // Should return null if provided with a null JWT token

@@ -1,6 +1,5 @@
 package university.jala.usersapi;
 
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -15,10 +14,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import university.jala.usersapi.domain.service.AuthService;
-import university.jala.usersapi.domain.models.dto.AuthenticationRequestDTO;
-import university.jala.usersapi.domain.models.dto.AuthenticationResponseDTO;
-import university.jala.usersapi.presentation.controller.AuthController;
+import university.jala.usersapi.core.application.service.AuthService;
+import university.jala.usersapi.core.domain.models.dto.request.AuthenticationRequestDTO;
+import university.jala.usersapi.core.domain.models.dto.response.AuthenticationResponseDTO;
+import university.jala.usersapi.api.controller.AuthController;
 
 
 public class UserAuthenticationTest {

@@ -1,8 +1,8 @@
 package university.jala.usersapi;
 
 import org.junit.jupiter.api.Test;
-import university.jala.usersapi.domain.service.exception.WrongDataException;
-import university.jala.usersapi.domain.util.RequestDataValidatorUtil;
+import university.jala.usersapi.core.domain.exceptions.WrongDataException;
+import university.jala.usersapi.core.application.utils.RequestDataValidatorUtil;
 
 
 import static org.junit.Assert.*;
@@ -10,35 +10,35 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 public class RequestDataValidatorUtilTest {
 
-    // Should validate a non-null and non-empty field and content without throwing an exception.
+    // Should validate a non-null and non-empty field and content without throwing an exceptions.
     @Test
     public void testValidateNonNullAndNonEmptyFieldAndContent() {
         RequestDataValidatorUtil validator = new RequestDataValidatorUtil();
         assertDoesNotThrow(() -> validator.validate("field", "content"));
     }
 
-    // Should validate a non-null and non-empty field and content with spaces without throwing an exception.
+    // Should validate a non-null and non-empty field and content with spaces without throwing an exceptions.
     @Test
     public void testValidateNonNullAndNonEmptyFieldAndContentWithSpaces() {
         RequestDataValidatorUtil validator = new RequestDataValidatorUtil();
         assertDoesNotThrow(() -> validator.validate("field", "content with spaces"));
     }
 
-    // Should validate a non-null and non-empty field and content with special characters without throwing an exception.
+    // Should validate a non-null and non-empty field and content with special characters without throwing an exceptions.
     @Test
     public void testValidateNonNullAndNonEmptyFieldAndContentWithSpecialCharacters() {
         RequestDataValidatorUtil validator = new RequestDataValidatorUtil();
         assertDoesNotThrow(() -> validator.validate("field", "content with special characters!@#$%^&*()"));
     }
 
-    // Should validate a non-null and non-empty field and content with numbers without throwing an exception.
+    // Should validate a non-null and non-empty field and content with numbers without throwing an exceptions.
     @Test
     public void testValidateNonNullAndNonEmptyFieldAndContentWithNumbers() {
         RequestDataValidatorUtil validator = new RequestDataValidatorUtil();
         assertDoesNotThrow(() -> validator.validate("field", "content with numbers 12345"));
     }
 
-    // Should validate a non-null and non-empty field and content with letters without throwing an exception.
+    // Should validate a non-null and non-empty field and content with letters without throwing an exceptions.
     @Test
     public void testValidateNonNullAndNonEmptyFieldAndContentWithLetters() {
         RequestDataValidatorUtil validator = new RequestDataValidatorUtil();

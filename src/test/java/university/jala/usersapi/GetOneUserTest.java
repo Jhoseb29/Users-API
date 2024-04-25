@@ -15,11 +15,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import university.jala.usersapi.domain.models.User;
-import university.jala.usersapi.domain.models.dto.UserDTO;
-import university.jala.usersapi.domain.models.dto.UserDTOById;
-import university.jala.usersapi.domain.service.UserService;
-import university.jala.usersapi.presentation.controller.UserController;
+import university.jala.usersapi.core.domain.models.dto.response.UserDTOById;
+import university.jala.usersapi.core.application.service.UserService;
+import university.jala.usersapi.api.controller.UserController;
 
 public class GetOneUserTest {
 

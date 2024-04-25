@@ -2,21 +2,21 @@ package university.jala.usersapi;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import university.jala.usersapi.domain.models.User;
-import university.jala.usersapi.domain.models.dto.UserDTOById;
-import university.jala.usersapi.domain.service.exception.WrongDataException;
-import university.jala.usersapi.domain.util.DataValidator;
-import university.jala.usersapi.domain.util.UpdatableValidationUtil;
+import university.jala.usersapi.core.domain.models.entities.User;
+import university.jala.usersapi.core.domain.models.dto.response.UserDTOById;
+import university.jala.usersapi.core.domain.exceptions.WrongDataException;
+import university.jala.usersapi.core.application.utils.DataValidator;
+import university.jala.usersapi.core.application.utils.UpdatableValidationUtil;
 
 
-import university.jala.usersapi.domain.util.UserFields;
+import university.jala.usersapi.core.application.utils.UserFields;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class UpdatableValidationUtilTest {
 
-    // Should update user name, login and password when all fields are present in the request and valid
+    // Should update username, login and password when all fields are present in the request and valid
     @Test
     public void testUpdateAllFieldsValid() throws WrongDataException {
         // Arrange

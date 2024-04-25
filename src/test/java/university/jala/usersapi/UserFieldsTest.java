@@ -2,7 +2,7 @@ package university.jala.usersapi;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import university.jala.usersapi.domain.util.UserFields;
+import university.jala.usersapi.core.application.utils.UserFields;
 
 public class UserFieldsTest {
 
