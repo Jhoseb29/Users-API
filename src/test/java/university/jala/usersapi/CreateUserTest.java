@@ -60,7 +60,7 @@ public class CreateUserTest {
 
     ResponseEntity<?> responseEntity = authController.userRegister(registerRequestDTO);
 
-    assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
     assertEquals(authenticationResponseDTO, responseEntity.getBody());
     verify(authService, times(1)).register(registerRequestDTO);
   }
