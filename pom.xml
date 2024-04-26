@@ -190,7 +190,7 @@
                     <limit>
                       <counter>INSTRUCTION</counter>
                       <value>COVEREDRATIO</value>
-                      <minimum>0.05</minimum> <!-- Minimum 70% coverage -->
+                      <minimum>0.50</minimum> <!-- Minimum 70% coverage -->
                     </limit>
                   </limits>
                 </rule>
@@ -198,6 +198,15 @@
             </configuration>
           </execution>
         </executions>
+        <configuration>
+          <excludes>
+            <exclude>**/university/jala/usersapi/core/domain/models/mappers/**</exclude>
+            <exclude>**/university/jala/usersapi/core/domain/exceptions/**</exclude>
+            <exclude>**/university/jala/usersapi/core/application/security/**</exclude>
+            <exclude>**/university/jala/usersapi/UsersApiApplication.class</exclude>
+            <exclude>**/university/jala/usersapi/data/**</exclude>
+          </excludes>
+        </configuration>
       </plugin>
 
 

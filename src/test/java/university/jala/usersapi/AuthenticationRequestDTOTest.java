@@ -1,6 +1,6 @@
 package university.jala.usersapi;
 
-import university.jala.usersapi.domain.models.dto.AuthenticationRequestDTO;
+import university.jala.usersapi.core.domain.models.dto.request.AuthenticationRequestDTO;
 
 import org.junit.jupiter.api.Test;
 

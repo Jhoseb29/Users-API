@@ -2,7 +2,7 @@ package university.jala.usersapi;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import university.jala.usersapi.domain.models.dto.AuthenticationResponseDTO;
+import university.jala.usersapi.core.domain.models.dto.response.AuthenticationResponseDTO;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;

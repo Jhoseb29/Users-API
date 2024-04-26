@@ -5,19 +5,18 @@ import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
 import java.util.Set;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import university.jala.usersapi.domain.models.User;
-import university.jala.usersapi.domain.service.AuthService;
-import university.jala.usersapi.domain.models.dto.AuthenticationResponseDTO;
-import university.jala.usersapi.domain.models.dto.RegisterRequestDTO;
-import university.jala.usersapi.domain.service.exception.WrongDataException;
-import university.jala.usersapi.presentation.controller.AuthController;
+import university.jala.usersapi.core.domain.models.entities.User;
+import university.jala.usersapi.core.application.service.AuthService;
+import university.jala.usersapi.core.domain.models.dto.response.AuthenticationResponseDTO;
+import university.jala.usersapi.core.domain.models.dto.request.RegisterRequestDTO;
+import university.jala.usersapi.api.controller.AuthController;
 
 
 import static org.junit.Assert.assertEquals;
@@ -34,7 +33,7 @@ public class CreateUserTest {
 
   private Validator validator;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     MockitoAnnotations.openMocks(this);
     ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
@@ -61,7 +60,7 @@ public class CreateUserTest {
 
     ResponseEntity<?> responseEntity = authController.userRegister(registerRequestDTO);
 
-    assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
     assertEquals(authenticationResponseDTO, responseEntity.getBody());
     verify(authService, times(1)).register(registerRequestDTO);
   }

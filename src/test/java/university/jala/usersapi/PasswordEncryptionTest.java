@@ -1,7 +1,5 @@
 package university.jala.usersapi;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -13,13 +11,12 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import university.jala.usersapi.domain.service.AuthService;
-import university.jala.usersapi.domain.service.JwtService;
-import university.jala.usersapi.domain.models.dto.AuthenticationResponseDTO;
-import university.jala.usersapi.domain.models.dto.RegisterRequestDTO;
-import university.jala.usersapi.domain.service.exception.WrongDataException;
-import university.jala.usersapi.domain.util.RequestDataValidatorUtil;
-import university.jala.usersapi.persistance.repository.UserRepository;
+import university.jala.usersapi.core.application.service.AuthService;
+import university.jala.usersapi.core.application.security.jwt.JwtService;
+import university.jala.usersapi.core.domain.models.dto.response.AuthenticationResponseDTO;
+import university.jala.usersapi.core.domain.models.dto.request.RegisterRequestDTO;
+import university.jala.usersapi.core.application.utils.RequestDataValidatorUtil;
+import university.jala.usersapi.data.mysql.repository.UserRepository;
 
 
 public class PasswordEncryptionTest {
@@ -52,7 +49,7 @@ public class PasswordEncryptionTest {
     when(passwordEncoder.encode(registerRequestDTO.getPassword())).thenReturn(encodedPassword);
 
     String jwtToken = "jwtToken";
-    when(jwtService.getToken(any())).thenReturn(jwtToken);
+    when(jwtService.getToken(any(), any())).thenReturn(jwtToken);
 
     AuthenticationResponseDTO responseDTO = authService.register(registerRequestDTO);
 
