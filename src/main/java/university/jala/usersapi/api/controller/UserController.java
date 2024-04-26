@@ -42,7 +42,7 @@ import org.springframework.http.MediaType;
 @RestController
 @RequestMapping("/usersapi/v1/users")
 @Setter
-@Tag(name="Users resource.")
+@Tag(name = "Users resource.")
 public class UserController {
 
   /**
@@ -56,7 +56,7 @@ public class UserController {
    * @param size The size of the page (default: 10)
    * @return return getAllUsers
    */
-  @Operation(summary="Get All Users.")
+  @Operation(summary = "Get All Users.")
   @GetMapping()
   public ResponseEntity<?> getAllUsers(
       @RequestParam(defaultValue = "0") final int page,
@@ -101,7 +101,7 @@ public class UserController {
    * @param userId userId.
    * @return response (found or not found).
    */
-  @Operation(summary="Get One User by ID.")
+  @Operation(summary = "Get One User by ID.")
   @GetMapping("/{userId}")
   public ResponseEntity<?> getUserById(
       @PathVariable final String userId) {
@@ -126,7 +126,7 @@ public class UserController {
    * @param userId  The ID of the user to be updated
    * @return The updated user DTO if found, otherwise a not found response
    */
-  @Operation(summary="Update User.")
+  @Operation(summary = "Update User.")
   @PutMapping(path = "/{userId}")
   public ResponseEntity<?> updateUserById(
       @RequestBody final UserDTOById request,
@@ -167,7 +167,7 @@ public class UserController {
    * ok if the user is deleted and if not found it will return a
    * not found.
    */
-  @Operation(summary="Delete User.")
+  @Operation(summary = "Delete User.")
   @DeleteMapping(path = "/{id}")
   public ResponseEntity<?> deleteById(@PathVariable final String id) {
     Optional<UserDTOById> userFound = userDataService.deleteById(id);

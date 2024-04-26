@@ -30,7 +30,7 @@ import university.jala.usersapi.core.domain.exceptions.WrongDataException;
 @RestController
 @RequestMapping("/usersapi/v1/auth")
 @RequiredArgsConstructor
-@Tag(name="Auth Controller.")
+@Tag(name = "Auth Controller.")
 public class AuthController {
 
   /**
@@ -45,7 +45,7 @@ public class AuthController {
    * @param authenticationRequest authenticationRequestDTO.
    * @return Token or error message.
    */
-  @Operation(summary="Authenticate user account.")
+  @Operation(summary = "Authenticate user account.")
   @PostMapping(value = "authentication")
   public ResponseEntity<?> userAuthentication(
       @RequestBody final AuthenticationRequestDTO authenticationRequest) {
@@ -87,7 +87,7 @@ public class AuthController {
    *                        containing user information.
    * @return A ResponseEntity containing the result of the registration process.
    */
-  @Operation(summary="Register a new user account.")
+  @Operation(summary = "Register a new user account.")
   @PostMapping()
   public ResponseEntity<?> userRegister(
       @RequestBody final RegisterRequestDTO registerRequest) {
