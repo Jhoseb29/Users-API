@@ -1,5 +1,7 @@
 package university.jala.usersapi.api.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +30,7 @@ import university.jala.usersapi.core.domain.exceptions.WrongDataException;
 @RestController
 @RequestMapping("/usersapi/v1/auth")
 @RequiredArgsConstructor
+@Tag(name="Auth Controller.")
 public class AuthController {
 
   /**
@@ -42,6 +45,7 @@ public class AuthController {
    * @param authenticationRequest authenticationRequestDTO.
    * @return Token or error message.
    */
+  @Operation(summary="Authenticate user account.")
   @PostMapping(value = "authentication")
   public ResponseEntity<?> userAuthentication(
       @RequestBody final AuthenticationRequestDTO authenticationRequest) {
@@ -83,6 +87,7 @@ public class AuthController {
    *                        containing user information.
    * @return A ResponseEntity containing the result of the registration process.
    */
+  @Operation(summary="Register a new user account.")
   @PostMapping()
   public ResponseEntity<?> userRegister(
       @RequestBody final RegisterRequestDTO registerRequest) {
