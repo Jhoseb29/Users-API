@@ -21,7 +21,7 @@ import org.springframework.context.annotation.Configuration;
         description = "This is a CRUD for Users."
     )
 )
-public final class OpenApiConfig {
+public class OpenApiConfig {
 
     /**
      * Configures OpenAPI documentation for the API.
