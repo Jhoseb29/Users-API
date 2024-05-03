@@ -27,15 +27,15 @@ public class JwtService {
   private String secretKey;
 
   /**
-   * Constant representing the duration of one day in milliseconds.
+   * Constant representing the duration of one hour in milliseconds.
    */
-  private static final int ADD_ONE_DAY = 1000 * 60 * 24;
+  private static final int ADD_ONE_HOUR = 1000 * 100 * 36;
 
   /**
    * Generates a JWT token for the given user details.
    *
    * @param userDetails The user details to be included in the token.
-   * @param userId The user id.
+   * @param userId      The user id.
    * @return The JWT token.
    */
   public String getToken(final UserDetails userDetails, final String userId) {
@@ -52,14 +52,14 @@ public class JwtService {
    * @return The JWT token.
    */
   private String getToken(final HashMap<String, Object> extraClaims,
-                         final UserDetails userDetails) {
+      final UserDetails userDetails) {
     return Jwts
         .builder()
         .setClaims(extraClaims)
         .setSubject(userDetails.getUsername())
         .setIssuedAt(new Date(System.currentTimeMillis()))
         .setExpiration(
-            new Date(System.currentTimeMillis() + ADD_ONE_DAY))
+            new Date(System.currentTimeMillis() + ADD_ONE_HOUR))
         .signWith(getKey(), SignatureAlgorithm.HS256)
         .compact();
   }
@@ -85,8 +85,8 @@ public class JwtService {
   }
 
   /**
-   * Validates whether the provided JWT token
-   * is valid for the given user details.
+   * Validates whether the provided JWT token is valid for the given user
+   * details.
    *
    * @param token       The JWT token to be validated.
    * @param userDetails The user details to be validated against the token.
