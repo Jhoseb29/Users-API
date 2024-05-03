@@ -1,12 +1,13 @@
 package university.jala.usersapi.api;
 
-
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
+import io.swagger.v3.oas.models.servers.Server;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -23,25 +24,35 @@ import org.springframework.context.annotation.Configuration;
 )
 public class OpenApiConfig {
 
-    /**
-     * Configures OpenAPI documentation for the API.
-     * @return Configured instance of OpenAPI.
-     */
-    @Bean
-    public OpenAPI apiConfiguration() {
-        return new OpenAPI().addSecurityItem(new SecurityRequirement()
-                .addList("Bearer Authentication"))
-            .components(new Components().addSecuritySchemes(
-                "Bearer Authentication", createApiSecurityScheme()));
-    }
+  /**
+   * The URL of the server.
+   */
+  @Value("${server.url}")
+  private String serverUrl;
 
-    /**
-     * Creates the security scheme for JWT authentication.
-     * @return Configured instance of SecurityScheme for JWT.
-     */
-    private SecurityScheme createApiSecurityScheme() {
-        return new SecurityScheme().type(SecurityScheme.Type.HTTP)
-            .bearerFormat("JWT")
-            .scheme("bearer");
-    }
+  /**
+   * Configures OpenAPI documentation for the API.
+   *
+   * @return Configured instance of OpenAPI.
+   */
+  @Bean
+  public OpenAPI apiConfiguration() {
+    return new OpenAPI()
+        .addServersItem(new Server().url(serverUrl).description("Server URL"))
+        .addSecurityItem(
+            new SecurityRequirement().addList("Bearer Authentication"))
+        .components(new Components().addSecuritySchemes(
+            "Bearer Authentication", createApiSecurityScheme()));
+  }
+
+  /**
+   * Creates the security scheme for JWT authentication.
+   *
+   * @return Configured instance of SecurityScheme for JWT.
+   */
+  private SecurityScheme createApiSecurityScheme() {
+    return new SecurityScheme().type(SecurityScheme.Type.HTTP)
+        .bearerFormat("JWT")
+        .scheme("bearer");
+  }
 }
