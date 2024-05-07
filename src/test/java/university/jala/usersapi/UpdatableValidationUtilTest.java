@@ -20,7 +20,7 @@ public class UpdatableValidationUtilTest {
     @Test
     public void testUpdateAllFieldsValid() throws WrongDataException {
         // Arrange
-        User existingUser = User.builder()._id("1").name("John").login("john123").password("password123").build();
+        User existingUser = User.builder().id("1").name("John").login("john123").password("password123").build();
         UserDTOById request = UserDTOById.builder().id("1").name("John Doe").login("john_doe").password("newpassword").build();
         DataValidator dataValidator = mock(DataValidator.class);
         UpdatableValidationUtil updatableValidationUtil = new UpdatableValidationUtil(dataValidator);
@@ -41,7 +41,7 @@ public class UpdatableValidationUtilTest {
     @Test
     public void testUpdateSomeFieldsValid() throws WrongDataException {
         // Arrange
-        User existingUser = User.builder()._id("1").name("John").login("john123").password("password123").build();
+        User existingUser = User.builder().id("1").name("John").login("john123").password("password123").build();
         UserDTOById request = UserDTOById.builder().id("1").name("John Doe").build();
         DataValidator dataValidator = mock(DataValidator.class);
         UpdatableValidationUtil updatableValidationUtil = new UpdatableValidationUtil(dataValidator);
@@ -62,7 +62,7 @@ public class UpdatableValidationUtilTest {
     @Test
     public void testNoFieldsToUpdate() throws WrongDataException {
         // Arrange
-        User existingUser = User.builder()._id("1").name("John").login("john123").password("password123").build();
+        User existingUser = User.builder().id("1").name("John").login("john123").password("password123").build();
         UserDTOById request = UserDTOById.builder().id("1").build();
         DataValidator dataValidator = mock(DataValidator.class);
         UpdatableValidationUtil updatableValidationUtil = new UpdatableValidationUtil(dataValidator);
@@ -82,7 +82,7 @@ public class UpdatableValidationUtilTest {
     @Test
     public void testAllFieldsSomeInvalid() throws WrongDataException {
         // Arrange
-        User existingUser = User.builder()._id("1").name("John").login("john123").password("password123").build();
+        User existingUser = User.builder().id("1").name("John").login("john123").password("password123").build();
         UserDTOById request = UserDTOById.builder().id("1").name("John Doe").login("john_doe").password("newpassword").build();
         DataValidator dataValidator = mock(DataValidator.class);
         UpdatableValidationUtil updatableValidationUtil = new UpdatableValidationUtil(dataValidator);
@@ -102,7 +102,7 @@ public class UpdatableValidationUtilTest {
     @Test
     public void testInvalidUserName() throws WrongDataException {
         // Arrange
-        User existingUser = User.builder()._id("1").name("John").login("john123").password("password123").build();
+        User existingUser = User.builder().id("1").name("John").login("john123").password("password123").build();
         UserDTOById request = UserDTOById.builder().id("1").name("John Doe").build();
         DataValidator dataValidator = mock(DataValidator.class);
         UpdatableValidationUtil updatableValidationUtil = new UpdatableValidationUtil(dataValidator);
@@ -120,7 +120,7 @@ public class UpdatableValidationUtilTest {
     @Test
     public void testWithOneOrTwoDates() throws WrongDataException {
         // Arrange
-        User existingUser = User.builder()._id("1").name("John").login("john123").password("password123").build();
+        User existingUser = User.builder().id("1").name("John").login("john123").password("password123").build();
         UserDTOById request = UserDTOById.builder().id("1").login("john_doe").build();
         DataValidator dataValidator = mock(DataValidator.class);
         UpdatableValidationUtil updatableValidationUtil = new UpdatableValidationUtil(dataValidator);

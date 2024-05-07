@@ -35,7 +35,7 @@ public class JwtService {
    * Generates a JWT token for the given user details.
    *
    * @param userDetails The user details to be included in the token.
-   * @param userId      The user _id.
+   * @param userId      The user id.
    * @return The JWT token.
    */
   public String getToken(final UserDetails userDetails, final String userId) {

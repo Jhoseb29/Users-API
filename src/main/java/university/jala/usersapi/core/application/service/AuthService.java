@@ -78,7 +78,7 @@ public final class AuthService implements AuthDataService {
       UserDetails userDetails
           = user.get();
 
-      String token = jwtService.getToken(userDetails, userToLogin.get_id());
+      String token = jwtService.getToken(userDetails, userToLogin.getId());
 
       return AuthenticationResponseDTO.builder()
           .token(token)
@@ -101,14 +101,15 @@ public final class AuthService implements AuthDataService {
     dataValidator.validate("login", registerRequest.getLogin());
     dataValidator.validate("password", registerRequest.getPassword());
 
-    Optional<User> userAlreadyExisting = userRepository.findByLogin(registerRequest.getLogin());
+    Optional<User> userAlreadyExisting
+        = userRepository.findByLogin(registerRequest.getLogin());
     if (userAlreadyExisting.isPresent()) {
       throw new AlreadyExistingUserException(
           "The field 'login' already exists in the System.");
     }
 
     User user = User.builder()
-        ._id(UUID.randomUUID().toString())
+        .id(UUID.randomUUID().toString())
         .name(registerRequest.getName())
         .login(registerRequest.getLogin())
         .password(passwordEncoder.encode(registerRequest.getPassword()))
@@ -117,7 +118,7 @@ public final class AuthService implements AuthDataService {
     userRepository.save(user);
 
     return AuthenticationResponseDTO.builder()
-        .token(jwtService.getToken(user, user.get_id()))
+        .token(jwtService.getToken(user, user.getId()))
         .build();
   }
 }
