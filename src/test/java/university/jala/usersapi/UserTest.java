@@ -34,7 +34,7 @@ public class UserTest {
         user.setName("testUser");
         user.setLogin("test@example");
         user.setPassword("test123");
-        user.setId("777");
+        user.set_id("777");
     }
 
     @Test
@@ -118,10 +118,10 @@ public class UserTest {
         String id = "testId";
 
         // When
-        user.setId(id);
+        user.set_id(id);
 
         // Then
-        assertEquals(id, user.getId());
+        assertEquals(id, user.get_id());
     }
 
     @Test
@@ -151,7 +151,7 @@ public class UserTest {
     @Test
     public void testIdValidation() {
         // Given
-        user.setId("testId");
+        user.set_id("testId");
 
         // When
         Set<ConstraintViolation<User>> violations = validator.validate(user);
@@ -194,13 +194,13 @@ public class UserTest {
 
         // When
         User user = new User();
-        user.setId(id);
+        user.set_id(id);
         user.setName(name);
         user.setLogin(login);
         user.setPassword(password);
 
         // Then
-        assertEquals(id, user.getId());
+        assertEquals(id, user.get_id());
         assertEquals(name, user.getName());
         assertEquals(login, user.getLogin());
         assertEquals(password, user.getPassword());
@@ -216,14 +216,14 @@ public class UserTest {
 
         // When
         User user = User.builder()
-                .id(id)
+                ._id(id)
                 .name(name)
                 .login(login)
                 .password(password)
                 .build();
 
         // Then
-        assertEquals(id, user.getId());
+        assertEquals(id, user.get_id());
         assertEquals(name, user.getName());
         assertEquals(login, user.getLogin());
         assertEquals(password, user.getPassword());

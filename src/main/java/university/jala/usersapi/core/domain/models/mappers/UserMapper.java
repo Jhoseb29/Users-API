@@ -16,7 +16,7 @@ public class UserMapper {
     public static UserGetAllResponseDTO convertToDTO(final User user) {
         UserGetAllResponseDTO userGetAllResponseDTO
             = new UserGetAllResponseDTO();
-        userGetAllResponseDTO.setId(user.getId());
+        userGetAllResponseDTO.setId(user.get_id());
         userGetAllResponseDTO.setName(user.getName());
         userGetAllResponseDTO.setLogin(user.getLogin());
         return userGetAllResponseDTO;
@@ -30,7 +30,7 @@ public class UserMapper {
      */
     public static UserDTOById convertToDetailedDTO(final User user) {
         UserDTOById userDTOById = new UserDTOById();
-        userDTOById.setId(user.getId());
+        userDTOById.setId(user.get_id());
         userDTOById.setName(user.getName());
         userDTOById.setLogin(user.getLogin());
         userDTOById.setPassword(user.getPassword());

@@ -47,7 +47,7 @@ public class AuthServiceTest {
 
         when(userRepository.findByLogin(authenticationRequest.getLogin())).thenReturn(Optional.of(user));
         when(passwordEncoder.matches(authenticationRequest.getPassword(), user.getPassword())).thenReturn(true);
-        when(jwtService.getToken(user, user.getId())).thenReturn("jwtToken");
+        when(jwtService.getToken(user, user.get_id())).thenReturn("jwtToken");
 
         // Act
         AuthenticationResponseDTO response = authService.login(authenticationRequest);

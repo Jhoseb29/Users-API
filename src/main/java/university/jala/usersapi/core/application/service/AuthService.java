@@ -1,8 +1,8 @@
 package university.jala.usersapi.core.application.service;
 
 import java.util.Optional;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -78,7 +78,7 @@ public final class AuthService implements AuthDataService {
       UserDetails userDetails
           = user.get();
 
-      String token = jwtService.getToken(userDetails, userToLogin.getId());
+      String token = jwtService.getToken(userDetails, userToLogin.get_id());
 
       return AuthenticationResponseDTO.builder()
           .token(token)
@@ -96,28 +96,28 @@ public final class AuthService implements AuthDataService {
    */
   public AuthenticationResponseDTO register(
       final RegisterRequestDTO registerRequest) throws Exception {
-    try {
 
-      dataValidator.validate("name", registerRequest.getName());
-      dataValidator.validate("login", registerRequest.getLogin());
-      dataValidator.validate("password", registerRequest.getPassword());
+    dataValidator.validate("name", registerRequest.getName());
+    dataValidator.validate("login", registerRequest.getLogin());
+    dataValidator.validate("password", registerRequest.getPassword());
 
-      User user = User.builder()
-          .name(registerRequest.getName())
-          .login(registerRequest.getLogin())
-          .password(passwordEncoder.encode(registerRequest.getPassword()))
-          .build();
-
-      userRepository.save(user);
-
-      return AuthenticationResponseDTO.builder()
-          .token(jwtService.getToken(user, user.getId()))
-          .build();
-
-    } catch (DataIntegrityViolationException dataIntegrityViolationException) {
+    Optional<User> userAlreadyExisting = userRepository.findByLogin(registerRequest.getLogin());
+    if (userAlreadyExisting.isPresent()) {
       throw new AlreadyExistingUserException(
           "The field 'login' already exists in the System.");
     }
-  }
 
+    User user = User.builder()
+        ._id(UUID.randomUUID().toString())
+        .name(registerRequest.getName())
+        .login(registerRequest.getLogin())
+        .password(passwordEncoder.encode(registerRequest.getPassword()))
+        .build();
+
+    userRepository.save(user);
+
+    return AuthenticationResponseDTO.builder()
+        .token(jwtService.getToken(user, user.get_id()))
+        .build();
+  }
 }

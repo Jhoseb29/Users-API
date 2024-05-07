@@ -96,7 +96,7 @@ public class UserController {
   }
 
   /**
-   * Get user by id controller.
+   * Get user by _id controller.
    *
    * @param userId userId.
    * @return response (found or not found).
@@ -168,7 +168,7 @@ public class UserController {
    * not found.
    */
   @Operation(summary = "Delete User.")
-  @DeleteMapping(path = "/{id}")
+  @DeleteMapping(path = "/{_id}")
   public ResponseEntity<?> deleteById(@PathVariable final String id) {
     Optional<UserDTOById> userFound = userDataService.deleteById(id);
     String message;
