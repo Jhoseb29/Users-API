@@ -37,12 +37,17 @@ public class OpenApiConfig {
    */
   @Bean
   public OpenAPI apiConfiguration() {
-    return new OpenAPI()
-        .addServersItem(new Server().url(serverUrl).description("Server URL"))
+    var openApi = new OpenAPI()
         .addSecurityItem(
             new SecurityRequirement().addList("Bearer Authentication"))
         .components(new Components().addSecuritySchemes(
             "Bearer Authentication", createApiSecurityScheme()));
+
+    if (!serverUrl.equals("localhost")) {
+      openApi = new OpenAPI()
+          .addServersItem(new Server().url(serverUrl).description("Server URL"));
+    }
+    return openApi;
   }
 
   /**
