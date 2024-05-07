@@ -44,9 +44,9 @@ public class OpenApiConfig {
             "Bearer Authentication", createApiSecurityScheme()));
 
     if (!serverUrl.equals("localhost")) {
-      openApi = new OpenAPI()
-          .addServersItem(
-              new Server().url(serverUrl).description("Server URL"));
+      openApi.addServersItem(
+              new Server().url(serverUrl)
+                  .description("Server URL"));
     }
     return openApi;
   }

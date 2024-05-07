@@ -14,6 +14,7 @@ import university.jala.usersapi.api.controller.UserController;
 
 import java.util.Optional;
 import java.util.UUID;
+import university.jala.usersapi.core.domain.models.entities.User;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -33,27 +34,34 @@ public class DeleteUserTest {
 
     @Test
     public void DeleteTest(){
-        String UserId = UUID.randomUUID().toString();
+        String userId = UUID.randomUUID().toString();
         UserDTOById user = new UserDTOById();
-        user.setId(UserId);
         user.setName("Julio");
         user.setLogin("juli");
         user.setPassword("julio123");
 
+        User userToDelete = User.builder()
+            .id(userId)
+            .name(user.getName())
+            .login(user.getLogin())
+            .password(user.getPassword())
+            .build();
 
-       when(userService.deleteById(UserId)).thenReturn(Optional.of(user));
 
-       ResponseEntity<?> response = userController.deleteById(UserId);
+       when(userService.deleteById(userId)).thenReturn(userToDelete);
+
+       ResponseEntity<?> response = userController.deleteById(userId);
 
        assertEquals(HttpStatus.OK, response.getStatusCode());
-       verify(userService, times(1)).deleteById(UserId);
+       verify(userService, times(1)).deleteById(userId);
     }
     @Test
     public void deleteTest_userNotExists() {
 
         String nonExistentUserId = "90";
 
-        when(userService.deleteById(nonExistentUserId)).thenReturn(Optional.empty());
+
+        when(userService.deleteById(nonExistentUserId)).thenReturn(null);
 
         ResponseEntity<?> response = userController.getUserById(nonExistentUserId);
 

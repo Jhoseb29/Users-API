@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import university.jala.usersapi.core.domain.models.dto.response.UserGetAllResponseDTO;
 import university.jala.usersapi.core.domain.models.dto.response.UserDTOById;
+import university.jala.usersapi.core.domain.models.entities.User;
 
 /**
  * Service for managing user data.
@@ -27,7 +28,7 @@ public interface UserDataService {
    * @param userId the ID of the user
    * @return an optional containing the user DTO if found, otherwise empty
    */
-  Optional<UserDTOById> getUserById(String userId);
+  Optional<User> getUserById(String userId);
 
   /**
    * Updates a user by ID.
@@ -36,7 +37,7 @@ public interface UserDataService {
    * @param id      the ID of the user to update
    * @return the updated user DTO
    */
-  UserDTOById updateByID(UserDTOById request, String id) throws Exception;
+  User updateByID(UserDTOById request, String id) throws Exception;
 
   /**
    * Deletes a user by ID.
@@ -45,5 +46,5 @@ public interface UserDataService {
    * @return an optional containing the deleted user DTO if found and deleted,
    * otherwise empty
    */
-  Optional<UserDTOById> deleteById(String id);
+  User deleteById(String id);
 }

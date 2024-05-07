@@ -62,6 +62,10 @@ public final class User implements UserDetails {
   }
 
   @Override
+  public String getPassword() {
+    return password;
+  }
+  @Override
   public String getUsername() {
     return login;
   }
