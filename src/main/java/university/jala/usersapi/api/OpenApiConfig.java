@@ -45,7 +45,8 @@ public class OpenApiConfig {
 
     if (!serverUrl.equals("localhost")) {
       openApi = new OpenAPI()
-          .addServersItem(new Server().url(serverUrl).description("Server URL"));
+          .addServersItem(
+              new Server().url(serverUrl).description("Server URL"));
     }
     return openApi;
   }
