@@ -11,7 +11,7 @@
   </parent>
   <groupId>university.jala.usersapi</groupId>
   <artifactId>users-api</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0.0</version>
   <name>Users API</name>
   <description>API for managing Users.</description>
   <properties>
@@ -43,6 +43,38 @@
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt-api</artifactId>
+      <version>0.11.5</version>
+    </dependency>
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt-impl</artifactId>
+      <version>0.11.5</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt-jackson</artifactId>
+      <version>0.11.5</version>
+      <scope>runtime</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-validation</artifactId>
+      <version>3.2.4</version>
+    </dependency>
 
     <dependency>
       <groupId>org.mockito</groupId>
@@ -70,6 +102,26 @@
       <groupId>org.apache.maven.plugins</groupId>
       <artifactId>maven-compiler-plugin</artifactId>
       <version>3.13.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-core</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>jakarta.ws.rs</groupId>
+      <artifactId>jakarta.ws.rs-api</artifactId>
+      <version>3.1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.ws.rs</groupId>
+      <artifactId>jakarta.ws.rs-api</artifactId>
+      <version>2.1.6</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+      <version>2.5.0</version>
     </dependency>
 
 
@@ -143,7 +195,7 @@
                     <limit>
                       <counter>INSTRUCTION</counter>
                       <value>COVEREDRATIO</value>
-                      <minimum>0.05</minimum> <!-- Minimum 70% coverage -->
+                      <minimum>0.50</minimum> <!-- Minimum 70% coverage -->
                     </limit>
                   </limits>
                 </rule>
@@ -151,6 +203,15 @@
             </configuration>
           </execution>
         </executions>
+        <configuration>
+          <excludes>
+            <exclude>**/university/jala/usersapi/core/domain/models/mappers/**</exclude>
+            <exclude>**/university/jala/usersapi/core/domain/exceptions/**</exclude>
+            <exclude>**/university/jala/usersapi/core/application/security/**</exclude>
+            <exclude>**/university/jala/usersapi/UsersApiApplication.class</exclude>
+            <exclude>**/university/jala/usersapi/data/**</exclude>
+          </excludes>
+        </configuration>
       </plugin>
 
 
@@ -181,5 +242,4 @@
       </plugin>
     </plugins>
   </build>
-
 </project>
