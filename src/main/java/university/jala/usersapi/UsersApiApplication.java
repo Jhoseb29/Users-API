@@ -9,16 +9,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class UsersApiApplication {
 
-  protected UsersApiApplication() {
+    protected UsersApiApplication() {
 
-  }
+    }
 
-  /**
-   * The main method which runs the application.
-   *
-   * @param args the command line arguments
-   */
-  public static void main(final String[] args) {
-    SpringApplication.run(UsersApiApplication.class, args);
-  }
+    /**
+     * The main method which runs the application.
+     *
+     * @param args the command line arguments
+     */
+    public static void main(final String[] args) {
+        SpringApplication.run(UsersApiApplication.class, args);
+    }
 }

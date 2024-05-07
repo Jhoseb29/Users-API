@@ -14,7 +14,7 @@ import university.jala.usersapi.core.domain.models.entities.User;
 import university.jala.usersapi.core.domain.models.dto.response.UserDTOById;
 import university.jala.usersapi.core.application.utils.PasswordEncrypterUtil;
 import university.jala.usersapi.core.application.utils.UpdatableValidationUtil;
-import university.jala.usersapi.data.mysql.repository.UserRepository;
+import university.jala.usersapi.data.mongodb.repository.UserRepository;
 
 
 import java.util.List;
