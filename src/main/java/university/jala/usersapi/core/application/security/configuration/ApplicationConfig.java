@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import university.jala.usersapi.data.mysql.repository.UserRepository;
+import university.jala.usersapi.data.mongodb.repository.UserRepository;
 
 /**
  * Configuration class for application settings.

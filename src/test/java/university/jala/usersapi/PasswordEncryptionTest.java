@@ -16,7 +16,7 @@ import university.jala.usersapi.core.application.security.jwt.JwtService;
 import university.jala.usersapi.core.domain.models.dto.response.AuthenticationResponseDTO;
 import university.jala.usersapi.core.domain.models.dto.request.RegisterRequestDTO;
 import university.jala.usersapi.core.application.utils.RequestDataValidatorUtil;
-import university.jala.usersapi.data.mysql.repository.UserRepository;
+import university.jala.usersapi.data.mongodb.repository.UserRepository;
 
 
 public class PasswordEncryptionTest {

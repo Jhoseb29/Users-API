@@ -18,7 +18,7 @@ import university.jala.usersapi.core.domain.models.dto.request.AuthenticationReq
 import university.jala.usersapi.core.domain.models.dto.response.AuthenticationResponseDTO;
 import university.jala.usersapi.core.domain.models.dto.request.RegisterRequestDTO;
 import university.jala.usersapi.core.application.utils.DataValidator;
-import university.jala.usersapi.data.mysql.repository.UserRepository;
+import university.jala.usersapi.data.mongodb.repository.UserRepository;
 
 /**
  * Corresponding service for users sign up and sign in.
