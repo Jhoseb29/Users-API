@@ -14,7 +14,7 @@ import university.jala.usersapi.core.application.service.AuthService;
 import university.jala.usersapi.core.application.security.jwt.JwtService;
 import university.jala.usersapi.core.domain.exceptions.UserNotFoundException;
 import university.jala.usersapi.core.application.utils.DataValidator;
-import university.jala.usersapi.data.mysql.repository.UserRepository;
+import university.jala.usersapi.data.mongodb.repository.UserRepository;
 
 import java.util.Optional;
 

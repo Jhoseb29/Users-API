@@ -69,24 +69,24 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
    * @param token   The JWT token extracted from the request.
    */
   private void handleAuthentication(final HttpServletRequest request,
-      final String token) {
-    String login = jwtService.getLoginFromToken(token);
+                                    final String token) {
+    String userId = jwtService.getLoginFromToken(token);
 
-    if (login != null && SecurityContextHolder
-        .getContext().getAuthentication() == null) {
+    if (userId != null && SecurityContextHolder
+            .getContext().getAuthentication() == null) {
       UserDetails userDetails = userDetailsService
-          .loadUserByUsername(login);
+              .loadUserByUsername(userId);
 
       if (jwtService.isTokenValid(token, userDetails)) {
         UsernamePasswordAuthenticationToken authenticationToken
-            = new UsernamePasswordAuthenticationToken(
-            userDetails, null, userDetails.getAuthorities());
+                = new UsernamePasswordAuthenticationToken(
+                userDetails, null, userDetails.getAuthorities());
 
         authenticationToken.setDetails(
-            new WebAuthenticationDetailsSource().buildDetails(request));
+                new WebAuthenticationDetailsSource().buildDetails(request));
 
         SecurityContextHolder.getContext()
-            .setAuthentication(authenticationToken);
+                .setAuthentication(authenticationToken);
       }
     }
   }

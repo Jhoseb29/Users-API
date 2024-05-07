@@ -62,3 +62,4 @@ public class OpenApiConfig {
         .scheme("bearer");
   }
 }
+
