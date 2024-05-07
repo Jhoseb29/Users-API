@@ -14,9 +14,12 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.User.UserBuilder;
+import university.jala.usersapi.core.domain.models.dto.response.UserDTO;
 import university.jala.usersapi.core.domain.models.dto.response.UserDTOById;
 import university.jala.usersapi.core.application.service.UserService;
 import university.jala.usersapi.api.controller.UserController;
+import university.jala.usersapi.core.domain.models.entities.User;
 
 public class UpdateUserTest {
 
@@ -35,18 +38,25 @@ public class UpdateUserTest {
     void testUpdateOneUserField() throws Exception {
         // Arrange
         String userId = "user_id";
-        UserDTOById updatedUser = UserDTOById.builder().id(userId).name("New Name")
+        UserDTOById updatedUser = UserDTOById.builder().name("New Name")
                 .build();
+
+        User user = User.builder()
+            .id(userId)
+            .name(updatedUser.getName())
+            .login("random")
+            .password("random")
+            .build();
 
         // Mock
         when(
-                userService.updateByID(any(UserDTOById.class), eq(userId))).thenReturn(
-                updatedUser);
+            userService.updateByID(any(UserDTOById.class), eq(userId))).thenReturn(
+            user);
 
         // Act
-        ResponseEntity<UserDTOById> response = (ResponseEntity<UserDTOById>)
-                userController.updateUserById(updatedUser, userId);
-        UserDTOById result = response.getBody();
+        ResponseEntity<UserDTO> response = (ResponseEntity<UserDTO>)
+            userController.updateUserById(updatedUser, userId);
+        UserDTO result = response.getBody();
 
         // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -62,21 +72,27 @@ public class UpdateUserTest {
         // Arrange
         String userId = "user_id";
         UserDTOById updatedUser = UserDTOById.builder()
-                .id(userId)
                 .name("New Name")
                 .login("newlogin")
                 .password("newpassword")
                 .build();
 
+        User user = User.builder()
+            .id(userId)
+            .name(updatedUser.getName())
+            .login(updatedUser.getLogin())
+            .password(updatedUser.getPassword())
+            .build();
+
         // Mock
         when(
                 userService.updateByID(any(UserDTOById.class), eq(userId))).thenReturn(
-                updatedUser);
+            user);
 
         // Act
-        ResponseEntity<UserDTOById> response = (ResponseEntity<UserDTOById>)
+        ResponseEntity<UserDTO> response = (ResponseEntity<UserDTO>)
                 userController.updateUserById(updatedUser, userId);
-        UserDTOById result = response.getBody();
+        UserDTO result = response.getBody();
 
         // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());

@@ -11,10 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserDTOById {
     /**
-     * The unique ID for the user.
-     */
-    private String id;
-    /**
      * The name for the user.
      */
     private String name;

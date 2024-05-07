@@ -28,9 +28,9 @@ import university.jala.usersapi.core.domain.exceptions.WrongDataException;
  * Controller for user authentication and register.
  */
 @RestController
-@RequestMapping("/usersapi/v1/auth")
+@RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
-@Tag(name = "Auth Controller.")
+@Tag(name = "Auth Controller")
 public class AuthController {
 
   /**

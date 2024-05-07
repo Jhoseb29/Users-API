@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
 import university.jala.usersapi.core.domain.models.dto.response.MessageLogDTO;
+import university.jala.usersapi.core.domain.models.dto.response.UserDTO;
 import university.jala.usersapi.core.domain.models.dto.response.UserGetAllResponseDTO;
 import university.jala.usersapi.core.domain.models.dto.response.UserDTOById;
 import university.jala.usersapi.core.domain.abstractions.UserDataService;
@@ -30,6 +31,7 @@ import java.util.List;
 import university.jala.usersapi.core.domain.exceptions.UserNotFoundException;
 import university.jala.usersapi.core.domain.exceptions.WrongDataException;
 import org.springframework.http.MediaType;
+import university.jala.usersapi.core.domain.models.entities.User;
 
 
 /**
@@ -40,9 +42,9 @@ import org.springframework.http.MediaType;
  * database.
  */
 @RestController
-@RequestMapping("/usersapi/v1/users")
+@RequestMapping("/api/v1/users")
 @Setter
-@Tag(name = "Users resource.")
+@Tag(name = "User Controller")
 public class UserController {
 
   /**
@@ -105,11 +107,15 @@ public class UserController {
   @GetMapping("/{userId}")
   public ResponseEntity<?> getUserById(
       @PathVariable final String userId) {
-    Optional<UserDTOById> user = userDataService.getUserById(userId);
+    Optional<User> user = userDataService.getUserById(userId);
     if (user.isPresent()) {
+
       return ResponseEntity.status(HttpStatus.OK)
           .contentType(MediaType.APPLICATION_JSON)
-          .body(user);
+          .body(new UserDTO(user.get().getId(),
+              user.get().getName(),
+              user.get().getUsername(),
+              user.get().getPassword()));
     } else {
       return ResponseEntity.status(HttpStatus.NOT_FOUND)
           .contentType(MediaType.APPLICATION_JSON)
@@ -134,11 +140,14 @@ public class UserController {
     List<MessageLogDTO> messageLogDTOS = new ArrayList<>();
     Map<String, Object> responseMap = new HashMap<>();
     try {
-      UserDTOById updatedUser = this.userDataService.updateByID(request,
+      User updatedUser = this.userDataService.updateByID(request,
           userId);
       return ResponseEntity.status(HttpStatus.OK)
           .contentType(MediaType.APPLICATION_JSON)
-          .body(updatedUser);
+          .body(new UserDTO(updatedUser.getId(),
+              updatedUser.getName(),
+              updatedUser.getUsername(),
+              updatedUser.getPassword()));
 
     } catch (UserNotFoundException userNotFoundException) {
       messageLogDTOS.add(
@@ -170,15 +179,16 @@ public class UserController {
   @Operation(summary = "Delete User.")
   @DeleteMapping(path = "/{id}")
   public ResponseEntity<?> deleteById(@PathVariable final String id) {
-    Optional<UserDTOById> userFound = userDataService.deleteById(id);
+    User userFound = userDataService.deleteById(id);
     String message;
     String formatMessage;
-    if (userFound.isPresent()) {
-      message = "User %s has been successfully deleted.";
-      formatMessage = String.format(message, userFound.get().getName());
+    if (userFound != null) {
       return ResponseEntity.status(HttpStatus.OK)
           .contentType(MediaType.APPLICATION_JSON)
-          .body(new MessageLogDTO(HttpStatus.OK.value(), formatMessage));
+          .body(new UserDTO(userFound.getId(),
+              userFound.getName(),
+              userFound.getUsername(),
+              userFound.getPassword()));
     } else {
       message = "User not found with ID: %s.";
       formatMessage = String.format(message, id);

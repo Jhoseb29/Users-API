@@ -67,9 +67,8 @@ public class UserService implements UserDataService {
    * @param userId
    * @return user.
    */
-  public Optional<UserDTOById> getUserById(final String userId) {
-    Optional<User> user = userRepository.findById(userId);
-    return user.map(UserMapper::convertToDetailedDTO);
+  public Optional<User> getUserById(final String userId) {
+    return userRepository.findById(userId);
   }
 
   /**
@@ -79,7 +78,7 @@ public class UserService implements UserDataService {
    * @param id      The ID of the user to be updated
    * @return The updated user DTO if found, otherwise null
    */
-  public UserDTOById updateByID(final UserDTOById request, final String id)
+  public User updateByID(final UserDTOById request, final String id)
       throws Exception {
 
     Optional<User> optionalUser = userRepository.findById(id);
@@ -97,7 +96,7 @@ public class UserService implements UserDataService {
       }
 
       userRepository.save(existingUser);
-      return UserMapper.convertToDetailedDTO(existingUser);
+      return existingUser;
     }
     throw new UserNotFoundException(
         "The user with the ID: " + id + " was not found.");
@@ -107,11 +106,13 @@ public class UserService implements UserDataService {
    * @param id User ID
    * @return Returns User if the User is deleted.
    */
-  public Optional<UserDTOById> deleteById(final String id) {
-    Optional<UserDTOById> user = getUserById(id);
+  public User deleteById(final String id) {
+    Optional<User> user = getUserById(id);
     if (user.isPresent()) {
       userRepository.deleteById(id);
+      return user.get();
     }
-    return user;
+    return null;
+
   }
 }

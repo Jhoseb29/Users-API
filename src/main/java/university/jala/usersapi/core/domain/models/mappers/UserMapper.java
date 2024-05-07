@@ -30,7 +30,6 @@ public class UserMapper {
      */
     public static UserDTOById convertToDetailedDTO(final User user) {
         UserDTOById userDTOById = new UserDTOById();
-        userDTOById.setId(user.getId());
         userDTOById.setName(user.getName());
         userDTOById.setLogin(user.getLogin());
         userDTOById.setPassword(user.getPassword());

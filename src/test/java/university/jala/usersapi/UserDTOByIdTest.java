@@ -14,14 +14,12 @@ public class UserDTOByIdTest {
     @Test
     public void testCreateUserDTOByIdWithValidInput() {
         UserDTOById user = UserDTOById.builder()
-                .id("user_id")
                 .name("Test User")
                 .login("testuser")
                 .password("password")
                 .build();
 
         assertNotNull(user);
-        assertEquals("user_id", user.getId());
         assertEquals("Test User", user.getName());
         assertEquals("testuser", user.getLogin());
         assertEquals("password", user.getPassword());
@@ -31,7 +29,6 @@ public class UserDTOByIdTest {
     @Test
     public void testCpdateUserDTOByIdWithValidInput() {
         UserDTOById user = UserDTOById.builder()
-                .id("user_id")
                 .name("Test User")
                 .login("testuser")
                 .password("password")
@@ -50,14 +47,12 @@ public class UserDTOByIdTest {
     @Test
     public void testCompareUserDTOByIdObjects() {
         UserDTOById user1 = UserDTOById.builder()
-                .id("user_id")
                 .name("Test User")
                 .login("testuser")
                 .password("password")
                 .build();
 
         UserDTOById user2 = UserDTOById.builder()
-                .id("user_id")
                 .name("Test User")
                 .login("testuser")
                 .password("password")
@@ -72,7 +67,6 @@ public class UserDTOByIdTest {
         UserDTOById user = new UserDTOById();
 
         assertNotNull(user);
-        assertNull(user.getId());
         assertNull(user.getName());
         assertNull(user.getLogin());
         assertNull(user.getPassword());
@@ -82,14 +76,12 @@ public class UserDTOByIdTest {
     @Test
     public void testCreateUserDTOByIdWithNullInput() {
         UserDTOById user = UserDTOById.builder()
-                .id(null)
                 .name(null)
                 .login(null)
                 .password(null)
                 .build();
 
         assertNotNull(user);
-        assertNull(user.getId());
         assertNull(user.getName());
         assertNull(user.getLogin());
         assertNull(user.getPassword());
@@ -99,7 +91,6 @@ public class UserDTOByIdTest {
     @Test
     public void testUpdateUserDTOByIdWithEmptyInput() {
         UserDTOById user = UserDTOById.builder()
-                .id("user_id")
                 .name("Test User")
                 .login("testuser")
                 .password("password")
@@ -118,7 +109,6 @@ public class UserDTOByIdTest {
     @Test
     public void testUpdateUserDTOByIdWithNullInput() {
         UserDTOById user = UserDTOById.builder()
-                .id("user_id")
                 .name("Test User")
                 .login("testuser")
                 .password("password")
@@ -135,9 +125,7 @@ public class UserDTOByIdTest {
 
     @Test
     public void testEqualHashCodes() {
-        // Crear dos instancias de UserDTOById con los mismos valores
         UserDTOById user1 = UserDTOById.builder()
-                .id("123")
                 .name("John Doe")
                 .login("johndoe")
                 .password("password")
@@ -146,13 +134,11 @@ public class UserDTOByIdTest {
         UserDTOById user2 = user1;
 
         UserDTOById user3 = UserDTOById.builder()
-                .id("123")
                 .name("John Doe")
                 .login("johndoe")
                 .password("password1")
                 .build();
 
-        // Verificar que los hashCode de ambas instancias son iguales
         assertEquals(user1.hashCode(), user2.hashCode());
         assertNotEquals(user1.hashCode(), user3.hashCode());
         assertNotEquals(0, user3.hashCode());

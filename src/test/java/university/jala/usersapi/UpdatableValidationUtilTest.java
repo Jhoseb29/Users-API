@@ -21,7 +21,7 @@ public class UpdatableValidationUtilTest {
     public void testUpdateAllFieldsValid() throws WrongDataException {
         // Arrange
         User existingUser = User.builder().id("1").name("John").login("john123").password("password123").build();
-        UserDTOById request = UserDTOById.builder().id("1").name("John Doe").login("john_doe").password("newpassword").build();
+        UserDTOById request = UserDTOById.builder().name("John Doe").login("john_doe").password("newpassword").build();
         DataValidator dataValidator = mock(DataValidator.class);
         UpdatableValidationUtil updatableValidationUtil = new UpdatableValidationUtil(dataValidator);
 
@@ -42,7 +42,7 @@ public class UpdatableValidationUtilTest {
     public void testUpdateSomeFieldsValid() throws WrongDataException {
         // Arrange
         User existingUser = User.builder().id("1").name("John").login("john123").password("password123").build();
-        UserDTOById request = UserDTOById.builder().id("1").name("John Doe").build();
+        UserDTOById request = UserDTOById.builder().name("John Doe").build();
         DataValidator dataValidator = mock(DataValidator.class);
         UpdatableValidationUtil updatableValidationUtil = new UpdatableValidationUtil(dataValidator);
 
@@ -63,7 +63,7 @@ public class UpdatableValidationUtilTest {
     public void testNoFieldsToUpdate() throws WrongDataException {
         // Arrange
         User existingUser = User.builder().id("1").name("John").login("john123").password("password123").build();
-        UserDTOById request = UserDTOById.builder().id("1").build();
+        UserDTOById request = UserDTOById.builder().build();
         DataValidator dataValidator = mock(DataValidator.class);
         UpdatableValidationUtil updatableValidationUtil = new UpdatableValidationUtil(dataValidator);
 
@@ -83,7 +83,7 @@ public class UpdatableValidationUtilTest {
     public void testAllFieldsSomeInvalid() throws WrongDataException {
         // Arrange
         User existingUser = User.builder().id("1").name("John").login("john123").password("password123").build();
-        UserDTOById request = UserDTOById.builder().id("1").name("John Doe").login("john_doe").password("newpassword").build();
+        UserDTOById request = UserDTOById.builder().name("John Doe").login("john_doe").password("newpassword").build();
         DataValidator dataValidator = mock(DataValidator.class);
         UpdatableValidationUtil updatableValidationUtil = new UpdatableValidationUtil(dataValidator);
         doThrow(WrongDataException.class).when(dataValidator).validate(UserFields.USER_NAME_FIELD.getField(), "John Doe");
@@ -103,7 +103,7 @@ public class UpdatableValidationUtilTest {
     public void testInvalidUserName() throws WrongDataException {
         // Arrange
         User existingUser = User.builder().id("1").name("John").login("john123").password("password123").build();
-        UserDTOById request = UserDTOById.builder().id("1").name("John Doe").build();
+        UserDTOById request = UserDTOById.builder().name("John Doe").build();
         DataValidator dataValidator = mock(DataValidator.class);
         UpdatableValidationUtil updatableValidationUtil = new UpdatableValidationUtil(dataValidator);
         doThrow(WrongDataException.class).when(dataValidator).validate(UserFields.USER_NAME_FIELD.getField(), "John Doe");
@@ -121,7 +121,7 @@ public class UpdatableValidationUtilTest {
     public void testWithOneOrTwoDates() throws WrongDataException {
         // Arrange
         User existingUser = User.builder().id("1").name("John").login("john123").password("password123").build();
-        UserDTOById request = UserDTOById.builder().id("1").login("john_doe").build();
+        UserDTOById request = UserDTOById.builder().login("john_doe").build();
         DataValidator dataValidator = mock(DataValidator.class);
         UpdatableValidationUtil updatableValidationUtil = new UpdatableValidationUtil(dataValidator);
         doThrow(WrongDataException.class).when(dataValidator).validate(UserFields.USER_LOGIN_FIELD.getField(), "john_doe");
